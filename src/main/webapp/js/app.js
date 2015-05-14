@@ -46,6 +46,12 @@ $(document).on('click', 'a[data-target^="#"]', function(e) {
 	var $target = $($this.attr("data-target"));
 	$.get(href).done(function(data) {
 	    $target.html(data);
-	  })
+	    platformChart();
+	    trophyChart();
+	    monthActiveChart();
+	    trophyProcessChart();
+	    trophyByDayChart();
+	    trophyByHourChart();
+	  });
 	return false;
 });
