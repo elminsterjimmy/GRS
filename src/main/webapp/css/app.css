@@ -1,13 +1,16 @@
+/*设置背景颜色为灰色,并隐藏x轴方向超出浏览器界面的部分,防止横向滚动.可以用overflow:autol;overflow-x:hidden解决浏览器兼容问题*/
 html {
   background-color: #f2f4f8;
   overflow-x: hidden;
 }
+
+/*body中字体设置;字体大小为14px;颜色为深灰色,背景为透明*/
 body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #788188;
   background-color: transparent;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;					/*字体抗锯齿*/
   line-height: 1.40;
 }
 .h1,
@@ -16,7 +19,7 @@ body {
 .h4,
 .h5,
 .h6 {
-  margin: 0;
+  margin: 0;											/*段落的外边框都是0外面框(www.w3school.com.cn/tiy/t.asp?f=csse_margin)*/
 }
 a {
   color: #545a5f;
@@ -33,11 +36,11 @@ a:focus {
   color: #303437;
   text-decoration: none;
 }
-label {
-  font-weight: normal;
+label {					
+  font-weight: normal;			/*清除字体的加粗*/
 }
-small,
-.small {
+small,							/*小号字体的设置*/
+.small {							/*定义class small*/
   font-size: 13px;
 }
 .badge,
