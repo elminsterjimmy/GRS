@@ -46,12 +46,16 @@ $(document).on('click', 'a[data-target^="#"]', function(e) {
 	var $target = $($this.attr("data-target"));
 	$.get(href).done(function(data) {
 	    $target.html(data);
-	    platformChart();
-	    trophyChart();
-	    monthActiveChart();
-	    trophyProcessChart();
-	    trophyByDayChart();
-	    trophyByHourChart();
+	    if ("statistics.html" == href) {
+	    	platformChart();
+	    	trophyChart();
+	    	monthActiveChart();
+	    	trophyProcessChart();
+	    	trophyByDayChart();
+	    	trophyByHourChart();
+	    } else if ("gameCollections.html" == href) {
+	    	
+	    }
 	  });
 	return false;
 });

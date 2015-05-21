@@ -22,6 +22,12 @@ a {
   color: #545a5f;
   text-decoration: none;
 }
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
+
 a:hover,
 a:focus {
   color: #303437;
@@ -3914,6 +3920,128 @@ fieldset[disabled] .i-checks input + i:before {
     height: 65%;
   }
 }
+
 .chart {
 	height: 300px;
+}
+
+.trophy_count_small {
+  height: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 14px;
+  color: #000000;
+  min-width: 110px;
+}
+
+ul.trophy_count li {
+  background-image: url("../images/small_trophy_sprite.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  padding-left: 15px;
+  margin-right: 5px;
+}
+
+ul.trophy_count .platinum {
+  color: #667FB2;
+  padding-left: 12px;
+}
+ul.trophy_count .gold {
+  background-position: 0 -16px;
+  /* color: #C2903E; */
+}
+ul.trophy_count .silver {
+  background-position: 0 -32px;
+  color: #777777;
+}
+ul.trophy_count .bronze {
+  background-position: 0 -48px;
+  color: #C46438;
+}
+
+div .center {
+	margin-left: auto;
+  margin-right: auto;
+}
+
+.progress_outer {
+  width: 70%;
+  height: 14px;
+  margin-bottom: 2px;
+  border-radius: 2px;
+  position: relative;
+  background: #dcdbd7; /* Old browsers */
+  background: -moz-linear-gradient(top,  #dcdbd7 0%, #bfbfbf 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dcdbd7), color-stop(100%,#bfbfbf)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #dcdbd7 0%,#bfbfbf 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #dcdbd7 0%,#bfbfbf 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #dcdbd7 0%,#bfbfbf 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #dcdbd7 0%,#bfbfbf 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dcdbd7', endColorstr='#bfbfbf',GradientType=0 ); /* IE6-9 */
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.4) inset;
+  overflow: hidden;
+
+}
+.progress_outer div {
+  height: 14px;
+  width: 125px;
+  background: #4b90dc; /* Old browsers */
+  background: -moz-linear-gradient(top,  #4b90dc 0%, #2e6eaa 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4b90dc), color-stop(100%,#2e6eaa)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #4b90dc 0%,#2e6eaa 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #4b90dc 0%,#2e6eaa 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #4b90dc 0%,#2e6eaa 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #4b90dc 0%,#2e6eaa 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4b90dc', endColorstr='#2e6eaa',GradientType=0 ); /* IE6-9 */
+  float: left;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px #22639f inset,0 2px 0 0 rgba(255,255,255,0.3) inset;
+  top: 0px;
+  position: absolute;
+}
+
+.progress_outer span {
+  font-size: 11px;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.25),-1px -1px 1px rgba(0,0,0,0.25),1px -1px 1px rgba(0,0,0,0.25),-1px 1px 1px rgba(0,0,0,0.25);
+  color: #FFF;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  font-weight:bold;
+  display: block;
+}
+
+
+
+.raterater-bg-layer { color: rgba( 0, 0, 0, 0.25 ); }
+
+.raterater-hover-layer { color: rgba( 255, 255, 0, 0.75 ); }
+
+.raterater-hover-layer.rated { /* after the user selects a rating */ color: rgba( 255, 255, 0, 1 ); }
+
+.raterater-rating-layer { color: rgba( 255, 155, 0, 0.75 ); }
+
+.raterater-outline-layer { color: rgba( 0, 0, 0, 0.25 ); }
+
+/* don't change these - you might break something.. */
+
+.raterater-wrapper { overflow: visible; }
+
+.raterater-layer,
+.raterater-layer i {
+  display: block;
+  position: absolute;
+  overflow: visible;
+  top: 0px;
+  left: 0px;
+  cursor:pointer
+}
+
+.raterater-hover-layer { display: none; }
+
+.raterater-hover-layer i,
+.raterater-rating-layer i {
+  width: 0px;
+  overflow: hidden;
 }
