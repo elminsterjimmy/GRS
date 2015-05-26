@@ -1,5 +1,19 @@
+
+<script>
+function show()
+{
+	document.getElementById("page").style.display="inline";
+}
+function hide()
+{
+	document.getElementById("page").style.display="none";
+}
+
+</script>
+
+
 <style type="text/css">
-div#page {width:900px;height:600px;position:absolute;top:70px;left:60px;z-index:1000;background-color:white;}
+div#page {width:1000px;height:650px;position:absolute;top:70px;left:50px;z-index:1000;background-color:white;display:none;}
 div#gamepicture {width:290px;height:600px;float:left;color: blue;text-align:center;;z-index:1000;margin:5px;}
 div#gamename {width:600px;height:100px;float:left;}
 div#gamerating {width:600px;height:150px;}
@@ -17,7 +31,8 @@ li {list-style:none;}
 hr {height:5px;}
 </style>
 
-<div id = page >
+
+<div id = page onmouseout="hide()" onmouseover="show()">
 
 <div id = gamepicture>
 
@@ -76,7 +91,7 @@ gamename
           </div>
           <div class="bottom padder m-b-sm">
             <a href="#" class="pull-right"> <i class="fa fa-heart-o"></i>
-            </a> <a href="#"> <i class="fa fa-plus-circle"></i>
+            </a> <a href="javascript:show()"> <i class="fa fa-plus-circle"></i>
             </a>
           </div>
         </div>
