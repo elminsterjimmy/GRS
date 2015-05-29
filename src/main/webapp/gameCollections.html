@@ -1,5 +1,12 @@
-<!-- 
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="http://files.cnblogs.com/rubylouvre/bootstrap.css"/>
+<script src="http://files.cnblogs.com/rubylouvre/jquery1.83.js" > </script>
+<script src="http://files.cnblogs.com/rubylouvre/bootstrap-transition.js"></script>
+<script src="http://files.cnblogs.com/rubylouvre/bootstrap-modal.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.min.js"></script>
 <script>
+
 	function show() {
 		document.getElementById("page").style.display = "inline";
 	}
@@ -7,6 +14,9 @@
 		document.getElementById("page").style.display = "none";
 	}
 </script>
+
+
+
 
 
 <style type="text/css">
@@ -22,9 +32,9 @@
 }
 
 .gamepicture {
-	width: 290px;
+	width: 260px;
 	height: 600px;
-	float: left;
+	left:500px;
 	color: blue;
 	text-align: center;;
 	z-index: 1000;
@@ -32,7 +42,7 @@
 }
 
 .gamename {
-	width: 600px;
+	width: 500px;
 	height: 100px;
 	float: left;
 }
@@ -69,18 +79,24 @@ li {
 }
 
 hr {
-	height: 5px;
+	height: 1px;
+    float:left;
+    width:500px;
 }
+  p.tip span{
+    font-size:200%;
+    font-weight:200;
+  }
 </style>
 
-
-<div id=page onmouseout="hide()" onmouseover="show()">
+<!--
+<div id=page onmouseout="hide()" onmouseover="show()" style="display: none" >
 
   <div id=gamepicture>
 
 
-    <li><img src="images\p1.jpg" width="280px" left="10px"></li>
-    <li>gamename</li>
+    <img src="images\p1.jpg" width="280px" left="10px">
+    gamename
 
   </div>
 
@@ -88,14 +104,48 @@ hr {
 
     <h1>Pitch Perfect (2015)</h1>
     <h6>PG-13|115min|Comedy,music|15 May2015(USA)</h6>
-    <hr style="height: 1px" color=#788188 width=95% />
+    <hr style="height: 1px" color=#788188 width=55% />
 
     <div id=gamerating></div>
-    <hr style="height: 1px" color=#788188 width=95% />
+    <hr style="height: 1px" color=#788188 width=55% />
     <div id=intorduce></div>
-  </div>
+
 </div>
- -->
+</div>-->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  style="width: 900px;height: 600px;left:350px;">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <p class = "tip" align="center" style=""><span >Pitch Perfect </span> (2015)</p>
+
+    </div>
+  <div style = "width: 290px;height:600px;float:left;margin-left:5px;margin-right:0px;">
+    <img src = "images\p1.jpg" width="240px">
+  </div>
+  <div style = "width: 500px;height:600px;float:right;margin-left:0px;margin-right:50px;">
+    <h6>PG-13|115min|Comedy,music|15 May2015(USA)</h6>
+
+    <hr color=#788188 />
+  </div>
+
+<!--    <div class = "myModal-body">
+    <table>
+      <td><img src = "images\p1.jpg" width="200px" align="20px"></td>
+       <td>
+         <table>
+
+           <hr style="left:600px" color=#788188  width=200px/>
+
+
+
+          </table>
+      </td>
+    </table>
+    </div>-->
+</div>
+
+
 <div class="row row-sm">
   <div id="collections" class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
     <div class="item">
@@ -128,8 +178,10 @@ hr {
           </div>
           <div class="bottom padder m-b-sm">
             <a href="#" class="pull-right"> <i class="fa fa-heart-o"></i>
-            </a> <a href="javascript:show()"> <i class="fa fa-plus-circle"></i>
             </a>
+            <button type="button" class="fa fa-plus-circle" data-toggle="modal" data-target="#myModal"  >
+              </button>
+
           </div>
         </div>
         <a href="#"><img src="images/p6.jpg" alt="" class="r r-2x img-full"></a>
