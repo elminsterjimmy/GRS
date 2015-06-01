@@ -38,9 +38,9 @@ $(document).on(
 					});
 			$this.toggleClass('active');
 		});
-
+/**
 // update data-target
-$(document).on('click', 'a[data-target^="#"]', function(e) {
+$(document).on('click', 'a', function(e) {
 	var $this = $(e.target);
 	var href = $this.attr("href");
 	var $target = $($this.attr("data-target"));
@@ -59,3 +59,4 @@ $(document).on('click', 'a[data-target^="#"]', function(e) {
 	  });
 	return false;
 });
+*/
