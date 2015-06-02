@@ -488,29 +488,39 @@
   <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-    <div class="modal-dialog" style="width: 900px;height:500px;">
+    <div class="modal-dialog" style="width: 900px;height:400px;">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <p class="tip" align="center" >
-            <span>Pitch Perfect </span> (2015)
-          </p>
-          <p align ="center">PG-13|115min|Comedy,music|15 May2015(USA)</p>
+          <h1 align="center">Pitch Perfect<small>(2015)</small>
+          </h1>
+          <p align ="center">PG-13 | 115min | Comedy,music | 15 May2015(USA)</p>
         </div>
-        <div class="modal-body" style=";height:500px;">
+        <div class="modal-body" style=";height:400px;">
           <div style="float: left;">
             <img src="images\p1.jpg" width="240px";>
           </div>
-          <div style="float: right;width:600px;height:300px;">
+          <div style="float: right;width:600px;height:200px;">
             <p>your rating</p>
             <img src="images\line.png" style="float:left;width: 500px;">
           </div>
-          <div style="float: right;width:600px;height:300px;">
+          <div style="float: right;width:600px;height:200px;">
 
             <img src="images\line.png" style="float:left;width: 500px;">
+            <textarea class="form-contrl"  rows = "3" style="width: 500px;border-width: 1px ;border-color: #31b0d5"></textarea>
           </div>
+
+        </div>
+        <div class="modal-footer">
+          <div class="form-group" >
+            <form class="form-inline" >
+              <input class="form-control" placeholder="Username">
+              <input class="form-control" placeholder="Password">
+              <label class="btn btn-primary" role="butten" id="button_submit" >Submit</label>
+              </form>
+           </div>
         </div>
       </div>
     </div>
