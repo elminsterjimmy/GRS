@@ -30,7 +30,11 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
   margin: 0;
   padding: 0;
 }
-
+p.tip span{
+  font-size:200%;
+  font-weight:900;
+  color:black;
+}
 a:hover,
 a:focus {
   color: #303437;
