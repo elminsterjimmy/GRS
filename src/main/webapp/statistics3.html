@@ -28,7 +28,7 @@
     <div class="navbar-header aside bg-info nav-xs">
       <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html"> <i
         class="icon-list"></i>
-      </a> <a href="index.html" class="navbar-brand text-lt"> <i class="icon-earphones"></i> <img src="images/logo.png"
+      </a> <a href="index3.html" class="navbar-brand text-lt"> <i class="icon-earphones"></i> <img src="images/logo.png"
         alt="." class="hide"> <span class="hidden-nav-xs m-l-sm">Musik</span>
       </a> <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user"> <i class="icon-settings"></i>
       </a>
@@ -108,7 +108,7 @@
             <nav class="nav-primary hidden-xs">
               <ul class="nav bg clearfix">
                 <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">Discover</li>
-                <li><a href="index.html"> <i class="icon-disc icon text-success"></i> <span class="font-bold">What's
+                <li><a href="inde3x.html"> <i class="icon-disc icon text-success"></i> <span class="font-bold">What's
                       new</span>
                 </a></li>
                 <li><a href="gameCollections3.html" data-target="#bjax-target" data-el="#bjax-el"
@@ -121,7 +121,7 @@
                 <li><a href="trophies.html" data-target="#bjax-target" data-el="#bjax-el" data-replace="true">
                     <i class="icon-list icon  text-info-dker"></i> <span class="font-bold">Trophies</span>
                 </a></li>
-                <li><a href="statistics.html" data-target="#bjax-target" data-el="#bjax-el" data-replace="true">
+                <li><a href="statistics3.html" data-target="#bjax-target" data-el="#bjax-el" data-replace="true">
                     <i class="icon-social-youtube icon  text-primary"></i> <span class="font-bold">Statistics</span>
                 </a></li>
                 <li><a href="video.html" data-target="#bjax-target" data-el="#bjax-el" data-replace="true"> <i
@@ -278,7 +278,29 @@
           <section class="vbox">
             <!-- main -->
             <section class="scrollable padder-lg w-f-md" id="bjax-target">
-            <!-- InstanceBeginEditable name="EditRegion1" -->EditRegion1<!-- InstanceEndEditable -->
+            <!-- InstanceBeginEditable name="EditRegion1" -->
+			<div class="row row-sm">
+              <div class="col-md-6">
+                <div id="platform-chart" class="chart">
+                <script>platform-chart();</script></div>
+              </div>
+              <div class="col-md-6" >
+                <div id="trophy-chart" class="chart"></div>
+              </div>
+              <div class="col-md-12">
+                <div id="month-active-chart" class="chart"></div>
+              </div>
+              <div class="col-md-12">
+                <div id="trophy-process-chart" class="chart"></div>
+              </div>
+              <div class="col-md-4">
+                <div id="trophy-day-chart" class="chart"></div>
+              </div>
+              <div class="col-md-8">
+                <div id="trophy-hour-chart" class="chart"></div>
+              </div>
+            </div>
+			<!-- InstanceEndEditable -->
             </section>
             <!-- footer -->
             <footer class="footer bg-dark"> </footer>
@@ -288,13 +310,28 @@
       <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
     </section>
   </section>
-  <!-- InstanceBeginEditable name="EditRegion2" -->EditRegion2<!-- InstanceEndEditable --> 
+  <!-- InstanceBeginEditable name="EditRegion2" -->
+  
+  <!-- InstanceEndEditable --> 
   <script src="js/jquery.min.js"></script>
   <!-- Bootstrap -->
   <script src="js/bootstrap.js"></script>
   <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
   <script src="js/app.js"></script>
-  <!-- InstanceBeginEditable name="EditRegion3" -->EditRegion3<!-- InstanceEndEditable -->
+  
+  <!-- InstanceBeginEditable name="EditRegion3" -->
+  <script src="js/statisticsChart.js"></script>
+  <script src="js/echarts/echarts-all.js"></script>
+  <script>window.onload = function(){
+		platformChart();
+		trophyChart();
+		monthActiveChart();
+		trophyProcessChart();
+		trophyByDayChart();
+		trophyByHourChart();
+	 }
+	 </script>
+  <!-- InstanceEndEditable -->
   
 </body>
 <!-- InstanceEnd --></html>
