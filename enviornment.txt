@@ -1,5 +1,5 @@
 1. Git
-2. JDK6
+2. JDK7
 3. javaPlatform needed
 4. Maven-3.0.5
    - add plugin group to maven setting.xml
