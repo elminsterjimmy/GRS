@@ -115,7 +115,7 @@
           <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
           <cssDestinationFolder>${basedir}/src/main/resources/static/css</cssDestinationFolder>
           <jsDestinationFolder>${basedir}/src/main/resources/static/js</jsDestinationFolder>
-          <wroFile>${project.build.directory}/wro/wro.xml</wroFile>
+          <wroFile>${basedir}/src/main/wro/wro.xml</wroFile>
           <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
           <contextFolder>${basedir}/src/main/wro</contextFolder>
         </configuration>
