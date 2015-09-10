@@ -4,11 +4,11 @@
       <section class="vbox">
         <!-- main -->
         <section class="scrollable padder-lg w-f-md" id="bjax-target">
-          <div ng-view></div>
+          <div ui-view="contentMain"></div>
         </section>
         <!-- footer -->
         <footer class="footer bg-dark">
-          <div ng-include src="contentTemplateFooterUrl" include-replace></div>
+          <div ui-view="contentFooter"></div>
         </footer>
       </section>
     </section>
