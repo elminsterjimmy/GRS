@@ -1,10 +1,14 @@
 angular.
   module('grsApp').
-    controller('collectionsController', [ "$scope", "$http", collectionsCtrl ]);
+    controller('collectionsController', collectionsCtrl);
 
-function collectionsCtrl() {
+collectionsCtrl.$inject = ['collectionsService', 'logger'];
+
+function collectionsCtrl(collectionsService, logger) {
   var vm = this;
   vm.repeat = repeat;
+  
+  vm.rate = 3;
   
   function repeat(n) {
     return new Array(n);

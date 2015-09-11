@@ -1,4 +1,4 @@
-angular.module('grsApp', [ 'ui.router', 'oc.lazyLoad' ]).config(routeConfig).run(['$state', reloadState]);
+angular.module('grsApp').config(routeConfig).run(['$state', reloadState]);
 
 function routeConfig($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
@@ -24,14 +24,15 @@ function routeConfig($stateProvider, $urlRouterProvider) {
       resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
         loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
           // you can lazy load files for an existing module
-          console.log('load');
-          return $ocLazyLoad.load('js/angular/controller/collections-controller.js');
+          return $ocLazyLoad.load({
+            serie: true,
+            files: [
+            'js/angular/service/collections-service.js',
+            'js/angular/controller/collections-controller.js']
+          });
         }]
       }
-  //    controller : 'collectionsController',
-  //    controllerAs : 'collections',
-    });
-  
+    })
 }
 
 // fix the bug for ui-view in ng-include (https://github.com/angular-ui/ui-router/issues/679)

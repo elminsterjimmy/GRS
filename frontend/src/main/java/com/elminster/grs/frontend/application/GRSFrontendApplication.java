@@ -45,7 +45,7 @@ public class GRSFrontendApplication {
         .httpBasic()
         .and()
         .authorizeRequests()
-        .antMatchers("/index.html", "/fonts/**/*", "/tpl/**/*", "/*").permitAll()
+        .antMatchers("/index.html", "/fonts/**/*", "/tpl/**/*", "/*", "/json/**/*").permitAll()
         .anyRequest().authenticated();
       // @formatter:on
     }

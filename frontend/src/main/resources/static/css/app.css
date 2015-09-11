@@ -3956,7 +3956,7 @@ ul.trophy_count .platinum {
 }
 ul.trophy_count .gold {
   background-position: 0 -16px;
-  /* color: #C2903E; */
+  color: #C2903E;
 }
 ul.trophy_count .silver {
   background-position: 0 -32px;
@@ -4019,36 +4019,6 @@ div .center {
   display: block;
 }
 
-
-
-.raterater-bg-layer { color: rgba( 0, 0, 0, 0.25 ); }
-
-.raterater-hover-layer { color: rgba( 255, 255, 0, 0.75 ); }
-
-.raterater-hover-layer.rated { /* after the user selects a rating */ color: rgba( 255, 255, 0, 1 ); }
-
-.raterater-rating-layer { color: rgba( 255, 155, 0, 0.75 ); }
-
-.raterater-outline-layer { color: rgba( 0, 0, 0, 0.25 ); }
-
-/* don't change these - you might break something.. */
-
-.raterater-wrapper { overflow: visible; }
-
-.raterater-layer,
-.raterater-layer i {
-  display: block;
-  position: absolute;
-  overflow: visible;
-  top: 0px;
-  left: 0px;
-  cursor:pointer
-}
-
-.raterater-hover-layer { display: none; }
-
-.raterater-hover-layer i,
-.raterater-rating-layer i {
-  width: 0px;
-  overflow: hidden;
+.glyphicon-star, .glyphicon-star-empty {
+  color: #4CB6CB;
 }
