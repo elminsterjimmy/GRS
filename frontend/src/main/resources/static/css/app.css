@@ -1095,7 +1095,7 @@ body.container {
     left: 0;
     top: 0px;
     bottom: 0;
-    width: 75%;
+    width: 40%;
     visibility: visible;
     overflow-x: hidden;
     overflow-y: auto;
@@ -1105,18 +1105,18 @@ body.container {
     display: block !important;
   }
   .nav-off-screen .navbar-fixed-top-xs {
-    width: 75%;
+    width: 40%;
   }
   .nav-off-screen.push-right .navbar-fixed-top-xs {
-    left: 25%;
+    left: 60%;
   }
   .nav-off-screen.push-right {
     left: auto;
     right: 0;
   }
   .nav-off-screen.push-right + * {
-    -webkit-transform: translate3d(-75%,0px,0px);
-    transform: translate3d(-75%,0px,0px);
+    -webkit-transform: translate3d(-40%,0px,0px);
+    transform: translate3d(-40%,0px,0px);
   }
   .nav-off-screen + * {
     background-color: #f2f4f8;
@@ -1131,8 +1131,8 @@ body.container {
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-transform: translate3d(75%,0px,0px);
-    transform: translate3d(75%,0px,0px);
+    -webkit-transform: translate3d(40%,0px,0px);
+    transform: translate3d(40%,0px,0px);
     overflow: hidden;
     position: absolute;
     width: 100%;
@@ -3412,6 +3412,7 @@ a.bg-light:focus {
   margin-right: -10px;
 }
 .row-sm > div {
+  padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -4021,4 +4022,12 @@ div .center {
 
 .glyphicon-star, .glyphicon-star-empty {
   color: #4CB6CB;
+}
+
+.glyphicon-heart, .glyphicon-heart-empty {
+	color: #f05050;
+}
+
+.dropdown-menu {
+	min-width: 110px;
 }

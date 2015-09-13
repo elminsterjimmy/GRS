@@ -32,6 +32,138 @@ function routeConfig($stateProvider, $urlRouterProvider) {
           });
         }]
       }
+    }).
+    state('news', {
+      url : "/news",
+      views: {
+        "contentMain" : {
+          templateUrl : 'tpl/view/news.html',
+          controller : 'collectionsController',
+          controllerAs : 'collections'
+        },
+        "contentFooter" : { templateUrl : 'tpl/common/defaultFooter.html'}
+      },
+      resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+        loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+          // you can lazy load files for an existing module
+          return $ocLazyLoad.load({
+            serie: true,
+            files: [
+                    'js/angular/service/collections-service.js',
+                    'js/angular/controller/collections-controller.js']
+          });
+        }]
+      }
+    }).
+    state('badges', {
+      url : "/badges",
+      views: {
+        "contentMain" : {
+          templateUrl : 'tpl/view/badges.html',
+          controller : 'collectionsController',
+          controllerAs : 'collections'
+        },
+        "contentFooter" : { templateUrl : 'tpl/common/defaultFooter.html'}
+      },
+      resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+        loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+          // you can lazy load files for an existing module
+          return $ocLazyLoad.load({
+            serie: true,
+            files: [
+                    'js/angular/service/collections-service.js',
+                    'js/angular/controller/collections-controller.js']
+          });
+        }]
+      }
+    }).
+    state('settings', {
+      url : "/settings",
+      views: {
+        "contentMain" : {
+          templateUrl : 'tpl/view/settings.html',
+          controller : 'collectionsController',
+          controllerAs : 'collections'
+        },
+        "contentFooter" : { templateUrl : 'tpl/common/defaultFooter.html'}
+      },
+      resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+        loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+          // you can lazy load files for an existing module
+          return $ocLazyLoad.load({
+            serie: true,
+            files: [
+                    'js/angular/service/collections-service.js',
+                    'js/angular/controller/collections-controller.js']
+          });
+        }]
+      }
+    }).
+    state('statistics', {
+      url : "/statistics",
+      views: {
+        "contentMain" : {
+          templateUrl : 'tpl/view/statistics.html',
+          controller : 'collectionsController',
+          controllerAs : 'collections'
+        },
+        "contentFooter" : { templateUrl : 'tpl/common/defaultFooter.html'}
+      },
+      resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+        loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+          // you can lazy load files for an existing module
+          return $ocLazyLoad.load({
+            serie: true,
+            files: [
+                    'js/angular/service/collections-service.js',
+                    'js/angular/controller/collections-controller.js']
+          });
+        }]
+      }
+    }).
+    state('trophies', {
+      url : "/trophies",
+      views: {
+        "contentMain" : {
+          templateUrl : 'tpl/view/trophies.html',
+          controller : 'collectionsController',
+          controllerAs : 'collections'
+        },
+        "contentFooter" : { templateUrl : 'tpl/common/defaultFooter.html'}
+      },
+      resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+        loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+          // you can lazy load files for an existing module
+          return $ocLazyLoad.load({
+            serie: true,
+            files: [
+                    'js/angular/service/collections-service.js',
+                    'js/angular/controller/collections-controller.js']
+          });
+        }]
+      }
+    }).
+    state('profile', {
+      url : "/profile",
+      views: {
+        "contentMain" : {
+          templateUrl : 'tpl/view/profile.html',
+          controller : 'collectionsController',
+          controllerAs : 'collections'
+        },
+        "contentFooter" : { templateUrl : 'tpl/common/defaultFooter.html'}
+      },
+      resolve: { // Any property in resolve should return a promise and is executed before the view is loaded
+        loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+          // you can lazy load files for an existing module
+          return $ocLazyLoad.load({
+            serie: true,
+            files: [
+                    'js/angular/service/collections-service.js',
+                    'js/angular/controller/collections-controller.js']
+          });
+        }]
+      }
     })
 }
 

@@ -1,16 +1,23 @@
-angular.
-  module('grsApp').
-    controller('collectionsController', collectionsCtrl);
+angular.module('grsApp').controller('collectionsController', collectionsCtrl);
 
-collectionsCtrl.$inject = ['collectionsService', 'logger'];
+collectionsCtrl.$inject = [ 'collectionsService', 'logger' ];
 
 function collectionsCtrl(collectionsService, logger) {
   var vm = this;
-  vm.repeat = repeat;
-  
-  vm.rate = 3;
-  
-  function repeat(n) {
-    return new Array(n);
+  vm.items = [];
+
+  activate();
+
+  function activate() {
+    return getCollections().then(function() {
+      logger.info('Retrieved collections');
+    });
+  }
+
+  function getCollections() {
+    return collectionsService.getAllCollectionList().then(function(data) {
+      vm.items = data;
+      return vm.items;
+    });
   }
 }

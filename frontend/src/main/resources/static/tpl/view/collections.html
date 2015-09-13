@@ -1,42 +1,43 @@
 <div class="row row-sm">
-  <div id="collection" class="col-xs-6 col-sm-4 col-md-3 col-lg-2"  ng-repeat="i in collections.repeat(10) track by $index">
+  <div id="collection" class="col-xs-6 col-sm-4 col-md-3 col-lg-2"  ng-repeat="collection in collections.items">
     <div class="item">
       <div class="pos-rlt">
         <!-- review rank -->
         <div class="top">
-          <span class="pull-right m-t-sm m-r-sm badge bg-info">6</span>
+          <span class="pull-right m-t-sm m-r-sm badge bg-info">{{collection.notification}}</span>
         </div>
         <!-- the overlay -->
         <div class="item-overlay opacity r r-2x bg-black">
           <div class="text-info padder m-t-sm text-sm">
-            <rating ng-model="collections.rate"></rating>
+            <rating ng-model="collection.rating"></rating>
           </div>
           <div class="center text-center m-t-n">
             <div>
               <div class="trophy_count_small">
                 <ul class="trophy_count">
-                  <li class="gold">5</li>
-                  <li class="silver">5</li>
-                  <li class="bronze">27</li>
+                  <li class="gold">{{collection.trohpy.gold}}</li>
+                  <li class="silver">{{collection.trohpy.silver}}</li>
+                  <li class="bronze">{{collection.trohpy.brozen}}</li>
                 </ul>
               </div>
 
               <div class="progress_outer center">
-                <span>100%</span>
-                <div style="width: 100%;"></div>
+                <span>{{collection.progress}}%</span>
+                <div style="width: {{collection.progress}}%;"></div>
               </div>
             </div>
           </div>
           <div class="bottom padder m-b-sm">
-            <a href="#" class="pull-right"> <i class="fa fa-heart-o"></i>
+            <a class="pull-right">
+              <rating ng-model="collection.favorite" max="1" state-on="'glyphicon-heart'" state-off="'glyphicon-heart-empty'"></rating>
             </a>
           </div>
         </div>
-        <a href="#"><img src="images/p6.jpg" alt="" class="r r-2x img-full"></a>
+        <a href="#"><img ng-src="{{collection.cover}}" alt="" class="r r-2x img-full" ></a>
       </div>
       <div class="padder-v">
-        <a href="#" class="text-ellipsis">Habitant</a> <a href="#" class="text-ellipsis text-xs text-muted">Dan
-          Doorack</a>
+        <a class="text-ellipsis">{{collection.title}}</a>
+        <a class="text-ellipsis text-xs text-muted">{{collection.platform}}</a>
       </div>
     </div>
   </div>
