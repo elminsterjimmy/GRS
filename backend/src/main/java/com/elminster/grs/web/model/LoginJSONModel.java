@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author jgu
  * @version 1.0
  */
-public class LoginDetails {
+public class LoginJSONModel extends BaseJsonModel {
 
   /** the username. */
   @NotEmpty()
@@ -16,8 +16,6 @@ public class LoginDetails {
   /** the password. */
   @NotEmpty()
   private String password;
-  /** the expiration. */
-  private long expiration;
   
   /**
    * @return the username
@@ -42,17 +40,5 @@ public class LoginDetails {
    */
   public void setPassword(String password) {
     this.password = password;
-  }
-  /**
-   * @return the expiration
-   */
-  public long getExpiration() {
-    return expiration;
-  }
-  /**
-   * @param expiration the expiration to set
-   */
-  public void setExpiration(long expiration) {
-    this.expiration = expiration;
   }
 }

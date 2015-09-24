@@ -1,5 +1,8 @@
 package com.elminster.grs.web.controller;
 
+import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -20,8 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elminster.grs.web.helper.BindingResultHelper;
-import com.elminster.grs.web.model.LoginDetails;
-import com.elminster.grs.web.security.service.TokenAuthenticationService;
+import com.elminster.grs.web.model.LoginJSONModel;
+import com.elminster.spring.security.service.TokenAuthenticationService;
 
 /**
  * The authentication controller.
@@ -39,18 +42,33 @@ public class AuthenticationController {
   @Autowired
   private UserDetailsService userDetailsService;
 
+  /**
+   * Login.
+   * @param login the login JSON
+   * @param response the HTTP response
+   * @throws IOException on error
+   */
   @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-  public void login(@Valid @RequestBody LoginDetails login, HttpServletResponse response) {
+  public void login(@Valid @RequestBody LoginJSONModel login, HttpServletResponse response) throws IOException {
     String username = login.getUsername();
     String password = login.getPassword();
-    logger.debug("login with [" + username + ", " + password + "].");
+    long requestTs = login.getCurrentTs();
+    logger.debug("login with [" + username + ", " + password + "] at " + new Date(requestTs) + ".");
     
     UserDetails details = userDetailsService.loadUserByUsername(username);
-    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(details.getUsername(),
-        details.getPassword());
-    authentication.setDetails(details);
-
-    tokenAuthenticationService.addAuthentication2Header(response, authentication);
+    
+    if (details.getUsername().equals(username) && details.getPassword().equals(password)) {
+      UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(details.getUsername(),
+          details.getPassword());
+      authentication.setDetails(details);
+      
+      tokenAuthenticationService.addAuthentication2Header(response, authentication);
+    } else {
+      // login failed
+      logger.debug("login failed.");
+      response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Login Failed.");
+    }
+    
   }
 
   @ExceptionHandler

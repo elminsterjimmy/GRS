@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,8 +17,8 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elminster.grs.web.entrypoint.Http401UnauthorizedEntryPoint;
-import com.elminster.grs.web.security.filter.CsrfTokenFilter;
-import com.elminster.grs.web.security.filter.StatelessAuthenticationFilter;
+import com.elminster.spring.security.filter.CsrfTokenFilter;
+import com.elminster.spring.security.filter.StatelessAuthenticationFilter;
 
 /**
  * The application.
@@ -27,6 +28,7 @@ import com.elminster.grs.web.security.filter.StatelessAuthenticationFilter;
  */
 @SpringBootApplication
 @RestController
+@ComponentScan({"com.elminster.spring.security", "com.elminster.grs"})
 public class GSRBackendApplication {
   
   /**
