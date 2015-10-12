@@ -1,9 +1,9 @@
 angular.
   module('grsApp').factory('userService', userService);
 
-userService.$inject = ['$http', 'logger', 'common'];
+userService.$inject = ['$http', 'logger', 'common', 'URLConstants'];
 
-function userService($http, logger, common) {
+function userService($http, logger, common, URLConstants) {
   logger.info("init user service.");
   
   var service = {
@@ -12,7 +12,7 @@ function userService($http, logger, common) {
   return service;
 
   function getUserInfo() {
-    return $http.get('/json/dummy/user.json')
+    return $http.get(URLConstants.appUrl + '/json/dummy/user.json')
             .then(common.ajaxSuccess)
             .catch(common.ajaxFailed);
   }

@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  jpa:
+    show-sql: true
+    database: POSTGRESQL
+    generate-ddl: true
+    hibernate:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: create
+      #naming_strategy:org.hibernate.cfg.ImprovedNamingStrategy
+  datasource:
+    driverClassName:org.postgresql.Driver
+    url:jdbc:postgresql://localhost/grs
+    username:postgres
+    password:1921419214

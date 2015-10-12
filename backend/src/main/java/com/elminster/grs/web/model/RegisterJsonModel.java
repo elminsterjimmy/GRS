@@ -1,21 +1,16 @@
 package com.elminster.grs.web.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-/**
- * The login details.
- * 
- * @author jgu
- * @version 1.0
- */
-public class LoginJSONModel extends BaseJsonModel {
+public class RegisterJsonModel extends BaseJsonModel {
 
-  /** the username. */
-  @NotEmpty()
+  @NotEmpty
   private String username;
-  /** the password. */
-  @NotEmpty()
+  @NotEmpty
   private String password;
+  @Email
+  private String email;
   
   /**
    * @return the username
@@ -40,5 +35,17 @@ public class LoginJSONModel extends BaseJsonModel {
    */
   public void setPassword(String password) {
     this.password = password;
+  }
+  /**
+   * @return the email
+   */
+  public String getEmail() {
+    return email;
+  }
+  /**
+   * @param email the email to set
+   */
+  public void setEmail(String email) {
+    this.email = email;
   }
 }

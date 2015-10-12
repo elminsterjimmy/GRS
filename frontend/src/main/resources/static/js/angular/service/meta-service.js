@@ -1,9 +1,9 @@
 angular.
   module('grsApp').factory('metaService', metaService);
 
-metaService.$inject = ['$http', 'logger', 'common'];
+metaService.$inject = ['$http', 'logger', 'common', 'URLConstants'];
 
-function metaService($http, logger, common) {
+function metaService($http, logger, common, URLConstants) {
   
   logger.info("init common service.");
   
@@ -13,7 +13,7 @@ function metaService($http, logger, common) {
   return service;
 
   function getMetaData() {
-    return $http.get('/json/dummy/meta.json')
+    return $http.get(URLConstants.appUrl + '/json/dummy/meta.json')
             .then(common.ajaxSuccess)
             .catch(common.ajaxFailed);
   }

@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,11 +16,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elminster.grs.web.entrypoint.Http401UnauthorizedEntryPoint;
 import com.elminster.spring.security.filter.CsrfTokenFilter;
 import com.elminster.spring.security.filter.StatelessAuthenticationFilter;
+import com.elminster.spring.security.service.UserDetailsServiceImpl;
 
 /**
  * The application.
@@ -29,6 +33,9 @@ import com.elminster.spring.security.filter.StatelessAuthenticationFilter;
 @SpringBootApplication
 @RestController
 @ComponentScan({"com.elminster.spring.security", "com.elminster.grs"})
+@EnableJpaRepositories({"com.elminster.spring.security", "com.elminster.grs"})
+@EntityScan({"com.elminster.spring.security", "com.elminster.grs"})
+@EnableTransactionManagement
 public class GSRBackendApplication {
   
   /**
@@ -54,8 +61,7 @@ public class GSRBackendApplication {
     private StatelessAuthenticationFilter statelessAuthenticationFilter;
     @Autowired
     private Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint;
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailService = new UserDetailsServiceImpl();
     
     
     @Override
@@ -75,12 +81,12 @@ public class GSRBackendApplication {
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+      auth.userDetailsService(userDetailService);
     }
 
     @Override
     public UserDetailsService userDetailsServiceBean() {
-        return userDetailsService;
+      return userDetailService;
     }
   }
 }

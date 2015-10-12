@@ -1,10 +1,9 @@
 angular.
   module('grsApp').factory('collectionsService', collectionService);
 
-collectionService.$inject = ['$http', 'logger', 'common'];
+collectionService.$inject = ['$http', 'logger', 'common', 'URLConstants'];
 
-function collectionService($http, logger, common) {
-  
+function collectionService($http, logger, common, URLConstants) {
   logger.info("init collection service.");
   
   var service = {
@@ -16,7 +15,7 @@ function collectionService($http, logger, common) {
 
   function getAllCollectionList(user) {
     logger.info("getAllCollectionList");
-    return $http.get('/json/dummy/collections.json')
+    return $http.get(URLConstants.appUrl + '/json/dummy/collections.json')
       .then(common.ajaxSuccess)
       .catch(common.ajaxFailed);
   }

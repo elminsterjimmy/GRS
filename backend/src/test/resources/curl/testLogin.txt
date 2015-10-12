@@ -1,1 +1,1 @@
-C:\Users\jgu>curl -i -v --cookie "CSRF-TOKEN=token" -H "Content-Type:application/json" -H "X-CSRF-TOKEN:token" --data-binary @d:/test.json localhost:8080/user/login
+curl -i -v --cookie "CSRF-TOKEN=token" -H "Content-Type:application/json" -H "X-CSRF-TOKEN:token" --data-binary @d:/test.json localhost:8080/user/login
