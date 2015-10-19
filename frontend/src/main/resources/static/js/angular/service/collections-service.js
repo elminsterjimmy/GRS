@@ -15,7 +15,7 @@ function collectionService($http, logger, common, URLConstants) {
 
   function getAllCollectionList(user) {
     logger.info("getAllCollectionList");
-    return $http.get(URLConstants.appUrl + '/json/dummy/collections.json')
+    return $http.get(URLConstants.dummyUrl + '/json/dummy/collections.json')
       .then(common.ajaxSuccess)
       .catch(common.ajaxFailed);
   }

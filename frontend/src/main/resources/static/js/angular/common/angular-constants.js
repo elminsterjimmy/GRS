@@ -3,5 +3,6 @@
  */
 angular.module('grsApp').
   constant('URLConstants', {
-    'appUrl' : "/frontend/src/main/resources/static/"
+    "dummyUrl" : "/frontend/src/main/resources/static/",
+    "testAppUrl" : "http://localhost:8080"
   });

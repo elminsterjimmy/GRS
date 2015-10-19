@@ -1,5 +1,25 @@
-<form name="loginForm" ng-controller="LoginController as loginCtrl" ng-submit="login(credentials)" novalidate>
-  <label for="username">Username:</label> <input type="text" id="username" ng-model="credentials.username"> <label
-    for="password">Password:</label> <input type="password" id="password" ng-model="credentials.password">
-  <button type="submit">Login</button>
-</form>
+<div class="modal-header">
+  <h3 class="modal-title">Login</h3>
+</div>
+<div class="modal-body">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media
+    queries -->
+    <!--[if lt IE 10]>
+    <label class="control-label" for="username">User Name</label>
+    <![endif]-->
+    <div class="controls">
+      <input class="input-block-level" id="username" type="text" placeholder="User name" ng-model="user.name">
+    </div>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media
+    queries -->
+    <!--[if lt IE 10]>
+    <label class="control-label" for="password">Password</label>
+    <![endif]-->
+    <div class="controls">
+      <input class="input-block-level" id="password" type="password" placeholder="Password" ng-model="user.password">
+    </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
+  <button class="btn btn-primary" type="button" ng-click="ctrl.login(user)">Login</button>
+</div>

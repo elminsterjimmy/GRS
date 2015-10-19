@@ -13,7 +13,7 @@ function metaService($http, logger, common, URLConstants) {
   return service;
 
   function getMetaData() {
-    return $http.get(URLConstants.appUrl + '/json/dummy/meta.json')
+    return $http.get(URLConstants.dummyUrl + '/json/dummy/meta.json')
             .then(common.ajaxSuccess)
             .catch(common.ajaxFailed);
   }
