@@ -1,4 +1,4 @@
-package com.elminster.grs.web.model;
+package com.elminster.grs.web.request.vo;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;

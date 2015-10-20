@@ -74,7 +74,7 @@ public class GSRBackendApplication {
       http.exceptionHandling().authenticationEntryPoint(http401UnauthorizedEntryPoint);
       http
         .authorizeRequests()
-        .antMatchers("/v1/**", "/user/login").permitAll()
+        .antMatchers("/v1/**", "/user/login", "/user/register", "/user/testUsername").permitAll()
         .anyRequest().authenticated();
       // @formatter:on
     }

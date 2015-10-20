@@ -1,4 +1,4 @@
-package com.elminster.grs.web.model;
+package com.elminster.grs.web.request.vo;
 
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +17,14 @@ public class BaseJsonModel {
    */
   @JsonProperty("_")
   @NotNull
-  private long currentTs;
+  private Long currentTs;
+  
+  /** 
+   * The ip come from.
+   * TODO Need to be set automatically.
+   */
+  private String ipComeFrom;
+
 
   /**
    * @return the currentTs
@@ -31,5 +38,18 @@ public class BaseJsonModel {
    */
   public void setCurrentTs(long currentTs) {
     this.currentTs = currentTs;
+  }
+  
+  /**
+   * @return the ipComeFrom
+   */
+  public String getIpComeFrom() {
+    return ipComeFrom;
+  }
+  /**
+   * @param ipComeFrom the ipComeFrom to set
+   */
+  public void setIpComeFrom(String ipComeFrom) {
+    this.ipComeFrom = ipComeFrom;
   }
 }

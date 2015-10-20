@@ -1,6 +1,8 @@
-package com.elminster.grs.web.model;
+package com.elminster.grs.web.request.vo;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.elminster.common.util.ObjectUtil;
 
 /**
  * The login json model.
@@ -26,8 +28,9 @@ public class LoginJsonModel extends BaseJsonModel {
   /**
    * @param username the username to set
    */
-  public void setUsername(String username) {
+  public LoginJsonModel setUsername(String username) {
     this.username = username;
+    return this;
   }
   /**
    * @return the password
@@ -38,7 +41,16 @@ public class LoginJsonModel extends BaseJsonModel {
   /**
    * @param password the password to set
    */
-  public void setPassword(String password) {
+  public LoginJsonModel setPassword(String password) {
     this.password = password;
+    return this;
+  }
+  
+  /**
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return ObjectUtil.buildToStringByReflect(this);
   }
 }
