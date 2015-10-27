@@ -1,7 +1,5 @@
 angular.module('grsApp').controller('modalController', modalCtrl);
 
-modalCtrl.$inject = [ '$modal', 'URLConstants', 'logger' ];
-
 function modalCtrl($modal, URLConstants, logger) {
 
   var service = {
@@ -10,11 +8,11 @@ function modalCtrl($modal, URLConstants, logger) {
 
   return service;
 
-  function open(templateUrl, size) {
+  function open(templateUrl, control, size) {
     $modal.open({
       animation: true,
-      templateUrl: URLConstants.dummyUrl + templateUrl,
-      controller: 'modalInstanceController',
+      templateUrl: templateUrl,
+      controller: control,
       controllerAs : 'ctrl',
       size: size
     });

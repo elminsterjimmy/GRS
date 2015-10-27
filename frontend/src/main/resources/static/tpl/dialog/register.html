@@ -1,42 +1,36 @@
-<div class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="text-center" id="myModalLabel">Login</h1>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="control-group">
-            <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media
-            queries -->
-            <!--[if lt IE 10]>
-            <label class="control-label" for="inputEmail">User Name</label>
-            <![endif]-->
-            <div class="controls">
-              <input class="input-block-level" id="inputEmail" type="text" placeholder="User name">
-            </div>
-          </div>
-          <div class="control-group">
-            <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media
-            queries -->
-            <!--[if lt IE 10]>
-            <label class="control-label" for="password">Password</label>
-            <![endif]-->
-            <div class="controls">
-              <input class="input-block-level" id="password" type="password" placeholder="Password">
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label class="checkbox">
-              <input type="checkbox">Remember me</label>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-link">Forgot password?</button>
-        <button class="btn btnExtra btn-large btn-primary">Login</button>
-      </div>
+<div class="modal-body">
+  <div class="row">
+    <div class="auth-logo">
+      <a href="/">
+        <img src="/images/logo-114.png">
+      </a>
+    </div>
+    <div class="auth-wrapper">
+      <form id="app-signup" name="registerForm" novalidate="novalidate" ng-submit="">
+        <div class="form-group">
+          <label for="name">Full name</label>
+          <input type="text" class="form-control" name="name" id="name" maxlength="100" required="" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name="username" class="form-control" id="username" minlength="3" maxlength="20" required=""
+                 aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" name="email" class="form-control" id="email" required="" aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" class="form-control" id="password" required="" aria-required="true">
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Create my account" class="btn btn-block btn-success">
+        </div>
+      </form>
+      <p class="text-center">
+        <small>By clicking the button above, you agree to the <a href="terms.html" target="_blank">terms of use</a>.
+        </small>
+      </p>
     </div>
   </div>
-</div>

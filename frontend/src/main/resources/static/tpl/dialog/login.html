@@ -1,25 +1,50 @@
-<div class="modal-header">
-  <h3 class="modal-title">Login</h3>
-</div>
 <div class="modal-body">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media
-    queries -->
-    <!--[if lt IE 10]>
-    <label class="control-label" for="username">User Name</label>
-    <![endif]-->
-    <div class="controls">
-      <input class="input-block-level" id="username" type="text" placeholder="User name" ng-model="user.username">
+  <div class="row">
+    <div class="auth-logo">
+      <a href="/">
+        <img src="/images/logo-114.png">
+      </a>
     </div>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media
-    queries -->
-    <!--[if lt IE 10]>
-    <label class="control-label" for="password">Password</label>
-    <![endif]-->
-    <div class="controls">
-      <input class="input-block-level" id="password" type="password" placeholder="Password" ng-model="user.password">
+    <div class="auth-wrapper">
+      <form id="loginForm" name="loginForm" novalidate="novalidate" ng-submit="ctrl.login(loginForm)">
+        <input type="hidden" name="retour" ng-model="retour">
+        <div ng-messages=" loginForm.retour.$error" class="text-danger text-center-xs">
+          <div ng-message="server">{{ctrl.error}}</div>
+        </div>
+        <div class="form-group">
+          <label for="username">Username or Email</label>
+          <input type="text" class="form-control" name="username" id="username" type="text"
+                 placeholder="User name"
+                 ng-model="ctrl.user.username"
+                 ng-minlength="1"
+                 ng-maxlength="50"
+                 ng-pattern="/^[a-z0-9_-]{1,50}$/"
+                 required>
+
+          <div ng-messages="loginForm.username.$error" ng-if="loginForm.username.$dirty" class="has-error">
+            <div ng-messages-include="./tpl/message/form/login/username.errors.html"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" type="password"
+                 placeholder="Password"
+                 ng-model="ctrl.user.password"
+                 ng-minlength="1"
+                 ng-maxlength="50" ,
+                 ng-pattern="/^[a-z0-9_-]{1,50}$/"
+                 required>
+
+          <div ng-messages=" loginForm.password.$error" ng-if="loginForm.password.$dirty" class="has-error">
+            <div ng-messages-include="./tpl/message/form/login/password.errors.html"></div>
+          </div>
+        </div>
+        <input type="submit" value="Log in" class="btn btn-block btn-success">
+      </form>
     </div>
-</div>
-<div class="modal-footer">
-  <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
-  <button class="btn btn-primary" type="button" ng-click="ctrl.login(user)">Login</button>
+    <div class="auth-footer">
+      Forget Your Password?<br>
+      <a href="findPassword.html" target="_blank">Find it Here</a>
+    </div>
+  </div>
 </div>

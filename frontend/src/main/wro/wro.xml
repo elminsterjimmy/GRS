@@ -7,6 +7,8 @@
     <js>webjar:angularjs/1.4.4/angular.min.js</js>
     <js>webjar:angularjs/1.4.4/angular-route.min.js</js>
     <js>webjar:angularjs/1.4.4/angular-cookies.min.js</js>
+    <js>webjar:angularjs/1.4.4/angular-message-format.min.js</js>
+    <js>webjar:angularjs/1.4.4/angular-messages.min.js</js>
     <js>webjar:angular-ui-router/0.2.15/release/angular-ui-router.min.js</js>
     <js>webjar:angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js</js>
     <js>webjar:ocLazyLoad/1.0.2/dist/ocLazyLoad.min.js</js>

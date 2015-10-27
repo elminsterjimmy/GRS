@@ -1,0 +1,110 @@
+#css for home
+body {
+  font-family: "proxima-nova", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: #319af4;
+  text-decoration: none !important;
+}
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #999999;
+}
+
+.fade-in {
+  opacity: 0;
+  -webkit-animation: fadeIn linear 0.3s;
+  -moz-animation: fadeIn linear 0.3s;
+  animation: fadeIn linear 0.3s;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 0.3s;
+  -moz-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+}
+
+.home {
+  background: linear-gradient(135deg, #32d1ac 0%, #4cb6cb 100%);
+  padding: 30px 0 34px;
+  margin-bottom: 40px;
+}
+
+.home .home-links {
+  text-align: right;
+  padding-top: 5px;
+}
+
+.home h2, .home h1 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.home .home-links a {
+  color: #fff;
+  opacity: 0.75;
+  padding: 9px 16px;
+  border-radius: 4px;
+  transition: all 0.1s linear;
+  font-size: 15px;
+  margin-left: 12px;
+  font-weight: 600;
+}
+
+.home .home-links a:hover {
+  background: rgba(0, 0, 0, 0.1);
+  opacity: 1;
+}
+
+.home .home-register {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 1 !important;
+}
+
+.auth-logo {
+  margin: 60px 0 30px;
+  text-align: center;
+}
+
+.home .home-register:hover {
+  background: #32d1ac !important;
+  color: #fff;
+  border-color: transparent;
+}
+
+.auth-wrapper {
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.auth-footer {
+  color: #999999;
+  text-align: center;
+  font-size: 13px;
+}
+
+.btn-success {
+  color: #ffffff;
+  background-color: #32d1ac;
+  border-color: #32d1ac;
+}
+
+.btn-success:hover {
+  color: #ffffff;
+  background-color: #32d1ac;
+  border-color: #32d1ac;
+}

@@ -1,4 +1,4 @@
-<header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+<header class="bg-white-only header header-md navbar navbar-fixed-top-xs" ng-controller="headerController as vm">
     <!-- logo -->
     <div class="navbar-header aside bg-info nav-xs">
       <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html"> <i
@@ -49,19 +49,13 @@
         </li>
         <!-- toolbar: end of notification -->
         <!-- toolbar: user profile -->
-        <li class="dropdown" dropdown on-toggle="toggled(open)" ng-if="logined">
+        <li class="dropdown" dropdown on-toggle="toggled(open)">
           <a href id="user-profile-dropdown"  dropdown-toggle class="dropdown-toggle bg clear">
             <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-              <img ng-src="{{main.user.avatarUrl}}" alt="{{main.user.name}}">
-            </span>{{main.user.name}}<b class="caret"></b>
+              <img ng-src="{{vm.user.avatarUrl}}" alt="{{vm.user.username}}">
+            </span>{{vm.user.username}}<b class="caret"></b>
           </a>
           <ul class="dropdown-menu" template-url="tpl/menu/userProfileMenu.html" aria-labelledby="user-profile-dropdown" />
-        </li>
-        <li class="dropdown" dropdown on-toggle="toggled(open)" ng-if="!logined">
-          <a href id="user-login-dropdown"  dropdown-toggle class="dropdown-toggle bg clear">
-            Hi, there! <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu" template-url="tpl/menu/userLoginMenu.html" aria-labelledby="user-login-dropdown"/>
         </li>
         <!-- toolbar: end of user profile -->
       </ul>

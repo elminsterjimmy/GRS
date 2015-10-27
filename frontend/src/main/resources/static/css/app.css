@@ -4902,9 +4902,7 @@ div .center {
 
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
   display: inline-block;
-  height: 20px;
   padding: 4px 6px;
-  margin-bottom: 10px;
   font-size: 14px;
   line-height: 20px;
   color: #555555;
@@ -4921,4 +4919,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+#css for ng-message
+input.ng-invalid {
+  border: 2px solid red;
 }

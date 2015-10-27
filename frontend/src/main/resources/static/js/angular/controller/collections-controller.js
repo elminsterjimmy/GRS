@@ -1,7 +1,5 @@
 angular.module('grsApp').controller('collectionsController', collectionsCtrl);
 
-collectionsCtrl.$inject = [ 'collectionsService', 'logger' ];
-
 function collectionsCtrl(collectionsService, logger) {
   var vm = this;
   vm.items = [];

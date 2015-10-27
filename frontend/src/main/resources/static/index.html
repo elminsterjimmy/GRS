@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" class="app" ng-app="grsApp">
-<head ng-controller="headerController as header">
-<meta charset="utf-8" />
-<title>{{header.meta.title}}</title>
-<meta name="description" content="{{header.meta.description}}" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<link rel="stylesheet" href="css/third.party.css" type="text/css" />
-<link rel="stylesheet" href="css/animate.css" type="text/css" />
-<link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
-<link rel="stylesheet" href="css/font.css" type="text/css" />
-<link rel="stylesheet" href="css/app.css" type="text/css" />
-<!--[if lt IE 9]>
-    <script src="js/ie/html5shiv.js"></script>
-    <script src="js/ie/respond.min.js"></script>
-    <script src="js/ie/excanvas.js"></script>
+<head ng-controller="metaController as meta">
+  <meta charset="utf-8"/>
+  <title>{{header.meta.title}}</title>
+  <meta name="description" content="{{meta.vm.description}}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <link rel="stylesheet" href="css/third.party.css" type="text/css"/>
+  <link rel="stylesheet" href="css/animate.css" type="text/css"/>
+  <link rel="stylesheet" href="css/simple-line-icons.css" type="text/css"/>
+  <link rel="stylesheet" href="css/font.css" type="text/css"/>
+  <link rel="stylesheet" href="css/home.css" type="text/css"/>
+  <link rel="stylesheet" href="css/app.css" type="text/css"/>
+  <!--[if lt IE 9]>
+  <script src="js/ie/html5shiv.js"></script>
+  <script src="js/ie/respond.min.js"></script>
+  <script src="js/ie/excanvas.js"></script>
   <![endif]-->
 </head>
 <body class="" ng-controller="mainController as main">
   <!-- header -->
-  <div ng-include src="'tpl/common/header.html'" include-replace></div>
+  <div ng-if="$root.loggedIn" ng-include src="'tpl/common/header.html'" include-replace></div>
   <!-- main -->
-  <div ng-include src="'tpl/common/main.html'" include-replace></div>
+  <div ng-if="$root.loggedIn" ng-include src="'tpl/common/main.html'" include-replace></div>
+
+  <div ng-if="!$root.loggedIn" ng-include src="'tpl/common/home.html'" include-replace></div>
   <!-- Bootstrap -->
   <script src="js/third.party.js"></script>
   <script src="js/app.js"></script>
@@ -29,11 +32,15 @@
   <script src="js/angular/common/angular-logger.js"></script>
   <script src="js/angular/common/angular-common.js"></script>
   <script src="js/angular/common/angular-route.js"></script>
+  <script src="js/angular/common/angular-request.js"></script>
   <script src="js/angular/common/angular-directive.js"></script>
   <script src="js/angular/service/meta-service.js"></script>
   <script src="js/angular/service/user-service.js"></script>
-  <script src="js/angular/controller/app-controller.js"></script>
+  <script src="js/angular/service/auth-service.js"></script>
+  <script src="js/angular/controller/main-controller.js"></script>
+  <script src="js/angular/controller/header-controller.js"></script>
   <script src="js/angular/controller/modal-controller.js"></script>
-  <script src="js/angular/controller/modal-instance-controller.js"></script>
+  <script src="js/angular/controller/user-controller.js"></script>
+  <script src="js/angular/controller/profile-menu-controller.js"></script>
 </body>
 </html>

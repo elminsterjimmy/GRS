@@ -1,0 +1,33 @@
+<div class="home" ng-controller="modalController as modal">
+  <div class="container fade-in">
+    <div class="row">
+      <div class="col-sm-3">
+        <!-- logo -->
+        <img src="images/logo.png" height="24">
+      </div>
+      <div class="col-sm-9 home-links">
+        <a href ng-click="modal.open('./tpl/dialog/login.html', 'userController')">Login</a>
+        <a href ng-click="modal.open('./tpl/dialog/register.html', 'userController')" class="home-register">Sign up</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1 text-center">
+        <h1>Move projects forward.</h1>
+
+        <h2>Wiplo is the easiest way for teams to effectively manage projects.</h2>
+        <a href ng-click="modal.open('./tpl/dialog/register.html', 'userController')" class="btn btn-lg btn-success">Sign up now for
+          free</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="home-detail"></div>
+<div class="home-example"></div>
+<div class="container text-center">
+  <br><br><br><br>
+
+  <h1>Ready to get started?</h1><br>
+  <a href ng-click="modal.open('./tpl/dialog/register.html', 'userController')" class="btn btn-lg btn-success">Sign up for free</a>
+  <br><br><br><br>
+</div>
+<footer></footer>
