@@ -24,7 +24,7 @@ import com.elminster.grs.web.service.ServiceException;
 import com.elminster.spring.security.domain.User;
 import com.elminster.spring.security.model.UserDetailsImpl;
 import com.elminster.spring.security.service.TokenAuthenticationService;
-import com.elminster.spring.security.service.UserService;
+import com.elminster.spring.security.service.AuthUserService;
 
 @Transactional
 @Service
@@ -37,7 +37,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   @Autowired
   private UserDetailsService userDetailsService;
   @Autowired
-  private UserService userService;
+  private AuthUserService userService;
 
   @Override
   public Authentication login(LoginJsonModel login) throws ServiceException {

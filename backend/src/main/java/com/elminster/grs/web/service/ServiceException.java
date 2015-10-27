@@ -21,4 +21,5 @@ public class ServiceException extends BaseException {
   public ServiceException(ErrorCode code, Throwable cause) {
     super(code, cause);
   }
+  
 }

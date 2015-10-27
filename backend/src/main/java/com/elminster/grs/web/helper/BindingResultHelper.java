@@ -4,7 +4,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
-import com.elminster.grs.web.response.JsonResponse;
+import com.elminster.web.commons.response.JsonResponse;
 
 public class BindingResultHelper {
 

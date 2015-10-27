@@ -20,9 +20,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elminster.grs.web.entrypoint.Http401UnauthorizedEntryPoint;
-import com.elminster.spring.security.filter.CsrfTokenFilter;
 import com.elminster.spring.security.filter.StatelessAuthenticationFilter;
 import com.elminster.spring.security.service.UserDetailsServiceImpl;
+import com.elminster.web.commons.filter.SimpleCORSFilter;
 
 /**
  * The application.
@@ -32,12 +32,24 @@ import com.elminster.spring.security.service.UserDetailsServiceImpl;
  */
 @SpringBootApplication
 @RestController
-@ComponentScan({"com.elminster.spring.security", "com.elminster.grs"})
-@EnableJpaRepositories({"com.elminster.spring.security", "com.elminster.grs"})
-@EntityScan({"com.elminster.spring.security", "com.elminster.grs"})
+@ComponentScan({ "com.elminster.spring.security", "com.elminster.grs" })
+@EnableJpaRepositories({ "com.elminster.spring.security", "com.elminster.grs" })
+@EntityScan({ "com.elminster.spring.security", "com.elminster.grs" })
 @EnableTransactionManagement
 public class GSRBackendApplication {
-  
+
+  /**
+   * The calls that work on no permission.
+   */
+  //@formatter:off
+  private static final String[] NO_PERMISSION_CALLS = {
+    "/v1.0/user/login",
+    "/v1.0/user/register",
+    "/v1.0/user/usernameOccupied/*",
+    "/v1.0/user/test"
+  };
+  // @formatter:on
+
   /**
    * The main.
    * 
@@ -62,23 +74,22 @@ public class GSRBackendApplication {
     @Autowired
     private Http401UnauthorizedEntryPoint http401UnauthorizedEntryPoint;
     private UserDetailsService userDetailService = new UserDetailsServiceImpl();
-    
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       // @formatter:off
       http.csrf().disable();
-      http.addFilterAfter(new CsrfTokenFilter(), CsrfFilter.class);
+      //http.addFilterAfter(new CsrfTokenFilter(), CsrfFilter.class);
+      http.addFilterBefore(new SimpleCORSFilter(), CsrfFilter.class);
       http.addFilterBefore(statelessAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
       http.exceptionHandling().authenticationEntryPoint(http401UnauthorizedEntryPoint);
-      http
-        .authorizeRequests()
-        .antMatchers("/v1/**", "/user/login", "/user/register", "/user/testUsername").permitAll()
+      http.authorizeRequests()
+        .antMatchers(NO_PERMISSION_CALLS).permitAll()
         .anyRequest().authenticated();
       // @formatter:on
     }
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
       auth.userDetailsService(userDetailService);

@@ -9,20 +9,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.elminster.grs.web.helper.BindingResultHelper;
-import com.elminster.grs.web.helper.JsonResponseBuilder;
-import com.elminster.grs.web.response.JsonResponse;
+import com.elminster.web.commons.response.JsonResponse;
+import com.elminster.web.commons.response.JsonResponseBuilder;
 
 public class BaseController {
 
   protected static final Log logger = LogFactory.getLog(BaseController.class);
+  protected static JsonResponseBuilder jsonResponseBuilder = JsonResponseBuilder.INSTANCE;
 
   // handle validate exception
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseBody
   public ResponseEntity<JsonResponse> handleValidateException(MethodArgumentNotValidException exception) {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Validate failed. Details: " + exception.getLocalizedMessage());
-    }
+    logger.error("Validate failed. Details: " + exception.getLocalizedMessage());
     return new ResponseEntity<JsonResponse>(BindingResultHelper.INSTANCE.buildErrorJsonResponse(exception
         .getBindingResult()), HttpStatus.BAD_REQUEST);
   }
@@ -31,10 +30,8 @@ public class BaseController {
   @ExceptionHandler(Exception.class)
   @ResponseBody
   public ResponseEntity<JsonResponse> handleUncaughtException(Exception exception) {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Internet server error. Details: " + exception.getLocalizedMessage());
-    }
-    return new ResponseEntity<JsonResponse>(JsonResponseBuilder.INSTANCE.buildErrorJsonResponse(exception),
+    logger.error("Internet server error. Details: " + exception.getLocalizedMessage());
+    return new ResponseEntity<JsonResponse>(jsonResponseBuilder.buildErrorJsonResponse(exception),
         HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
