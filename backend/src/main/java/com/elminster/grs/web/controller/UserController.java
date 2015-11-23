@@ -20,13 +20,10 @@ import com.elminster.grs.web.constants.Authorities;
 import com.elminster.grs.web.request.vo.LoginJsonModel;
 import com.elminster.grs.web.request.vo.RegisterJsonModel;
 import com.elminster.grs.web.response.JsonResponseTemplate;
-import com.elminster.grs.web.response.vo.BasicUserInfo;
-import com.elminster.grs.web.service.AuthenticationService;
 import com.elminster.grs.web.service.LoginException;
 import com.elminster.grs.web.service.RegisterException;
 import com.elminster.grs.web.service.ServiceErrorCode;
 import com.elminster.grs.web.service.UserService;
-import com.elminster.grs.web.service.UserServiceException;
 import com.elminster.spring.security.domain.User;
 import com.elminster.spring.security.model.UserDetailsImpl;
 import com.elminster.spring.security.service.TokenAuthenticationService;
@@ -46,8 +43,6 @@ public class UserController extends BaseController {
   @Autowired
   private TokenAuthenticationService tokenAuthenticationService;
   @Autowired
-  private AuthenticationService authenticationService;
-  @Autowired
   private UserService userService;
 
   @RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -61,6 +56,7 @@ public class UserController extends BaseController {
    */
   @RequestMapping(method = RequestMethod.GET)
   public @ResponseBody JsonResponse getAllUsers(HttpServletRequest request, HttpServletResponse response) {
+    // TODO
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     UserDetailsImpl ud = (UserDetailsImpl) auth.getDetails();
     // the user
@@ -76,18 +72,11 @@ public class UserController extends BaseController {
    */
   @RequestMapping(value = "/current", method = RequestMethod.GET)
   public @ResponseBody JsonResponse getCurrentUser() throws IOException, Exception {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    UserDetailsImpl ud = (UserDetailsImpl) auth.getDetails();
-    User currentUser = ud.getUser();
-    final int userId = currentUser.getId();
-    JsonResponse jsonResponse = new JsonResponseTemplate() {
-      protected Object callback() throws Exception {
-        return userService.getBasicUserInfo(userId);
-      }
-    }.getJsonResponse();
-    return jsonResponse;
+    User currentUser = getCurrentAuthUser();
+    int userId = currentUser.getId();
+    return getUserById(userId);
   }
-
+  
   @RequestMapping(value = "/current", method = RequestMethod.PUT)
   public @ResponseBody JsonResponse updateCurrentUser() {
     // TODO
@@ -101,9 +90,8 @@ public class UserController extends BaseController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public @ResponseBody JsonResponse getUser() {
-    // TODO
-    return null;
+  public @ResponseBody JsonResponse getUser(@PathVariable int id) throws IOException, Exception {
+    return getUserById(id);
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -127,7 +115,7 @@ public class UserController extends BaseController {
     login.setIpComeFrom(IpFinder.getRequestIpAddress(request));
     JsonResponse jsonResponse = null;
     try {
-      Authentication authentication = authenticationService.login(login);
+      Authentication authentication = userService.login(login);
       // add authentication token into response's header
       tokenAuthenticationService.addAuthentication2Header(response, authentication);
       response.setStatus(HttpServletResponse.SC_ACCEPTED);
@@ -148,7 +136,7 @@ public class UserController extends BaseController {
     model.setIpComeFrom(IpFinder.getRequestIpAddress(request));
     JsonResponse jsonResponse = null;
     try {
-      Authentication authentication = authenticationService.register(model);
+      Authentication authentication = userService.register(model);
       // add authentication token into response's header
       tokenAuthenticationService.addAuthentication2Header(response, authentication);
       response.setStatus(HttpServletResponse.SC_CREATED);
@@ -165,7 +153,7 @@ public class UserController extends BaseController {
    */
   @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
   public JsonResponse checkUsernameOccupied(@PathVariable String username) throws IOException, Exception {
-    boolean occupied = authenticationService.isUsernameOccupied(username);
+    boolean occupied = userService.isUsernameOccupied(username);
     JsonResponse jsonResponse = jsonResponseBuilder.buildJsonResponse();
     jsonResponse.setData(occupied);
     if (occupied) {
@@ -173,6 +161,16 @@ public class UserController extends BaseController {
       jsonResponseBuilder.generateResponseError(ServiceErrorCode.REGISTER_USERNAME_OCCUPIED.getCode(),
           "Username already exist.");
     }
+    return jsonResponse;
+  }
+  
+  // =================================================================================================
+  private JsonResponse getUserById(final int userId) throws IOException, Exception {
+    JsonResponse jsonResponse = new JsonResponseTemplate() {
+      protected Object callback() throws Exception {
+        return userService.getBasicUserInfo(userId);
+      }
+    }.getJsonResponse();
     return jsonResponse;
   }
 }

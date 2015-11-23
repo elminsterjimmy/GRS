@@ -1,5 +1,6 @@
 package com.elminster.grs.web.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,10 +23,16 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "users_ex")
-public class UserEx {
+public class UserEx implements Serializable {
+
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 7667917771172375256L;
 
   @Id
-  private Integer id;
+  @Column
+  private Integer userId;
   
   @Column(nullable=false, length=1024)
   private String avatarUrl;
@@ -41,22 +48,23 @@ public class UserEx {
   @Column(nullable=false)
   private Integer points = 0;
   
-  @ManyToOne()
+  @ManyToOne
   @JoinColumn(name="livedLocation")
   private Location livedLocation;
   
+
   /**
-   * @return the id
+   * @return the userId
    */
-  public int getId() {
-    return id;
+  public Integer getUserId() {
+    return userId;
   }
 
   /**
-   * @param id the id to set
+   * @param userId the userId to set
    */
-  public void setId(int id) {
-    this.id = id;
+  public void setUserId(Integer userId) {
+    this.userId = userId;
   }
 
   /**
@@ -113,13 +121,6 @@ public class UserEx {
    */
   public void setGender(Gender gender) {
     this.gender = gender;
-  }
-
-  /**
-   * @param id the id to set
-   */
-  public void setId(Integer id) {
-    this.id = id;
   }
 
   /**

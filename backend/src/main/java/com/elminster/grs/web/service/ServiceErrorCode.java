@@ -10,4 +10,5 @@ final public class ServiceErrorCode {
   public static final ErrorCode REGISTER_USERNAME_OCCUPIED = new ErrorCode("RE001", "REGISTER_USERNAME_OCCUPIED");
   public static final ErrorCode USER_NOT_FOUND = new ErrorCode("US001", "USER_NOT_FOUND");
   public static final ErrorCode USER_IN_ILLEGAL_STATUS = new ErrorCode("US002", "USER_IN_ILLEGAL_STATUS");
+  public static final ErrorCode UPDATE_USER_GAME_INFO_EXCEPTION = new ErrorCode("UD001", "UPDATE_USER_GAME_INFO_EXCEPTION");
 }
