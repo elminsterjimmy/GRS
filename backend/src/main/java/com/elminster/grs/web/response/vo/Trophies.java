@@ -2,10 +2,23 @@ package com.elminster.grs.web.response.vo;
 
 public class Trophies {
 
+  private int platinum;
   private int gold;
   private int silver;
   private int brozen;
   
+  /**
+   * @return the platinum
+   */
+  public int getPlatinum() {
+    return platinum;
+  }
+  /**
+   * @param platinum the platinum to set
+   */
+  public void setPlatinum(int platinum) {
+    this.platinum = platinum;
+  }
   /**
    * @return the gold
    */

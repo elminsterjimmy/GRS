@@ -2,13 +2,10 @@ package com.elminster.grs.web.dxo.helper;
 
 import com.elminster.common.util.Assert;
 import com.elminster.grs.web.domain.Game;
-import com.elminster.grs.web.domain.TrophyAndAchievement;
 import com.elminster.grs.web.domain.UserGame;
 import com.elminster.grs.web.domain.UserGameMeta;
-import com.elminster.grs.web.domain.UserTrophyAndAchievement;
 import com.elminster.retrieve.data.user.PSNUserGame;
 import com.elminster.retrieve.data.user.PSNUserProfile;
-import com.elminster.retrieve.data.user.PSNUserTrophy;
 
 final public class UserGameDxoHelper {
 
@@ -33,7 +30,6 @@ final public class UserGameDxoHelper {
     game.setSilverCount(psnUserGame.getSilverCount());
     game.setBronzeCount(psnUserGame.getBronzeCount());
     game.setTitle(psnUserGame.getTitle());
-    game.setTotalPoint(psnUserGame.getTotalPoint());
     game.setImageUrl(psnUserGame.getImageUrl());
     return game;
   }

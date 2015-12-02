@@ -32,7 +32,7 @@ public abstract class JsonResponseTemplate {
     } catch (Exception e) {
       if (e instanceof ServiceException) {
         ServiceException se = (ServiceException) e;
-        String errorMessage = new StringBuilder().append(se.getExceptionCode()).append(StringConstants.SPACE)
+        String errorMessage = new StringBuilder().append(se.getErrorCode()).append(StringConstants.SPACE)
             .append(se.getMessage()).toString();
         logger.error(errorMessage);
         response = jsonResponseBuilder.buildErrorJsonResponse(se);

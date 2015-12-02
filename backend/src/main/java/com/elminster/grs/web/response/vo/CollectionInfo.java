@@ -12,6 +12,8 @@ public class CollectionInfo {
   
   private Trophies trophies;
   
+  private Achievements achievements;
+  
   private int progress;
   
   private boolean favorite;
@@ -86,6 +88,20 @@ public class CollectionInfo {
    */
   public void setTrophies(Trophies trophies) {
     this.trophies = trophies;
+  }
+
+  /**
+   * @return the achievements
+   */
+  public Achievements getAchievements() {
+    return achievements;
+  }
+
+  /**
+   * @param achievements the achievements to set
+   */
+  public void setAchievements(Achievements achievements) {
+    this.achievements = achievements;
   }
 
   /**

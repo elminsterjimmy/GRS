@@ -28,13 +28,21 @@ import com.elminster.grs.web.handler.UserInformationUpdater;
 import com.elminster.retrieve.data.user.PSNUserGame;
 import com.elminster.retrieve.data.user.PSNUserProfile;
 import com.elminster.retrieve.data.user.PSNUserTrophy;
+import com.elminster.retrieve.exception.ServiceException;
 import com.elminster.retrieve.service.IPSNApi;
 import com.elminster.retrieve.service.PSNApiImpl;
 
+/**
+ * PSN Game information updater updates the PSN profile and game list for certain user if the user's psn id is not
+ * empty.
+ * 
+ * @author jgu
+ * @version 1.0
+ */
 @Service("PsnGameInformationUpdater")
 @Transactional
 public class PsnGameInformationUpdater implements UserInformationUpdater {
-  
+
   @Autowired
   private UserGameMetaDao userGameMetaDao;
   @Autowired
@@ -50,27 +58,39 @@ public class PsnGameInformationUpdater implements UserInformationUpdater {
   /** the psn api. */
   private IPSNApi psnApi = new PSNApiImpl();
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void updateUserInform(int userId) throws UserInformationUpdateException {
     UserGameMeta userGameMeta = userGameMetaDao.findOne(userId);
     if (null != userGameMeta) {
       String psnId = userGameMeta.getPsnId();
       if (null != psnId) {
+        PSNUserProfile psnUserProfile;
+        List<PSNUserGame> psnUserGames;
         try {
-          PSNUserProfile psnUserProfile = psnApi.getPSNUserProfile(psnId);
-          // fill all psn profiles
+          psnUserProfile = psnApi.getPSNUserProfile(psnId);
+        } catch (ServiceException se) {
+          throw new UserInformationUpdateException(HandlerErrorCode.RETRIEVE_PSN_PROFILE_EXCEPTION, se);
+        }
+        try {
+          psnUserGames = psnApi.getPSNUserGameList(psnId);
+        } catch (ServiceException se) {
+          throw new UserInformationUpdateException(HandlerErrorCode.RETRIEVE_PSN_GAME_LIST_EXCEPTION, se);
+        }
+        try {
           UserGameDxoHelper.fillUserGameMeta(userGameMeta, psnUserProfile);
-          List<PSNUserGame> psnUserGames = psnApi.getPSNUserGameList(psnId);
           if (null != psnUserGames) {
             List<UserGame> userGames = fillPsnUserGames(userGameMeta, psnUserGames);
             for (UserGame userGame : userGames) {
-              List<PSNUserTrophy> psnUserTrophies = psnApi.getPSNUserGameTrophies(psnId, userGame.getGame().getGameInternalId());
+              List<PSNUserTrophy> psnUserTrophies = psnApi.getPSNUserGameTrophies(psnId, userGame.getGame()
+                  .getGameInternalId());
               fillPsnUserTrophies(userGame, psnUserTrophies);
             }
           }
         } catch (Exception e) {
-          // TODO
-//          throw new UserInformationUpdateException(e);
+          throw new UserInformationUpdateException(HandlerErrorCode.UPDATE_PSN_INFORMATION_EXCEPTION, e);
         }
       }
     }
@@ -102,7 +122,7 @@ public class PsnGameInformationUpdater implements UserInformationUpdater {
       }
     }
   }
-  
+
   public void fillTrophy(UserTrophyAndAchievement utna, PSNUserTrophy psnUserTrophy, int order) {
     TrophyAndAchievement tna = utna.getTrophyAndAchieve();
     if (null == tna) {
@@ -155,12 +175,7 @@ public class PsnGameInformationUpdater implements UserInformationUpdater {
           List<com.elminster.retrieve.data.game.Platform> pgPl = psnUserGame.getPlatform();
           List<Platform> plts = new ArrayList<Platform>(pgPl.size());
           for (com.elminster.retrieve.data.game.Platform p : pgPl) {
-            Platform plt = platformDao.findByPlatform(p.getName());
-            if (null == plt) {
-              plt = new Platform();
-              plt.setPlatform(p.getName());
-            }
-            plts.add(plt);
+            plts.add(getUpdatePlatform(p.getName()));
           }
           game.setPlatform(plts);
           userGame.setGame(game);
@@ -169,6 +184,23 @@ public class PsnGameInformationUpdater implements UserInformationUpdater {
           game = userGame.getGame();
           UserGameDxoHelper.fillUserGame(userGame, psnUserGame);
           UserGameDxoHelper.fillGame(game, psnUserGame);
+          // update platform if it is multi-platform
+          List<Platform> plts = game.getPlatform();
+          List<com.elminster.retrieve.data.game.Platform> pgPl = psnUserGame.getPlatform();
+          for (com.elminster.retrieve.data.game.Platform p : pgPl) {
+            boolean found = false;
+            for (Platform plt : plts) {
+              if (plt.getPlatform().equals(p.getName())) {
+                found = true;
+                break;
+              }
+            }
+            if (!found) {
+              // merge with exist platform
+              plts.add(getUpdatePlatform(p.getName()));
+            }
+          }
+          game.setPlatform(plts);
         }
         userGames.add(userGame);
       }
@@ -176,5 +208,14 @@ public class PsnGameInformationUpdater implements UserInformationUpdater {
       userGameDao.save(userGames);
     }
     return userGames;
+  }
+
+  private Platform getUpdatePlatform(String platform) {
+    Platform plt = platformDao.findByPlatform(platform);
+    if (null == plt) {
+      plt = new Platform();
+      plt.setPlatform(platform);
+    }
+    return plt;
   }
 }

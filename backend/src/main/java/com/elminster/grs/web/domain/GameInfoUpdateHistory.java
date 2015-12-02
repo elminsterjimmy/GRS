@@ -26,7 +26,7 @@ public class GameInfoUpdateHistory {
      @Parameter(name="value_column_name", value="next"), 
      @Parameter(name="segment_column_name",value="segment_name"), 
      @Parameter(name="segment_value", value="update_history_seq"),
-     @Parameter(name="increment_size", value="10"), 
+     @Parameter(name="increment_size", value="10"),
      @Parameter(name="optimizer", value="pooled-lo") 
    })
   // @formatter:on
@@ -36,9 +36,15 @@ public class GameInfoUpdateHistory {
   private int userId;
   
   @Column
+  private int status;
+  
+  @Column(length=8)
+  private String errorCode;
+  
+  @Column
   @Temporal(TemporalType.TIMESTAMP)
   private Date lastUpdate;
-
+  
   /**
    * @return the id
    */
@@ -66,6 +72,20 @@ public class GameInfoUpdateHistory {
   public void setUserId(int userId) {
     this.userId = userId;
   }
+  
+  /**
+   * @return the status
+   */
+  public int getStatus() {
+    return status;
+  }
+
+  /**
+   * @param status the status to set
+   */
+  public void setStatus(int status) {
+    this.status = status;
+  }
 
   /**
    * @return the lastUpdate
@@ -79,5 +99,19 @@ public class GameInfoUpdateHistory {
    */
   public void setLastUpdate(Date lastUpdate) {
     this.lastUpdate = lastUpdate;
+  }
+
+  /**
+   * @return the errorCode
+   */
+  public String getErrorCode() {
+    return errorCode;
+  }
+
+  /**
+   * @param errorCode the errorCode to set
+   */
+  public void setErrorCode(String errorCode) {
+    this.errorCode = errorCode;
   }
 }

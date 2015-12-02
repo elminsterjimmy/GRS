@@ -37,7 +37,7 @@ public class Game {
    // @formatter:on
   private int id;
   @Column(nullable = false, length=255)
-  private String gameInternalId;
+  private String internalId;
   @Column(nullable = false, length=1024)
   private String title;
   @Column(nullable = false, length=4)
@@ -198,12 +198,12 @@ public class Game {
    * @param gameInternalId the gameInternalId to set
    */
   public void setGameInternalId(String gameInternalId) {
-    this.gameInternalId = gameInternalId;
+    this.internalId = gameInternalId;
   }
   /**
    * @return the gameInternalId
    */
   public String getGameInternalId() {
-    return gameInternalId;
+    return internalId;
   }
 }
