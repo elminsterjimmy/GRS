@@ -2,6 +2,8 @@ package com.elminster.grs.web.service.impl;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ import com.elminster.spring.security.service.AuthUserService;
 import com.elminster.spring.security.service.TokenAuthenticationService;
 
 /**
- * The user service implememntaion.
+ * The user service implementation.
  * 
  * @author jgu
  * @version 1.0
@@ -69,6 +71,9 @@ public class UserServiceImpl implements UserService {
     return basicUserInof;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public Authentication login(LoginJsonModel login) throws ServiceException {
     String username = login.getUsername();
@@ -115,12 +120,19 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public boolean isUsernameOccupied(String username) throws ServiceException {
     return authUserService.isUsernameExists(username);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
+  @Transactional
   public Authentication register(RegisterJsonModel model) throws ServiceException {
     String username = model.getUsername();
     String password = model.getPassword();
@@ -165,6 +177,45 @@ public class UserServiceImpl implements UserService {
       }
       throw new ServiceException(ServiceErrorCode.UNEXCEPTED_EXCEPTION, message, e);
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void getExtraUserInfo(int userId) throws UserServiceException {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @Transactional
+  public void updateBasicUserInfo(BasicUserInfo basicUserInfo) throws UserServiceException {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @Transactional
+  public void updateExtraUserInfo() throws UserServiceException {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  @Transactional
+  public void deleteUser(int userId) throws UserServiceException {
+    // TODO Auto-generated method stub
+    
   }
 
 }

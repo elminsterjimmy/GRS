@@ -6,14 +6,71 @@ import com.elminster.grs.web.request.vo.LoginJsonModel;
 import com.elminster.grs.web.request.vo.RegisterJsonModel;
 import com.elminster.grs.web.response.vo.BasicUserInfo;
 
+/**
+ * The user service.
+ * 
+ * @author jgu
+ * @version 1.0
+ */
 public interface UserService {
 
+  /**
+   * Get user's basic information.
+   * @param userId the user id
+   * @return user's basic information
+   * @throws UserServiceException on error
+   */
   public BasicUserInfo getBasicUserInfo(int userId) throws UserServiceException;
+  
+  /**
+   * Get user's extra information.
+   * @param userId the user id
+   * @return user's extra information
+   * @throws UserServiceException on error
+   */
+  public void getExtraUserInfo(int userId) throws UserServiceException;
 
+  /**
+   * User login.
+   * @param login login model
+   * @return login authentication
+   * @throws ServiceException on error
+   */
   public Authentication login(LoginJsonModel login) throws ServiceException;
 
+  /**
+   * Check whether the username is occupied.
+   * @return username the username to check
+   * @throws ServiceException on error
+   */
   public boolean isUsernameOccupied(String username) throws ServiceException;
 
+  /**
+   * User register.
+   * @param model the register model
+   * @return login authentication
+   * @throws ServiceException on error
+   */
   public Authentication register(RegisterJsonModel model) throws ServiceException;
   
+  /**
+   * Update user's basic information.
+   * @param basicUserInfo the user's basic information
+   * @throws UserServiceException on error
+   */
+  public void updateBasicUserInfo(BasicUserInfo basicUserInfo) throws UserServiceException;
+  
+  /**
+   * Update user's extra information.
+   * @param basicUserInfo the user's extra information
+   * @throws UserServiceException on error
+   */
+  public void updateExtraUserInfo() throws UserServiceException;
+  
+  /**
+   * Delete a user.
+   * @param userId the user id
+   * @throws UserServiceException on error
+   */
+  public void deleteUser(int userId) throws UserServiceException;
 }

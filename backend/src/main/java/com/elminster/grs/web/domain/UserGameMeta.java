@@ -6,9 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
+ * The user game meta entity.
  * 
  * @author jgu
- *
+ * @version 1.0
  */
 @Entity
 @Table(name = "users_game_meta")

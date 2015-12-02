@@ -48,6 +48,7 @@ public class GameInfoUpdateServiceImpl implements GameInfoUpdateService {
    * {@inheritDoc}
    */
   @Override
+  @Transactional
   public void updateUserGame(int userId) throws ServiceException {
     // first get the update history
     GameInfoUpdateHistory updateHistory = updateHistoryDao.findByUserId(userId);

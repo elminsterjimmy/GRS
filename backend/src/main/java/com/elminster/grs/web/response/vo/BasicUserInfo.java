@@ -1,6 +1,6 @@
 package com.elminster.grs.web.response.vo;
 
-import com.elminster.grs.web.domain.Gender;
+import com.elminster.grs.web.domain.UserEx.Gender;
 
 public class BasicUserInfo {
 

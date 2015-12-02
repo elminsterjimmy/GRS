@@ -51,7 +51,6 @@ public class UserEx implements Serializable {
   @ManyToOne
   @JoinColumn(name="livedLocation")
   private Location livedLocation;
-  
 
   /**
    * @return the userId
@@ -142,5 +141,11 @@ public class UserEx implements Serializable {
    */
   public void setLivedLocation(Location livedLocation) {
     this.livedLocation = livedLocation;
+  }
+  
+  public static enum Gender {
+    UNKNOWN,
+    MALE,
+    FEMALE
   }
 }
