@@ -24,3 +24,5 @@ insert into sequence_id_gen values ('user_seq', 4);
 insert into users_ex (id, avatar_url, birthday, gender, points, lived_location) values (1, 'images/a0.png', null, 0, 0, null);
 insert into users_ex (id, avatar_url, birthday, gender, points, lived_location) values (2, 'images/a0.png', null, 0, 0, null);
 insert into users_ex (id, avatar_url, birthday, gender, points, lived_location) values (3, 'images/a0.png', null, 0, 0, null);
+-- user game meta
+insert into users_game_meta(user_id, live_id, psn_id) values (1, 'Stallion83', 'truebeibeiking')

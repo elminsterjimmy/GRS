@@ -94,6 +94,16 @@
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
+      <groupId>com.elminster</groupId>
+      <artifactId>com.elminster.grs.shared.db</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.elminster</groupId>
+      <artifactId>com.elminster.grs.crawler</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>9.4-1203-jdbc41</version>
@@ -108,18 +118,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-    </dependency>
-
-
-    <dependency>
-      <groupId>com.elminster</groupId>
-      <artifactId>psn-api</artifactId>
-      <version>0.0.2-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.elminster</groupId>
-      <artifactId>xbox-api</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
