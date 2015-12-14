@@ -14,7 +14,7 @@ public class GiantBombGameResponse {
   int number_of_page_results;
   int number_of_total_results;
   int status_code;
-  List<SingleGame> results;
+  List<GiantBombGame> results;
   /**
    * @return the error
    */
@@ -90,7 +90,7 @@ public class GiantBombGameResponse {
   /**
    * @return the results
    */
-  public List<SingleGame> getResults() {
+  public List<GiantBombGame> getResults() {
     return results;
   }
   /**
@@ -98,7 +98,7 @@ public class GiantBombGameResponse {
    */
   @XmlElementWrapper(name="results")
   @XmlElement(name="game")
-  public void setResults(List<SingleGame> results) {
+  public void setResults(List<GiantBombGame> results) {
     this.results = results;
   }
 }

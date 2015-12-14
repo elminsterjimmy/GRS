@@ -4,10 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import com.elminster.grs.giantbomb.ds.SingleTheme;
+import com.elminster.grs.giantbomb.ds.GiantBombTheme;
 
 @Repository
-public interface GiantBombThemeDao extends JpaRepository<SingleTheme, Integer>, JpaSpecificationExecutor<SingleTheme> {
+public interface GiantBombThemeDao extends JpaRepository<GiantBombTheme, Integer>, JpaSpecificationExecutor<GiantBombTheme> {
 
-  public SingleTheme findByGamebombId(int gbId);
+  public GiantBombTheme findByGamebombId(int gbId);
 }

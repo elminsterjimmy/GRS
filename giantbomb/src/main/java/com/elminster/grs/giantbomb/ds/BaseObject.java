@@ -31,7 +31,7 @@ abstract public class BaseObject {
   String description;
   @OneToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
   @JoinColumn(name="image_id")
-  SingleImage image;
+  GiantBombImage image;
   
   /**
    * @return the date_added
@@ -97,13 +97,13 @@ abstract public class BaseObject {
   /**
    * @return the image
    */
-  public SingleImage getImage() {
+  public GiantBombImage getImage() {
     return image;
   }
   /**
    * @param image the image to set
    */
-  public void setImage(SingleImage image) {
+  public void setImage(GiantBombImage image) {
     this.image = image;
   }
   /**

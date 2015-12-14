@@ -4,11 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import com.elminster.grs.giantbomb.ds.SinglePlatform;
+import com.elminster.grs.giantbomb.ds.GiantBombPlatform;
 
 @Repository
-public interface GiantBombPlatformDao extends JpaRepository<SinglePlatform, Integer>, JpaSpecificationExecutor<SinglePlatform> {
+public interface GiantBombPlatformDao extends JpaRepository<GiantBombPlatform, Integer>, JpaSpecificationExecutor<GiantBombPlatform> {
 
-  public SinglePlatform findByGamebombId(int gbId);
+  public GiantBombPlatform findByGamebombId(int gbId);
 
 }

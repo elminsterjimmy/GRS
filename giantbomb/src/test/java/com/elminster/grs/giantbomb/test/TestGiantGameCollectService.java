@@ -15,9 +15,10 @@ public class TestGiantGameCollectService {
 
   @Autowired
   GiantGameCollectService service;
-  
+
   @Test
   public void testGiantGameCollectService() {
     service.collectGameInfo();
   }
+
 }

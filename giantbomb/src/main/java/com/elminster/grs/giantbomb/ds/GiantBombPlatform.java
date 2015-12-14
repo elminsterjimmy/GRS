@@ -43,7 +43,7 @@ site_detail_url URL pointing to the platform on Giant Bomb.
 
 @Entity
 @Table(name="gaintbomb_platform")
-public class SinglePlatform extends BaseObject {
+public class GiantBombPlatform extends BaseObject {
   
   //@formatter:off
   @Id
@@ -55,7 +55,7 @@ public class SinglePlatform extends BaseObject {
      @Parameter(name="value_column_name", value="next"), 
      @Parameter(name="segment_column_name",value="seq_name"), 
      @Parameter(name="segment_value", value="platform_seq"),
-     @Parameter(name="increment_size", value="10"), 
+     @Parameter(name="increment_size", value="1"), 
      @Parameter(name="optimizer", value="pooled-lo") 
    })
   // @formatter:on
@@ -64,7 +64,7 @@ public class SinglePlatform extends BaseObject {
   String abbreviation;
   @OneToOne
   @JoinColumn(name="company_id")
-  SingleCompany company;
+  GiantBombCompany company;
   @Column
   boolean online_support;
   @Column
@@ -99,13 +99,13 @@ public class SinglePlatform extends BaseObject {
   /**
    * @return the company
    */
-  public SingleCompany getCompany() {
+  public GiantBombCompany getCompany() {
     return company;
   }
   /**
    * @param company the company to set
    */
-  public void setCompany(SingleCompany company) {
+  public void setCompany(GiantBombCompany company) {
     this.company = company;
   }
   /**

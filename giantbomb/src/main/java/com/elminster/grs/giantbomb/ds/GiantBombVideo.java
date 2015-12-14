@@ -43,7 +43,7 @@ youtube_id  Youtube ID for the video.
  */
 @Entity
 @Table(name="gaintbomb_video")
-public class SingleVideo {
+public class GiantBombVideo {
 
   //@formatter:off
   @Id
@@ -55,7 +55,7 @@ public class SingleVideo {
      @Parameter(name="value_column_name", value="next"), 
      @Parameter(name="segment_column_name",value="seq_name"), 
      @Parameter(name="segment_value", value="video_seq"),
-     @Parameter(name="increment_size", value="10"), 
+     @Parameter(name="increment_size", value="1"), 
      @Parameter(name="optimizer", value="pooled-lo") 
    })
   // @formatter:on

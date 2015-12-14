@@ -20,7 +20,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name="gaintbomb_game")
-public class SingleGame extends BaseObject {
+public class GiantBombGame extends BaseObject {
   
   //@formatter:off
   @Id
@@ -32,7 +32,7 @@ public class SingleGame extends BaseObject {
      @Parameter(name="value_column_name", value="next"), 
      @Parameter(name="segment_column_name",value="seq_name"), 
      @Parameter(name="segment_value", value="game_seq"),
-     @Parameter(name="increment_size", value="10"), 
+     @Parameter(name="increment_size", value="1"), 
      @Parameter(name="optimizer", value="pooled-lo") 
    })
   // @formatter:on
@@ -46,49 +46,49 @@ public class SingleGame extends BaseObject {
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
       inverseJoinColumns = { @JoinColumn(name = "platform_id", referencedColumnName = "id")     
   })
-  Set<SinglePlatform> platforms;
+  Set<GiantBombPlatform> platforms;
   
   @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
   @JoinTable(name = "gaintbomb_game_extra_image",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
       inverseJoinColumns = { @JoinColumn(name = "image_id", referencedColumnName = "id")     
   })
-  Set<SingleImage> images;
+  Set<GiantBombImage> images;
   
   @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
   @JoinTable(name = "gaintbomb_game_video",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
       inverseJoinColumns = { @JoinColumn(name = "video_id", referencedColumnName = "id")     
   })
-  Set<SingleVideo> videos;
+  Set<GiantBombVideo> videos;
   
   @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
   @JoinTable(name = "gaintbomb_game_developer",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
       inverseJoinColumns = { @JoinColumn(name = "developer_id", referencedColumnName = "id")     
   })
-  Set<SingleCompany> developers;
+  Set<GiantBombCompany> developers;
   
   @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
   @JoinTable(name = "gaintbomb_game_developer",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
       inverseJoinColumns = { @JoinColumn(name = "developer_id", referencedColumnName = "id")     
   })
-  Set<SingleGenre> genres;
+  Set<GiantBombGenre> genres;
   
   @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
   @JoinTable(name = "gaintbomb_game_publisher",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
       inverseJoinColumns = { @JoinColumn(name = "publisher_id", referencedColumnName = "id")     
   })
-  Set<SingleCompany> publishers;
+  Set<GiantBombCompany> publishers;
   
   @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
   @JoinTable(name = "gaintbomb_game_theme",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
       inverseJoinColumns = { @JoinColumn(name = "theme_id", referencedColumnName = "id")     
   })
-  Set<SingleTheme> themes;
+  Set<GiantBombTheme> themes;
 
   /**
    * @return the internalId
@@ -121,7 +121,7 @@ public class SingleGame extends BaseObject {
   /**
    * @return the platforms
    */
-  public Set<SinglePlatform> getPlatforms() {
+  public Set<GiantBombPlatform> getPlatforms() {
     return platforms;
   }
 
@@ -130,91 +130,91 @@ public class SingleGame extends BaseObject {
    */
   @XmlElementWrapper(name="platforms")
   @XmlElement(name = "platform")
-  public void setPlatforms(Set<SinglePlatform> platforms) {
+  public void setPlatforms(Set<GiantBombPlatform> platforms) {
     this.platforms = platforms;
   }
 
   /**
    * @return the images
    */
-  public Set<SingleImage> getImages() {
+  public Set<GiantBombImage> getImages() {
     return images;
   }
 
   /**
    * @param images the images to set
    */
-  public void setImages(Set<SingleImage> images) {
+  public void setImages(Set<GiantBombImage> images) {
     this.images = images;
   }
 
   /**
    * @return the videos
    */
-  public Set<SingleVideo> getVideos() {
+  public Set<GiantBombVideo> getVideos() {
     return videos;
   }
 
   /**
    * @param videos the videos to set
    */
-  public void setVideos(Set<SingleVideo> videos) {
+  public void setVideos(Set<GiantBombVideo> videos) {
     this.videos = videos;
   }
 
   /**
    * @return the developers
    */
-  public Set<SingleCompany> getDevelopers() {
+  public Set<GiantBombCompany> getDevelopers() {
     return developers;
   }
 
   /**
    * @param developers the developers to set
    */
-  public void setDevelopers(Set<SingleCompany> developers) {
+  public void setDevelopers(Set<GiantBombCompany> developers) {
     this.developers = developers;
   }
 
   /**
    * @return the genres
    */
-  public Set<SingleGenre> getGenres() {
+  public Set<GiantBombGenre> getGenres() {
     return genres;
   }
 
   /**
    * @param genres the genres to set
    */
-  public void setGenres(Set<SingleGenre> genres) {
+  public void setGenres(Set<GiantBombGenre> genres) {
     this.genres = genres;
   }
 
   /**
    * @return the publishers
    */
-  public Set<SingleCompany> getPublishers() {
+  public Set<GiantBombCompany> getPublishers() {
     return publishers;
   }
 
   /**
    * @param publishers the publishers to set
    */
-  public void setPublishers(Set<SingleCompany> publishers) {
+  public void setPublishers(Set<GiantBombCompany> publishers) {
     this.publishers = publishers;
   }
 
   /**
    * @return the themes
    */
-  public Set<SingleTheme> getThemes() {
+  public Set<GiantBombTheme> getThemes() {
     return themes;
   }
 
   /**
    * @param themes the themes to set
    */
-  public void setThemes(Set<SingleTheme> themes) {
+  public void setThemes(Set<GiantBombTheme> themes) {
     this.themes = themes;
   }
 }

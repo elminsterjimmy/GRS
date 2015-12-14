@@ -50,7 +50,7 @@ website URL to the company website.
  */
 @Entity
 @Table(name="gaintbomb_company")
-public class SingleCompany extends BaseObject {
+public class GiantBombCompany extends BaseObject {
   
   //@formatter:off
   @Id
@@ -62,7 +62,7 @@ public class SingleCompany extends BaseObject {
      @Parameter(name="value_column_name", value="next"), 
      @Parameter(name="segment_column_name",value="seq_name"), 
      @Parameter(name="segment_value", value="compan_seq"),
-     @Parameter(name="increment_size", value="10"), 
+     @Parameter(name="increment_size", value="1"), 
      @Parameter(name="optimizer", value="pooled-lo") 
    })
   // @formatter:on

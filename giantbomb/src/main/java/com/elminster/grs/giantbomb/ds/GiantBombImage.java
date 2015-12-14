@@ -11,7 +11,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name="gaintbomb_image")
-public class SingleImage {
+public class GiantBombImage {
 
   //@formatter:off
   @Id
@@ -23,7 +23,7 @@ public class SingleImage {
      @Parameter(name="value_column_name", value="next"), 
      @Parameter(name="segment_column_name",value="seq_name"), 
      @Parameter(name="segment_value", value="image_seq"),
-     @Parameter(name="increment_size", value="10"), 
+     @Parameter(name="increment_size", value="1"), 
      @Parameter(name="optimizer", value="pooled-lo") 
    })
   // @formatter:on

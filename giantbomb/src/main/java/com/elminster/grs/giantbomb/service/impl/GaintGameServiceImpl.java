@@ -16,12 +16,12 @@ import com.elminster.grs.giantbomb.dao.GiantBombImageDao;
 import com.elminster.grs.giantbomb.dao.GiantBombPlatformDao;
 import com.elminster.grs.giantbomb.dao.GiantBombThemeDao;
 import com.elminster.grs.giantbomb.dao.GiantBombVideoDao;
-import com.elminster.grs.giantbomb.ds.SingleCompany;
-import com.elminster.grs.giantbomb.ds.SingleGame;
-import com.elminster.grs.giantbomb.ds.SingleGenre;
-import com.elminster.grs.giantbomb.ds.SinglePlatform;
-import com.elminster.grs.giantbomb.ds.SingleTheme;
-import com.elminster.grs.giantbomb.ds.SingleVideo;
+import com.elminster.grs.giantbomb.ds.GiantBombCompany;
+import com.elminster.grs.giantbomb.ds.GiantBombGame;
+import com.elminster.grs.giantbomb.ds.GiantBombGenre;
+import com.elminster.grs.giantbomb.ds.GiantBombPlatform;
+import com.elminster.grs.giantbomb.ds.GiantBombTheme;
+import com.elminster.grs.giantbomb.ds.GiantBombVideo;
 import com.elminster.grs.giantbomb.service.GaintGameService;
 
 @Service
@@ -47,8 +47,8 @@ public class GaintGameServiceImpl implements GaintGameService {
   GiantBombVideoDao videoDao;
   
   @Override
-  public void saveGame(SingleGame game) {
-    SingleGame exist = gameDao.findByGamebombId(game.getGamebombId());
+  public void saveGame(GiantBombGame game) {
+    GiantBombGame exist = gameDao.findByGamebombId(game.getGamebombId());
     if (null != exist) {
       game.setInternalId(exist.getInternalId());
       game.setImage(exist.getImage());
@@ -57,25 +57,25 @@ public class GaintGameServiceImpl implements GaintGameService {
       }
     }
     
-    Set<SingleCompany> developers = game.getDevelopers();
+    Set<GiantBombCompany> developers = game.getDevelopers();
     saveDevelop(developers);
-    Set<SingleGenre> genres = game.getGenres();
+    Set<GiantBombGenre> genres = game.getGenres();
     saveGenres(genres);
-    Set<SingleTheme> themes = game.getThemes();
+    Set<GiantBombTheme> themes = game.getThemes();
     saveThemes(themes);
-    Set<SingleCompany> publishers = game.getPublishers();
+    Set<GiantBombCompany> publishers = game.getPublishers();
     savePublishers(publishers);
-    Set<SinglePlatform> platforms = game.getPlatforms();
+    Set<GiantBombPlatform> platforms = game.getPlatforms();
     savePlatforms(platforms);
-    Set<SingleVideo> videos = game.getVideos();
+    Set<GiantBombVideo> videos = game.getVideos();
     saveVideos(videos);
     gameDao.save(game);
   }
   
-  private void saveVideos(Set<SingleVideo> videos) {
+  private void saveVideos(Set<GiantBombVideo> videos) {
     if (null != videos) {
-      for (SingleVideo pl : videos) {
-        SingleVideo exist = videoDao.findByGamebombId(pl.getGamebombId());
+      for (GiantBombVideo pl : videos) {
+        GiantBombVideo exist = videoDao.findByGamebombId(pl.getGamebombId());
         if (null != exist) {
           pl.setInternalId(exist.getInternalId());
         } else {
@@ -86,10 +86,10 @@ public class GaintGameServiceImpl implements GaintGameService {
   }
 
   @Override
-  public void savePlatforms(Set<SinglePlatform> platforms) {
+  public void savePlatforms(Set<GiantBombPlatform> platforms) {
     if (null != platforms) {
-      for (SinglePlatform pl : platforms) {
-        SinglePlatform exist = platformDao.findByGamebombId(pl.getGamebombId());
+      for (GiantBombPlatform pl : platforms) {
+        GiantBombPlatform exist = platformDao.findByGamebombId(pl.getGamebombId());
         if (null != exist) {
           pl.setInternalId(exist.getInternalId());
           pl.setImage(exist.getImage());
@@ -101,10 +101,10 @@ public class GaintGameServiceImpl implements GaintGameService {
   }
 
   @Override
-  public void savePublishers(Set<SingleCompany> publishers) {
+  public void savePublishers(Set<GiantBombCompany> publishers) {
     if (null != publishers) {
-      for (SingleCompany pl : publishers) {
-        SingleCompany exist = companyDao.findByGamebombId(pl.getGamebombId());
+      for (GiantBombCompany pl : publishers) {
+        GiantBombCompany exist = companyDao.findByGamebombId(pl.getGamebombId());
         if (null != exist) {
           pl.setInternalId(exist.getInternalId());
           pl.setImage(exist.getImage());
@@ -116,10 +116,10 @@ public class GaintGameServiceImpl implements GaintGameService {
   }
 
   @Override
-  public void saveThemes(Set<SingleTheme> themes) {
+  public void saveThemes(Set<GiantBombTheme> themes) {
     if (null != themes) {
-      for (SingleTheme pl : themes) {
-        SingleTheme exist = themeDao.findByGamebombId(pl.getGamebombId());
+      for (GiantBombTheme pl : themes) {
+        GiantBombTheme exist = themeDao.findByGamebombId(pl.getGamebombId());
         if (null != exist) {
           pl.setInternalId(exist.getInternalId());
           pl.setImage(exist.getImage());
@@ -131,10 +131,10 @@ public class GaintGameServiceImpl implements GaintGameService {
   }
 
   @Override
-  public void saveGenres(Set<SingleGenre> genres) {
+  public void saveGenres(Set<GiantBombGenre> genres) {
     if (null != genres) {
-      for (SingleGenre pl : genres) {
-        SingleGenre exist = genreDao.findByGamebombId(pl.getGamebombId());
+      for (GiantBombGenre pl : genres) {
+        GiantBombGenre exist = genreDao.findByGamebombId(pl.getGamebombId());
         if (null != exist) {
           pl.setInternalId(exist.getInternalId());
           pl.setImage(exist.getImage());
@@ -146,10 +146,10 @@ public class GaintGameServiceImpl implements GaintGameService {
   }
 
   @Override
-  public void saveDevelop(Set<SingleCompany> developers) {
+  public void saveDevelop(Set<GiantBombCompany> developers) {
     if (null != developers) {
-      for (SingleCompany pl : developers) {
-        SingleCompany exist = companyDao.findByGamebombId(pl.getGamebombId());
+      for (GiantBombCompany pl : developers) {
+        GiantBombCompany exist = companyDao.findByGamebombId(pl.getGamebombId());
         if (null != exist) {
           pl.setInternalId(exist.getInternalId());
           pl.setImage(exist.getImage());

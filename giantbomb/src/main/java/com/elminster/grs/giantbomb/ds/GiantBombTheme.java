@@ -10,9 +10,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name="gaintbomb_genre")
-public class SingleGenre extends BaseObject {
-  
+@Table(name="gaintbomb_theme")
+public class GiantBombTheme extends BaseObject {
+
   //@formatter:off
   @Id
   @Column(name="id")
@@ -22,8 +22,8 @@ public class SingleGenre extends BaseObject {
      @Parameter(name="table_name", value="gaintbomb_game_seq_gen"),
      @Parameter(name="value_column_name", value="next"), 
      @Parameter(name="segment_column_name",value="seq_name"), 
-     @Parameter(name="segment_value", value="genre_seq"),
-     @Parameter(name="increment_size", value="10"), 
+     @Parameter(name="segment_value", value="theme_seq"),
+     @Parameter(name="increment_size", value="1"), 
      @Parameter(name="optimizer", value="pooled-lo") 
    })
   // @formatter:on
