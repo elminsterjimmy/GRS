@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 import com.elminster.common.exception.BaseException;
 import com.elminster.common.exception.ErrorCode;
 import com.elminster.common.util.DateUtil;
-import com.elminster.grs.web.dao.GameInfoUpdateHistoryDao;
-import com.elminster.grs.web.domain.GameInfoUpdateHistory;
-import com.elminster.grs.web.domain.helper.UpdateHistoryStatusHelper;
-import com.elminster.grs.web.handler.UserInformationUpdateException;
-import com.elminster.grs.web.handler.UserInformationUpdater;
+import com.elminster.grs.crawler.updater.InformationUpdateException;
+import com.elminster.grs.crawler.updater.UserInformationUpdater;
+import com.elminster.grs.shared.db.dao.GameInfoUpdateHistoryDao;
+import com.elminster.grs.shared.db.domain.GameInfoUpdateHistory;
+import com.elminster.grs.shared.db.domain.helper.UpdateHistoryStatusHelper;
 import com.elminster.grs.web.service.GameInfoUpdateService;
 import com.elminster.grs.web.service.ServiceErrorCode;
 import com.elminster.grs.web.service.ServiceException;
@@ -76,7 +76,7 @@ public class GameInfoUpdateServiceImpl implements GameInfoUpdateService {
       }
       psnUpdater.updateUserInform(userId);
       updateHistory.setStatus(UpdateHistoryStatusHelper.updatePsnProfileSuccess(status));
-    } catch (UserInformationUpdateException e) {
+    } catch (InformationUpdateException e) {
       updateHistory.setStatus(UpdateHistoryStatusHelper.updatePsnProfileFailed(status));
       ErrorCode ec = e.getErrorCode();
       updateHistory.setErrorCode(null == ec ? BaseException.UNKNOWN_CODE.getCode() : ec.getCode());

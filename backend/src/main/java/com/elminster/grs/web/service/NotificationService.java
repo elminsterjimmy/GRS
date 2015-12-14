@@ -3,8 +3,8 @@ package com.elminster.grs.web.service;
 import java.sql.Date;
 import java.util.List;
 
-import com.elminster.grs.web.domain.Notification;
-import com.elminster.grs.web.domain.Notification.NotificationType;
+import com.elminster.grs.shared.db.domain.Notification;
+import com.elminster.grs.shared.db.domain.Notification.NotificationType;
 
 /**
  * The notification service.

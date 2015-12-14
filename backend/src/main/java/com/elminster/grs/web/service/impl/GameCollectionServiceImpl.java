@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.elminster.common.util.CollectionUtil;
-import com.elminster.grs.web.dao.UserGameDao;
-import com.elminster.grs.web.domain.UserGame;
+import com.elminster.grs.shared.db.dao.UserPsnGameDao;
+import com.elminster.grs.shared.db.domain.UserGame;
 import com.elminster.grs.web.dxo.helper.CollectionInfoDxoHelper;
 import com.elminster.grs.web.response.vo.CollectionInfo;
 import com.elminster.grs.web.service.CollectionException;
@@ -26,7 +26,7 @@ import com.elminster.web.commons.request.Option;
 public class GameCollectionServiceImpl implements GameCollectionService {
   
   @Autowired
-  private UserGameDao userGameDao;
+  private UserPsnGameDao userPsnGameDao;
   
   /**
    * {@inheritDoc}
@@ -41,7 +41,7 @@ public class GameCollectionServiceImpl implements GameCollectionService {
    */
   @Override
   public List<CollectionInfo> getUsersGameCollectionInfo(int userId, Option options) throws CollectionException {
-    List<UserGame> userGames = userGameDao.findByUserId(userId, OptionUtil.getSort(options));
+    List<UserGame> userGames = userPsnGameDao.findByUserId(userId, OptionUtil.getSort(options));
     triggerUpdateUserGameCollection(userId);
     List<CollectionInfo> collections = null;
     if (CollectionUtil.isNotEmpty(userGames)) {

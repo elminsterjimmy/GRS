@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.elminster.grs.web.domain.Notification.NotificationType;
+import com.elminster.grs.shared.db.domain.Notification.NotificationType;
 import com.elminster.grs.web.service.NotificationService;
 import com.elminster.grs.web.service.ServiceErrorCode;
 import com.elminster.grs.web.service.ServiceException;

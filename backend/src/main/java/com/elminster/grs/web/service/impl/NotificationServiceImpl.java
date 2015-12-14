@@ -10,10 +10,10 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.elminster.grs.web.dao.NotificationDao;
-import com.elminster.grs.web.domain.Notification;
-import com.elminster.grs.web.domain.Notification.NotificationStatus;
-import com.elminster.grs.web.domain.Notification.NotificationType;
+import com.elminster.grs.shared.db.dao.NotificationDao;
+import com.elminster.grs.shared.db.domain.Notification;
+import com.elminster.grs.shared.db.domain.Notification.NotificationStatus;
+import com.elminster.grs.shared.db.domain.Notification.NotificationType;
 import com.elminster.grs.web.service.NotificationService;
 import com.elminster.grs.web.service.ServiceErrorCode;
 import com.elminster.grs.web.service.ServiceException;

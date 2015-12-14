@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.elminster.common.constants.Constants.StringConstants;
 import com.elminster.common.util.Assert;
-import com.elminster.grs.web.domain.Game;
-import com.elminster.grs.web.domain.Platform;
-import com.elminster.grs.web.domain.UserGame;
+import com.elminster.grs.shared.db.domain.Game;
+import com.elminster.grs.shared.db.domain.Platform;
+import com.elminster.grs.shared.db.domain.UserGame;
 import com.elminster.grs.web.response.vo.Achievements;
 import com.elminster.grs.web.response.vo.CollectionInfo;
 import com.elminster.grs.web.response.vo.Trophies;
