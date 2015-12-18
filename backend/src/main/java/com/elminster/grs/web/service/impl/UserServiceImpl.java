@@ -16,15 +16,15 @@ import org.springframework.stereotype.Service;
 import com.elminster.common.util.ExceptionUtil;
 import com.elminster.grs.shared.db.dao.UserExDao;
 import com.elminster.grs.shared.db.domain.UserEx;
-import com.elminster.grs.web.request.vo.LoginJsonModel;
-import com.elminster.grs.web.request.vo.RegisterJsonModel;
-import com.elminster.grs.web.response.vo.BasicUserInfo;
 import com.elminster.grs.web.service.LoginException;
 import com.elminster.grs.web.service.RegisterException;
 import com.elminster.grs.web.service.ServiceErrorCode;
 import com.elminster.grs.web.service.ServiceException;
 import com.elminster.grs.web.service.UserService;
 import com.elminster.grs.web.service.UserServiceException;
+import com.elminster.grs.web.vo.request.LoginJsonModel;
+import com.elminster.grs.web.vo.request.RegisterJsonModel;
+import com.elminster.grs.web.vo.response.BasicUserInfo;
 import com.elminster.spring.security.domain.User;
 import com.elminster.spring.security.model.UserDetailsImpl;
 import com.elminster.spring.security.service.AuthUserService;
@@ -103,9 +103,7 @@ public class UserServiceImpl implements UserService {
       } else {
         // login failed: incorrect username or password
         String message = "Login Failed. Incorrect username or password.";
-        if (logger.isDebugEnabled()) {
-          logger.debug(message);
-        }
+        logger.info(message);
         throw new LoginException(ServiceErrorCode.LOGIN_INCORRECT_USERNAME_OR_PASSWORD, message);
       }
     } catch (Exception e) {
@@ -113,9 +111,7 @@ public class UserServiceImpl implements UserService {
         throw e;
       }
       String message = "Login Failed. Internet server error. Cause: " + ExceptionUtil.getFullStackTrace(e);
-      if (logger.isDebugEnabled()) {
-        logger.debug(message);
-      }
+      logger.error(message);
       throw new ServiceException(ServiceErrorCode.UNEXCEPTED_EXCEPTION, message, e);
     }
   }
@@ -162,9 +158,7 @@ public class UserServiceImpl implements UserService {
       } else {
         // register failed: username occupied
         String message = "Register Failed. Username already exist.";
-        if (logger.isDebugEnabled()) {
-          logger.debug(message);
-        }
+        logger.info(message);
         throw new RegisterException(ServiceErrorCode.REGISTER_USERNAME_OCCUPIED, message);
       }
     } catch (Exception e) {
@@ -172,9 +166,7 @@ public class UserServiceImpl implements UserService {
         throw e;
       }
       String message = "Register Failed. Internet server error. Cause: " + ExceptionUtil.getFullStackTrace(e);
-      if (logger.isDebugEnabled()) {
-        logger.debug(message);
-      }
+      logger.error(message);
       throw new ServiceException(ServiceErrorCode.UNEXCEPTED_EXCEPTION, message, e);
     }
   }
@@ -216,6 +208,19 @@ public class UserServiceImpl implements UserService {
   public void deleteUser(int userId) throws UserServiceException {
     // TODO Auto-generated method stub
     
+  }
+
+  @Override
+  public void updatePassword(int userId, String oldPassword, String newPassword) throws UserServiceException {
+    User user = authUserService.findUserById(userId);
+    if (oldPassword.equals(user.getPassword())) {
+      user.setPassword(newPassword);
+      authUserService.saveUser(user);
+    } else {
+      String message = String.format("Update password Failed. Incorrect password for user [%s].", user.getUsername());
+      logger.info(message);
+      throw new UserServiceException(ServiceErrorCode.UPDATE_PASSWORD_INCORRECT_PASSWORD, message);
+    }
   }
 
 }

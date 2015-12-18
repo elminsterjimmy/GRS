@@ -2,9 +2,9 @@ package com.elminster.grs.web.service;
 
 import org.springframework.security.core.Authentication;
 
-import com.elminster.grs.web.request.vo.LoginJsonModel;
-import com.elminster.grs.web.request.vo.RegisterJsonModel;
-import com.elminster.grs.web.response.vo.BasicUserInfo;
+import com.elminster.grs.web.vo.request.LoginJsonModel;
+import com.elminster.grs.web.vo.request.RegisterJsonModel;
+import com.elminster.grs.web.vo.response.BasicUserInfo;
 
 /**
  * The user service.
@@ -52,6 +52,15 @@ public interface UserService {
    * @throws ServiceException on error
    */
   public Authentication register(RegisterJsonModel model) throws ServiceException;
+  
+  /**
+   * Update user's password.
+   * @param userId the user id
+   * @param oldPassword the old password
+   * @param newPassword the new password
+   * @throws UserServiceException on error
+   */
+  public void updatePassword(int userId, String oldPassword, String newPassword) throws UserServiceException;
   
   /**
    * Update user's basic information.
