@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -36,8 +38,9 @@ public class GameInfoUpdateHistory {
   @Column
   private int userId;
   
-  @Column
-  private int status;
+  @Enumerated(EnumType.ORDINAL)
+  @Column(nullable=false, length=3)
+  private UpdateStatus status;
   
   @Column(length=8)
   private String errorCode;
@@ -77,14 +80,14 @@ public class GameInfoUpdateHistory {
   /**
    * @return the status
    */
-  public int getStatus() {
+  public UpdateStatus getStatus() {
     return status;
   }
 
   /**
    * @param status the status to set
    */
-  public void setStatus(int status) {
+  public void setStatus(UpdateStatus status) {
     this.status = status;
   }
 
@@ -114,5 +117,16 @@ public class GameInfoUpdateHistory {
    */
   public void setErrorCode(String errorCode) {
     this.errorCode = errorCode;
+  }
+  
+  public static enum UpdateStatus {
+    UPDATE_PSN_PROFILE_SUCCESS,
+    UPDATE_PSN_PROFILE_FAILED,
+    UPDATE_PSN_TROPHIES_SUCCESS,
+    UPDATE_PSN_TROPHIES_FAILED,
+    UPDATE_LIVE_PROFILE_SUCCESS,
+    UPDATE_LIVE_PROFILE_FAILED,
+    UPDATE_LIVE_ACHIEVEMENTS_SUCCESS,
+    UPDATE_LIVE_ACHIEVEMENTS_FAILED
   }
 }

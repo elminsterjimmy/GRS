@@ -3,13 +3,18 @@ package com.elminster.grs.shared.db.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,7 +37,7 @@ public class UserEx implements Serializable {
   private static final long serialVersionUID = 7667917771172375256L;
 
   @Id
-  @Column
+  @Column(name="id")
   private Integer userId;
   
   @Column(nullable=false, length=1024)
@@ -52,7 +57,30 @@ public class UserEx implements Serializable {
   @ManyToOne
   @JoinColumn(name="livedLocation")
   private Location livedLocation;
-
+  
+  @Column(length=4096)
+  private String bio;
+  
+  @Enumerated(EnumType.ORDINAL)
+  @Column(length=1)
+  private BloadType booldType;
+  
+  @Column(length=1024)
+  private String blogUrl;
+  
+  @Column(length=1024)
+  private String weiboUrl;
+  
+  @Column(length=64)
+  private String qq;
+  
+  @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
+  @JoinTable(name = "comm_user_tag",
+      joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id") },     
+      inverseJoinColumns = { @JoinColumn(name = "tag_id", referencedColumnName = "id")     
+  })
+  private Set<UserTag> tags;
+  
   /**
    * @return the userId
    */
@@ -144,6 +172,76 @@ public class UserEx implements Serializable {
     this.livedLocation = livedLocation;
   }
   
+  /**
+   * @return the bio
+   */
+  public String getBio() {
+    return bio;
+  }
+
+  /**
+   * @param bio the bio to set
+   */
+  public void setBio(String bio) {
+    this.bio = bio;
+  }
+
+  /**
+   * @return the blogUrl
+   */
+  public String getBlogUrl() {
+    return blogUrl;
+  }
+
+  /**
+   * @param blogUrl the blogUrl to set
+   */
+  public void setBlogUrl(String blogUrl) {
+    this.blogUrl = blogUrl;
+  }
+
+  /**
+   * @return the weiboUrl
+   */
+  public String getWeiboUrl() {
+    return weiboUrl;
+  }
+
+  /**
+   * @param weiboUrl the weiboUrl to set
+   */
+  public void setWeiboUrl(String weiboUrl) {
+    this.weiboUrl = weiboUrl;
+  }
+
+  /**
+   * @return the qq
+   */
+  public String getQq() {
+    return qq;
+  }
+
+  /**
+   * @param qq the qq to set
+   */
+  public void setQq(String qq) {
+    this.qq = qq;
+  }
+
+  /**
+   * @return the tags
+   */
+  public Set<UserTag> getTags() {
+    return tags;
+  }
+
+  /**
+   * @param tags the tags to set
+   */
+  public void setTags(Set<UserTag> tags) {
+    this.tags = tags;
+  }
+
   public static enum Gender {
     UNKNOWN,
     MALE,

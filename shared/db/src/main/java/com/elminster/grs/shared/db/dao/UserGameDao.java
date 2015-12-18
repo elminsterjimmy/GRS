@@ -19,7 +19,7 @@ public interface UserGameDao extends JpaRepository<UserGame, Integer>, JpaSpecif
   @Query("SELECT ug FROM UserGame ug WHERE ug.user.userId = $1")
   public List<UserGame> findByUserId(int userId, Sort sort);
 
-  @Query("SELECT ug FROM UserGame ug WHERE ug.user.userId = :userId and ug.game.internalId = :gid")
+  @Query("SELECT ug FROM UserGame ug WHERE ug.user.userId = :userId and (ug.game.psnInternalId = :gid or ug.game.liveInternalId = :gid)")
   public UserGame findByUserIdAndGameInternalId(@Param("userId") int userId,
       @Param("gid") String gameInternalId);
 }

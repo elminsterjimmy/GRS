@@ -9,5 +9,5 @@ import com.elminster.grs.shared.db.domain.Game;
 @Repository
 public interface GameDao extends JpaRepository<Game, Integer>, JpaSpecificationExecutor<Game> {
 
-  public Game findByInternalId(String internalId);
+  public Game findByPsnInternalId(String psnInternalId);
 }
