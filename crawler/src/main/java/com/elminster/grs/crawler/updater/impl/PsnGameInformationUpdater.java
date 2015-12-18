@@ -14,14 +14,12 @@ import com.elminster.grs.crawler.impl.CrawlerErrorCode;
 import com.elminster.grs.crawler.updater.InformationUpdateException;
 import com.elminster.grs.crawler.updater.UserInformationUpdater;
 import com.elminster.grs.shared.db.dao.GameDao;
-import com.elminster.grs.shared.db.dao.PlatformDao;
-import com.elminster.grs.shared.db.dao.TrophyDao;
-import com.elminster.grs.shared.db.dao.UserPsnGameDao;
+import com.elminster.grs.shared.db.dao.TrophyAndAchieveDao;
+import com.elminster.grs.shared.db.dao.UserGameDao;
 import com.elminster.grs.shared.db.dao.UserGameMetaDao;
-import com.elminster.grs.shared.db.dao.UserTrophyDao;
+import com.elminster.grs.shared.db.dao.UserTrophyAndAchieveDao;
 import com.elminster.grs.shared.db.domain.Game;
-import com.elminster.grs.shared.db.domain.Platform;
-import com.elminster.grs.shared.db.domain.Trophy;
+import com.elminster.grs.shared.db.domain.TrophyAndAchievement;
 import com.elminster.grs.shared.db.domain.TrophyType;
 import com.elminster.grs.shared.db.domain.UserGame;
 import com.elminster.grs.shared.db.domain.UserGameMeta;
@@ -48,15 +46,13 @@ public class PsnGameInformationUpdater extends DatabaseInformationUpdater<Intege
   @Autowired
   private UserGameMetaDao userGameMetaDao;
   @Autowired
-  private UserPsnGameDao userGameDao;
-  @Autowired
-  private PlatformDao platformDao;
+  private UserGameDao userGameDao;
   @Autowired
   private GameDao gameDao;
   @Autowired
-  private TrophyDao tnaDao;
+  private TrophyAndAchieveDao tnaDao;
   @Autowired
-  private UserTrophyDao userTnaDao;
+  private UserTrophyAndAchieveDao userTnaDao;
   /** the psn api. */
   private IPSNApi psnApi = new PSNApiImpl();
 
@@ -126,13 +122,13 @@ public class PsnGameInformationUpdater extends DatabaseInformationUpdater<Intege
   }
 
   public void fillTrophy(UserTrophyAndAchievement utna, PSNUserTrophy psnUserTrophy, int order) {
-    Trophy tna = utna.getTrophyAndAchieve();
+    TrophyAndAchievement tna = utna.getTrophyAndAchieve();
     if (null == tna) {
       Game game = utna.getUserGame().getGame();
       tna = tnaDao.findByGameIdAndTrophyId(game.getId(), psnUserTrophy.getTrophyId());
       if (null == tna) {
         // trophy not found
-        tna = new Trophy();
+        tna = new TrophyAndAchievement();
         tna.setGame(game);
       }
     }
@@ -166,7 +162,7 @@ public class PsnGameInformationUpdater extends DatabaseInformationUpdater<Intege
         Game game;
         if (null == userGame) {
           // to be create
-          game = gameDao.findByInternalId(psnUserGame.getGameId());
+          game = gameDao.findByPsnInternalId(psnUserGame.getGameId());
           if (null == game) {
             // game not available
             game = new Game();
@@ -174,35 +170,12 @@ public class PsnGameInformationUpdater extends DatabaseInformationUpdater<Intege
           userGame = new UserGame();
           UserGameDxoHelper.fillUserPsnGame(userGame, psnUserGame);
           UserGameDxoHelper.fillPsnGame(game, psnUserGame);
-          List<com.elminster.retrieve.data.game.Platform> pgPl = psnUserGame.getPlatform();
-          List<Platform> plts = new ArrayList<Platform>(pgPl.size());
-          for (com.elminster.retrieve.data.game.Platform p : pgPl) {
-            plts.add(getUpdatePlatform(p.getName()));
-          }
-          game.setPlatform(plts);
           userGame.setGame(game);
         } else {
           // to be update
           game = userGame.getGame();
           UserGameDxoHelper.fillUserPsnGame(userGame, psnUserGame);
           UserGameDxoHelper.fillPsnGame(game, psnUserGame);
-          // update platform if it is multi-platform
-          List<Platform> plts = game.getPlatform();
-          List<com.elminster.retrieve.data.game.Platform> pgPl = psnUserGame.getPlatform();
-          for (com.elminster.retrieve.data.game.Platform p : pgPl) {
-            boolean found = false;
-            for (Platform plt : plts) {
-              if (plt.getPlatform().equals(p.getName())) {
-                found = true;
-                break;
-              }
-            }
-            if (!found) {
-              // merge with exist platform
-              plts.add(getUpdatePlatform(p.getName()));
-            }
-          }
-          game.setPlatform(plts);
         }
         userGames.add(userGame);
       }
@@ -210,14 +183,5 @@ public class PsnGameInformationUpdater extends DatabaseInformationUpdater<Intege
       userGameDao.save(userGames);
     }
     return userGames;
-  }
-
-  private Platform getUpdatePlatform(String platform) {
-    Platform plt = platformDao.findByPlatform(platform);
-    if (null == plt) {
-      plt = new Platform();
-      plt.setPlatform(platform);
-    }
-    return plt;
   }
 }
