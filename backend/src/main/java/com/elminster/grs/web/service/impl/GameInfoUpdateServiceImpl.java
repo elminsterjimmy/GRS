@@ -17,6 +17,7 @@ import com.elminster.grs.crawler.updater.InformationUpdateException;
 import com.elminster.grs.crawler.updater.UserInformationUpdater;
 import com.elminster.grs.shared.db.dao.GameInfoUpdateHistoryDao;
 import com.elminster.grs.shared.db.domain.GameInfoUpdateHistory;
+import com.elminster.grs.shared.db.domain.GameInfoUpdateHistory.UpdateStatus;
 import com.elminster.grs.shared.db.domain.helper.UpdateHistoryStatusHelper;
 import com.elminster.grs.web.service.GameInfoUpdateService;
 import com.elminster.grs.web.service.ServiceErrorCode;
@@ -40,7 +41,7 @@ public class GameInfoUpdateServiceImpl implements GameInfoUpdateService {
   private GameInfoUpdateHistoryDao updateHistoryDao;
   @Autowired
   @Qualifier("PsnGameInformationUpdater")
-  private UserInformationUpdater psnUpdater;
+  private UserInformationUpdater<Integer> psnUpdater;
   /** the update threshold. */
   private long threshold = DEAFULT_UPDATE_THRESHOLD;
 
@@ -52,7 +53,7 @@ public class GameInfoUpdateServiceImpl implements GameInfoUpdateService {
   public void updateUserGame(int userId) throws ServiceException {
     // first get the update history
     GameInfoUpdateHistory updateHistory = updateHistoryDao.findByUserId(userId);
-    int status;
+    UpdateStatus status;
     if (null != updateHistory) {
       Date lastUpdate = updateHistory.getLastUpdate();
       status = updateHistory.getStatus();
@@ -67,17 +68,16 @@ public class GameInfoUpdateServiceImpl implements GameInfoUpdateService {
     } else {
       updateHistory = new GameInfoUpdateHistory();
       updateHistory.setUserId(userId);
-      status = 0;
     }
 
     try {
       if (logger.isDebugEnabled()) {
         logger.debug(String.format("Start Updating game info for user %d.", userId));
       }
-      psnUpdater.updateUserInform(userId);
-      updateHistory.setStatus(UpdateHistoryStatusHelper.updatePsnProfileSuccess(status));
+      psnUpdater.updateInformation(userId);
+      updateHistory.setStatus(UpdateStatus.UPDATE_PSN_PROFILE_SUCCESS);
     } catch (InformationUpdateException e) {
-      updateHistory.setStatus(UpdateHistoryStatusHelper.updatePsnProfileFailed(status));
+      updateHistory.setStatus(UpdateStatus.UPDATE_PSN_PROFILE_FAILED);
       ErrorCode ec = e.getErrorCode();
       updateHistory.setErrorCode(null == ec ? BaseException.UNKNOWN_CODE.getCode() : ec.getCode());
       throw new ServiceException(ServiceErrorCode.UPDATE_USER_GAME_INFO_EXCEPTION, e);

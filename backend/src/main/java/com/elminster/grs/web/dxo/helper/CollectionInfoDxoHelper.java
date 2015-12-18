@@ -1,15 +1,11 @@
 package com.elminster.grs.web.dxo.helper;
 
-import java.util.List;
-
-import com.elminster.common.constants.Constants.StringConstants;
 import com.elminster.common.util.Assert;
 import com.elminster.grs.shared.db.domain.Game;
-import com.elminster.grs.shared.db.domain.Platform;
 import com.elminster.grs.shared.db.domain.UserGame;
-import com.elminster.grs.web.response.vo.Achievements;
-import com.elminster.grs.web.response.vo.CollectionInfo;
-import com.elminster.grs.web.response.vo.Trophies;
+import com.elminster.grs.web.vo.response.Achievements;
+import com.elminster.grs.web.vo.response.CollectionInfo;
+import com.elminster.grs.web.vo.response.Trophies;
 
 public class CollectionInfoDxoHelper {
 
@@ -21,21 +17,6 @@ public class CollectionInfoDxoHelper {
     ci.setId(userGame.getId());
     ci.setCover(game.getImageUrl());
     ci.setFavorite(userGame.isFavorite());
-    List<Platform> plts = game.getPlatform();
-    StringBuilder sb = new StringBuilder(50);
-    if (null != plts) {
-      boolean first = true;
-      for (Platform plt : plts) {
-        if (first) {
-          first = false;
-        } else {
-          sb.append(StringConstants.SPACE);
-          sb.append(StringConstants.COMMA);
-        }
-        sb.append(plt.getPlatform());
-      }
-    }
-    ci.setPlatform(sb.toString());
     ci.setProgress(userGame.getProgress());
     ci.setRating(userGame.getRating());
     ci.setTitle(game.getTitle());

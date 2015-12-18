@@ -1,4 +1,4 @@
-package com.elminster.grs.web.response.vo;
+package com.elminster.grs.web.vo.response;
 
 public class Trophies {
 

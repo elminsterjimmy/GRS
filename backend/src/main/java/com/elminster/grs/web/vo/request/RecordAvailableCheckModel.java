@@ -1,4 +1,4 @@
-package com.elminster.grs.web.request.vo;
+package com.elminster.grs.web.vo.request;
 
 import javax.validation.constraints.NotNull;
 

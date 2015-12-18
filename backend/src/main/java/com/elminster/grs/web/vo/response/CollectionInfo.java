@@ -1,4 +1,4 @@
-package com.elminster.grs.web.response.vo;
+package com.elminster.grs.web.vo.response;
 
 public class CollectionInfo {
   
@@ -7,8 +7,6 @@ public class CollectionInfo {
   private String title;
   
   private String cover;
-  
-  private String platform;
   
   private Trophies trophies;
   
@@ -60,20 +58,6 @@ public class CollectionInfo {
    */
   public void setCover(String cover) {
     this.cover = cover;
-  }
-
-  /**
-   * @return the platform
-   */
-  public String getPlatform() {
-    return platform;
-  }
-
-  /**
-   * @param platform the platform to set
-   */
-  public void setPlatform(String platform) {
-    this.platform = platform;
   }
 
   /**

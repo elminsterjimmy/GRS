@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.elminster.grs.web.response.JsonResponseTemplate;
 import com.elminster.grs.web.service.GameCollectionService;
+import com.elminster.grs.web.vo.response.JsonResponseTemplate;
 import com.elminster.spring.security.domain.User;
 import com.elminster.web.commons.request.Option;
 import com.elminster.web.commons.request.OptionFactory;

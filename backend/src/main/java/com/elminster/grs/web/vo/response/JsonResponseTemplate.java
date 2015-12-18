@@ -1,4 +1,4 @@
-package com.elminster.grs.web.response;
+package com.elminster.grs.web.vo.response;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

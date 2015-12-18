@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elminster.grs.web.constants.Authorities;
-import com.elminster.grs.web.request.vo.LoginJsonModel;
-import com.elminster.grs.web.request.vo.RegisterJsonModel;
-import com.elminster.grs.web.response.JsonResponseTemplate;
 import com.elminster.grs.web.service.LoginException;
 import com.elminster.grs.web.service.RegisterException;
 import com.elminster.grs.web.service.ServiceErrorCode;
 import com.elminster.grs.web.service.UserService;
+import com.elminster.grs.web.vo.request.LoginJsonModel;
+import com.elminster.grs.web.vo.request.RegisterJsonModel;
+import com.elminster.grs.web.vo.response.JsonResponseTemplate;
 import com.elminster.spring.security.domain.User;
 import com.elminster.spring.security.model.UserDetailsImpl;
 import com.elminster.spring.security.service.TokenAuthenticationService;
@@ -68,7 +68,7 @@ public class UserController extends BaseController {
   }
 
   /**
-   * Get current user's information.
+   * Get current user's basic information.
    */
   @RequestMapping(value = "/current", method = RequestMethod.GET)
   public @ResponseBody JsonResponse getCurrentUser() throws IOException, Exception {

@@ -1,4 +1,4 @@
-package com.elminster.grs.web.response.vo;
+package com.elminster.grs.web.vo.response;
 
 import com.elminster.grs.shared.db.domain.UserEx.Gender;
 
@@ -9,6 +9,7 @@ public class BasicUserInfo {
   private String avatarUrl;
   private Gender gender;
   private int point;
+  
   /**
    * @return the id
    */
