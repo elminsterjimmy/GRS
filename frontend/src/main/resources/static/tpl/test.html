@@ -1,0 +1,652 @@
+<html ng-app="myApp">
+
+<head>
+  <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+    .st-sort-ascent:before {
+      content: '\25B2';
+    }
+
+    .st-sort-descent:before {
+      content: '\25BC';
+    }
+
+    a {
+      text-decoration: none !important;
+    }
+  </style>
+</head>
+
+<body ng-controller="mainCtrl">
+<h3>ea-mig-srv.kisters.de(192.168.52.143):7445</h3>
+
+<table st-table="rowCollection" class="table table-striped">
+  <thead>
+  <tr>
+    <th st-sort="first">first</th>
+    <th st-sort="last">last</th>
+    <th st-sort="logCategory">logCategory</th>
+    <th st-sort="function">function</th>
+    <th st-sort="count">count</th>
+    <th st-sort="duration">duration</th>
+    <th st-sort="mean">mean</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="row in rowCollection">
+    <td>{{row.first}}</td>
+    <td>{{row.last}}</td>
+    <td>{{row.logCategory}}</td>
+    <td><a ng-href="{{row.function.url}}">{{row.function.desc}}</td>
+    <td>{{row.count}}</td>
+    <td>{{row.duration}}</td>
+    <td>{{row.mean}}</td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="5" class="text-center">
+      <div st-pagination="" st-items-by-page="10"></div>
+    </td>
+  </tr>
+  </tfoot>
+</table>
+<script src="http://cdn.bootcss.com/angular.js/1.4.7/angular.js"></script>
+<script src="http://cdn.bootcss.com/angular-smart-table/2.1.4/smart-table.js"></script>
+<script type="text/javascript">
+  angular.module('myApp', ['smart-table'])
+      .controller('mainCtrl', ['$scope',
+        function ($scope) {
+          $scope.rowCollection = [
+            {
+              first: '2015-10-27 15:18:16',
+              last: '2015-10-27 15:18:21',
+              logCategory: 'err',
+              function: {url:'', desc:'agent.getAgentDisplayDef'},
+              count: 22,
+              duration: 823,
+              mean: 37.0
+            },
+            {
+              first: '2015-10-26 15:55:22',
+              last: '2015-10-26 15:55:22',
+              logCategory: 'err',
+              function: {url:'', desc:'agent.updateAgentConfigList'},
+              count: 1,
+              duration: 864,
+              mean: 864.0
+            },
+            {
+              first: '2015-10-26 14:29:11',
+              last: '2015-10-28 08:49:28',
+              logCategory: 'err',
+              function: {url:'', desc:'session.closeSession'},
+              count: 15,
+              duration: 0,
+              mean: 0.0
+            },
+            {
+              first: '2015-10-26 14:29:11',
+              last: '2015-10-28 08:49:28',
+              logCategory: 'exc',
+              function: {url:'', desc:'session.ping'},
+              count: 16,
+              duration: 0,
+              mean: 0.0
+            },
+            {
+              first: '2015-10-27 15:18:48',
+              last: '2015-10-27 15:29:06',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.createAgentConfigList'},
+              count: 7,
+              duration: 1620,
+              mean: 231.0
+            },
+            {
+              first: '2015-10-26 15:53:03',
+              last: '2015-10-26 15:53:03',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.createAgentScript'},
+              count: 1,
+              duration: 611,
+              mean: 611.0
+            },
+            {
+              first: '2015-10-26 15:54:13',
+              last: '2015-10-26 15:54:13',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.createOrUpdateAgentScript'},
+              count: 1,
+              duration: 157,
+              mean: 157.0
+            },
+            {
+              first: '2015-10-26 11:26:34',
+              last: '2015-10-26 11:26:34',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.createOrUpdateAgentType'},
+              count: 2,
+              duration: 57,
+              mean: 29.0
+            },
+            {
+              first: '2015-10-27 15:27:42',
+              last: '2015-10-27 15:29:39',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.deleteAgentConfig'},
+              count: 4,
+              duration: 195,
+              mean: 49.0
+            },
+            {
+              first: '2015-10-26 15:51:50',
+              last: '2015-10-27 16:05:29',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.getAgentConfigList'},
+              count: 257,
+              duration: 6010,
+              mean: 23.0
+            },
+            {
+              first: '2015-10-27 15:18:16',
+              last: '2015-10-27 15:18:21',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.getAgentDisplayDef'},
+              count: 65,
+              duration: 4135,
+              mean: 64.0
+            },
+            {
+              first: '2015-10-26 15:51:57',
+              last: '2015-10-27 15:29:05',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.getAgentScriptList}',
+              count: 13,
+              duration: 1239,
+              mean: 95.0
+            },
+            {
+              first: '2015-10-26 11:26:48',
+              last: '2015-10-27 16:05:28',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.getAgentTypeList}',
+              count: 332,
+              duration: 1119,
+              mean: 3.0
+            },
+            {
+              first: '2015-10-26 14:29:15',
+              last: '2015-10-26 22:22:52',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.markTcaObjectInvalid}',
+              count: 16,
+              duration: 4129,
+              mean: 258.0
+            },
+            {
+              first: '2015-10-26 11:26:38',
+              last: '2015-10-27 15:38:55',
+              logCategory: 'msg',
+              function: {url:'', desc:'agent.updateAgentConfigList}',
+              count: 22,
+              duration: 4308,
+              mean: 196.0
+            },
+            {
+              first: '2015-10-26 11:26:30',
+              last: '2015-10-26 11:26:30',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.createBasicDataRoot}',
+              count: 2,
+              duration: 95,
+              mean: 48.0
+            },
+            {
+              first: '2015-10-26 11:26:30',
+              last: '2015-10-26 11:26:30',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.createDataType}',
+              count: 7,
+              duration: 34,
+              mean: 5.0
+            },
+            {
+              first: '2015-10-26 11:26:34',
+              last: '2015-10-27 15:29:05',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.getBasicDataIdByPath}',
+              count: 103,
+              duration: 676,
+              mean: 7.0
+            },
+            {
+              first: '2015-10-26 14:29:12',
+              last: '2015-10-27 16:05:29',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.getBasicDataList}',
+              count: 2221,
+              duration: 29085,
+              mean: 13.0
+            },
+            {
+              first: '2015-10-26 14:30:24',
+              last: '2015-10-27 16:05:22',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.getBasicDataTypeList}',
+              count: 3797,
+              duration: 5178,
+              mean: 1.0
+            },
+            {
+              first: '2015-10-26 15:53:02',
+              last: '2015-10-27 15:28:44',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.getObjectPermissionGroupList}',
+              count: 3,
+              duration: 372,
+              mean: 124.0
+            },
+            {
+              first: '2015-10-27 15:13:53',
+              last: '2015-10-27 15:22:47',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.getPathByBasicDataId}',
+              count: 4,
+              duration: 146,
+              mean: 37.0
+            },
+            {
+              first: '2015-10-26 15:51:50',
+              last: '2015-10-27 15:32:08',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.getStorageList}',
+              count: 31,
+              duration: 911,
+              mean: 29.0
+            },
+            {
+              first: '2015-10-27 14:19:02',
+              last: '2015-10-27 15:02:47',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.getTsParameterList}',
+              count: 10,
+              duration: 67,
+              mean: 7.0
+            },
+            {
+              first: '2015-10-26 14:30:26',
+              last: '2015-10-27 16:05:28',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.getTsTypeList}',
+              count: 419,
+              duration: 2590,
+              mean: 6.0
+            },
+            {
+              first: '2015-10-26 14:49:17',
+              last: '2015-10-27 15:31:15',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.getUnitList}',
+              count: 25,
+              duration: 334,
+              mean: 13.0
+            },
+            {
+              first: '2015-10-26 11:26:34',
+              last: '2015-10-26 11:26:38',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.updateBasicDataList}',
+              count: 6,
+              duration: 72,
+              mean: 12.0
+            },
+            {
+              first: '2015-10-26 11:26:34',
+              last: '2015-10-26 11:26:38',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.updateBasicDataType}',
+              count: 4,
+              duration: 16,
+              mean: 4.0
+            },
+            {
+              first: '2015-10-26 11:26:22',
+              last: '2015-10-26 11:26:23',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.updateOrCreateLanguage}',
+              count: 185,
+              duration: 821,
+              mean: 4.0
+            },
+            {
+              first: '2015-10-26 11:26:30',
+              last: '2015-10-26 11:26:30',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.updateOrCreateTsTimeLevel}',
+              count: 20,
+              duration: 89,
+              mean: 4.0
+            },
+            {
+              first: '2015-10-26 11:26:31',
+              last: '2015-10-26 11:26:34',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.updateOrCreateUnit}',
+              count: 562,
+              duration: 2109,
+              mean: 4.0
+            },
+            {
+              first: '2015-10-26 11:26:30',
+              last: '2015-10-26 11:26:31',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.updateOrCreateUnitGroup}',
+              count: 110,
+              duration: 519,
+              mean: 5.0
+            },
+            {
+              first: '2015-10-26 11:26:34',
+              last: '2015-10-26 11:26:34',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.updateOrCreateUnitIoMapItem}',
+              count: 6,
+              duration: 71,
+              mean: 12.0
+            },
+            {
+              first: '2015-10-26 11:26:34',
+              last: '2015-10-26 11:26:43',
+              logCategory: 'msg',
+              function: {url:'', desc:'basicdata.updateTsType}',
+              count: 277,
+              duration: 4142,
+              mean: 15.0
+            },
+            {
+              first: '2015-10-26 11:26:22',
+              last: '2015-10-26 11:26:43',
+              logCategory: 'msg',
+              function: {url:'', desc:'process.processXmlData}',
+              count: 24,
+              duration: 1008,
+              mean: 42.0
+            },
+            {
+              first: '2015-10-26 11:23:04',
+              last: '2015-10-28 09:04:45',
+              logCategory: 'msg',
+              function: {url:'', desc:'process.start}',
+              count: 2,
+              duration: 0,
+              mean: 0.0
+            },
+            {
+              first: '2015-10-26 14:49:19',
+              last: '2015-10-27 15:39:02',
+              logCategory: 'msg',
+              function: {url:'', desc:'remarks.getRemarkList}',
+              count: 39,
+              duration: 618,
+              mean: 16.0
+            },
+            {
+              first: '2015-10-27 13:52:32',
+              last: '2015-10-27 15:39:02',
+              logCategory: 'msg',
+              function: {url:'', desc:'remarks.getStandardRemarkTypeList}',
+              count: 45,
+              duration: 439,
+              mean: 10.0
+            },
+            {
+              first: '2015-10-26 11:23:20',
+              last: '2015-10-29 00:53:49',
+              logCategory: 'msg',
+              function: {url:'', desc:'session.closeSession}',
+              count: 703,
+              duration: 0,
+              mean: 0.0
+            },
+            {
+              first: '2015-10-26 11:23:19',
+              last: '2015-10-29 00:59:13',
+              logCategory: 'msg',
+              function: {url:'', desc:'session.getLocaleInfo}',
+              count: 707,
+              duration: 1771,
+              mean: 3.0
+            },
+            {
+              first: '2015-10-26 11:23:20',
+              last: '2015-10-29 00:53:49',
+              logCategory: 'msg',
+              function: {url:'', desc:'sessionmgr.closesession'},
+              count: 782,
+              duration: 0,
+              mean: 0.0
+            },
+            {
+              first: '2015-10-26 11:23:12',
+              last: '2015-10-29 00:59:13',
+              logCategory: 'msg',
+              function: {url:'', desc:'sessionmgr.putSession'},
+              count: 783,
+              duration: 0,
+              mean: 0.0
+            },
+            {
+              first: '2015-10-26 11:26:21',
+              last: '2015-10-26 11:26:22',
+              logCategory: 'msg',
+              function: {url:'', desc:'storage.createStorageByXml'},
+              count: 52,
+              duration: 597,
+              mean: 11.0
+            },
+            {
+              first: '2015-10-27 15:27:50',
+              last: '2015-10-27 15:27:50',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.canCheckOut'},
+              count: 2,
+              duration: 9,
+              mean: 5.0
+            },
+            {
+              first: '2015-10-27 15:22:42',
+              last: '2015-10-27 15:34:55',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.checkInTsData'},
+              count: 5,
+              duration: 15,
+              mean: 3.0
+            },
+            {
+              first: '2015-10-27 15:22:38',
+              last: '2015-10-27 15:34:43',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.checkOutTsData'},
+              count: 5,
+              duration: 66,
+              mean: 13.0
+            },
+            {
+              first: '2015-10-27 15:18:15',
+              last: '2015-10-27 15:29:05',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.createTimeSeriesList'},
+              count: 2,
+              duration: 1534,
+              mean: 767.0
+            },
+            {
+              first: '2015-10-27 15:27:50',
+              last: '2015-10-27 15:27:50',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.deleteTsData'},
+              count: 1,
+              duration: 200,
+              mean: 200.0
+            },
+            {
+              first: '2015-10-26 11:26:34',
+              last: '2015-10-26 11:26:38',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.findTimeSeriesByAbsolutePath'},
+              count: 6,
+              duration: 45,
+              mean: 8.0
+            },
+            {
+              first: '2015-10-27 15:14:08',
+              last: '2015-10-27 15:39:02',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.getNotificationList'},
+              count: 25,
+              duration: 145,
+              mean: 6.0
+            },
+            {
+              first: '2015-10-26 14:30:25',
+              last: '2015-10-27 16:05:29',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.getTimeSeriesList'},
+              count: 709,
+              duration: 16991,
+              mean: 24.0
+            },
+            {
+              first: '2015-10-26 14:30:26',
+              last: '2015-10-27 16:05:22',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.getTsCoverageList'},
+              count: 102,
+              duration: 14299,
+              mean: 140.0
+            },
+            {
+              first: '2015-10-27 15:30:05',
+              last: '2015-10-27 15:30:05',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.getTsEditHistoryList'},
+              count: 1,
+              duration: 11,
+              mean: 11.0
+            },
+            {
+              first: '2015-10-26 14:49:16',
+              last: '2015-10-27 15:28:54',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.getTsIdByPath'},
+              count: 107,
+              duration: 523,
+              mean: 5.0
+            },
+            {
+              first: '2015-10-27 15:19:20',
+              last: '2015-10-27 15:32:58',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.getTsInvalidDataIntervals'},
+              count: 49,
+              duration: 658,
+              mean: 13.0
+            },
+            {
+              first: '2015-10-27 15:19:20',
+              last: '2015-10-27 15:32:58',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.getTsMarkInvalidIntervals}',
+              count: 49,
+              duration: 345,
+              mean: 7.0
+            },
+            {
+              first: '2015-10-26 15:55:21',
+              last: '2015-10-27 15:38:55',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.getTsReleaseStates'},
+              count: 27,
+              duration: 49,
+              mean: 2.0
+            },
+            {
+              first: '2015-10-26 15:55:21',
+              last: '2015-10-27 15:38:55',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.getTsReleaseStatesViaAgents'},
+              count: 27,
+              duration: 10088,
+              mean: 374.0
+            },
+            {
+              first: '2015-10-27 15:22:38',
+              last: '2015-10-27 15:34:43',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.getTsStateList'},
+              count: 4,
+              duration: 27,
+              mean: 7.0
+            },
+            {
+              first: '2015-10-27 15:27:55',
+              last: '2015-10-27 15:27:55',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.markTsDataInvalid'},
+              count: 1,
+              duration: 12,
+              mean: 12.0
+            },
+            {
+              first: '2015-10-26 14:49:19',
+              last: '2015-10-27 15:39:02',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.readTsData'},
+              count: 56,
+              duration: 63043,
+              mean: 1126.0
+            },
+            {
+              first: '2015-10-27 15:14:08',
+              last: '2015-10-27 15:39:02',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.registerForNotifications'},
+              count: 21,
+              duration: 209,
+              mean: 10.0
+            },
+            {
+              first: '2015-10-27 15:30:05',
+              last: '2015-10-27 15:30:05',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.resetNotifications'},
+              count: 1,
+              duration: 4,
+              mean: 4.0
+            },
+            {
+              first: '2015-10-27 15:14:32',
+              last: '2015-10-28 08:49:28',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.unregisterForNotifications'},
+              count: 21,
+              duration: 106,
+              mean: 5.0
+            },
+            {
+              first: '2015-10-26 11:26:37',
+              last: '2015-10-26 11:26:38',
+              logCategory: 'msg',
+              function: {url:'', desc:'timeseries.updateTimeSeriesList'},
+              count: 3,
+              duration: 2183,
+              mean: 728.0
+            }
+          ];
+        }
+      ]);
+</script>
+</body>
+
+</html>

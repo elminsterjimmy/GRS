@@ -22,11 +22,12 @@ function mainCtrl($rootScope, $scope, $state, $stateParams, $modal, EventConstan
 
   function handleAuthAvailable() {
     $rootScope.loggedIn = true;
-    $state.transitionTo("index", $stateParams, {
-      reload: true,
-      inherit: false,
-      notify: true
-    });
+    //$state.go();
+    //$state.transitionTo("index", $stateParams, {
+    //  reload: true,
+    //  inherit: false,
+    //  notify: true
+    //});
   }
 
   function handleServerUnavailable() {
@@ -35,7 +36,7 @@ function mainCtrl($rootScope, $scope, $state, $stateParams, $modal, EventConstan
 
   function handleAuthUnavailable() {
     $rootScope.loggedIn = false;
-    $modal.open({
+    $uibModal.open({
       animation: true,
       templateUrl: './tpl/dialog/authUnavailable.html'
     });

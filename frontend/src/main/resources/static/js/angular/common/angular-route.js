@@ -147,8 +147,8 @@ function routeConfig($stateProvider, $urlRouterProvider) {
       views: {
         "contentMain": {
           templateUrl: 'tpl/view/profile.html',
-          controller: 'collectionsController',
-          controllerAs: 'collections'
+          controller: 'profileController',
+          controllerAs: 'profile'
         },
         "contentFooter": {templateUrl: 'tpl/common/defaultFooter.html'}
       },
@@ -158,8 +158,8 @@ function routeConfig($stateProvider, $urlRouterProvider) {
           return $ocLazyLoad.load({
             serie: true,
             files: [
-              'js/angular/service/collections-service.js',
-              'js/angular/controller/collections-controller.js']
+              'js/angular/service/profile-service.js',
+              'js/angular/controller/profile-controller.js']
           });
         }]
       }
