@@ -1,84 +1,129 @@
 <div class="row row-sm">
-<uib-accordion close-others="true">
-  <uib-accordion-group heading="111" is-open="false">
-    <form class="form-horizontal">
-      <div class="form-group">
-        <label class="control-label col-sm-2"  for="username">Username:</label>
+  <div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span ng-if="profile.username">{{profile.username}}'s profile</span></h3>
+        </div>
+        <div class="panel-body">
+          <uib-accordion close-others="true">
+            <uib-accordion-group heading="Basic Profiles" is-open="basicProfile.open">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="email">Email:</label>
 
-        <div class="controls col-sm-8">
-          <input type="text" class="input-s-lg" id="username"></div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="gender">Gender</label>
+                  <div class="controls col-sm-8">
+                    <input type="email" class="input-s-lg" id="email"></div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="telephone">Telephone:</label>
 
-        <div class="controls col-sm-8">
-          <label class="inline">
-            <input type="radio" value="1" name="gender">
-            Male
-          </label>
-          <label class="inline">
-            <input type="radio" value="2" name="gender">
-            Female
-          </label>
-          <label class="inline">
-            <input type="radio" value="3" checked="checked" name="gender">
-            Unknown
-          </label>
+                  <div class="controls col-sm-8">
+                    <input type="text" class="input-s-lg" id="telephone"></div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="gender">Gender</label>
+
+                  <div class="controls col-sm-8">
+                    <label class="inline">
+                      <input type="radio" value="1" name="gender">
+                      Male
+                    </label>
+                    <label class="inline">
+                      <input type="radio" value="2" name="gender">
+                      Female
+                    </label>
+                    <label class="inline">
+                      <input type="radio" value="3" checked="checked" name="gender">
+                      Unknown
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="birthday">Birthday:</label>
+
+                  <div class="controls col-sm-8">
+                    <select ng-model="profile.selectedyear" ng-options="years for years in profile.default.years"></select>
+                    <select ng-model="profile.selectedmonth" ng-options="months for months in profile.default.months"
+                            ng-change="profile.updateDay()"></select>
+                    <select ng-model="profile.selectedday" ng-options="days for days in profile.default.days"></select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="location">Location:</label>
+
+                  <div class="controls col-sm-8">
+                    <select></select>
+                    <select></select>
+                    <select></select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="bio">Bio</label>
+
+                  <div class="controls col-sm-8">
+                    <div class="textarea">
+                      <textarea type="" class="input-s-lg" id="bio"> </textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="blog">Blog:</label>
+
+                  <div class="controls col-sm-8">
+                    <input type="text" class="input-s-lg" id="blog"></div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="weibo">Weibo:</label>
+
+                  <div class="controls col-sm-8">
+                    <input type="text" class="input-s-lg" id="weibo"></div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="qq">QQ:</label>
+
+                  <div class="controls col-sm-8">
+                    <input type="text" class="input-s-lg" id="qq"></div>
+                </div>
+                <div class="form-group">
+                  <div class="controls col-sm-10">
+                    <div class="col-sm-2"></div>
+                    <button type="submit" class="btn btn-success">Sumbit</button>
+                    <button type="submit" class="btn btn-danger" ng-click="basicProfile.open = !basicProfile.open">Close</button>
+                  </div>
+                </div>
+              </form>
+            </uib-accordion-group>
+            <uib-accordion-group heading="Game Profiles"  is-open="gameProfile.open">
+              <form class="form-horizontal">
+
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="psnUsername">PSN Account:</label>
+
+                  <div class="controls col-sm-8">
+                    <input type="text" class="input-s-lg" id="psnUsername"></div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="liveUsername">Live Account:</label>
+
+                  <div class="controls col-sm-8">
+                    <input type="text" class="input-s-lg" id="liveUsername"></div>
+                </div>
+
+                <div class="form-group">
+                  <div class="controls col-sm-10">
+                    <div class="col-sm-2"></div>
+                    <button type="submit" class="btn btn-success">Sumbit</button>
+                    <button type="submit" class="btn btn-danger" ng-click="gameProfile.open = !gameProfile.open">Close</button>
+                  </div>
+                </div>
+              </form>
+            </uib-accordion-group>
+            <uib-accordion-group heading="Delete account" panel-class="panel-danger">
+              <span>Warnning!!! To delete your account, click the button</span>
+              <button class="btn-danger btn-s-sm">Delete</button>
+            </uib-accordion-group>
+          </uib-accordion>
         </div>
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="birthday">Birthday:</label>
-
-        <div class="controls col-sm-8">
-          <select ng-model="profile.selectedyear" ng-options="years for years in profile.default.years"></select>
-          <select ng-model="profile.selectedmonth" ng-options="months for months in profile.default.months" ng-change="profile.updateDay()"></select>
-          <select ng-model="profile.selectedday" ng-options="days for days in profile.default.days"></select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="location">Location:</label>
-
-        <div class="controls col-sm-8">
-          <select></select>
-          <select></select>
-          <select></select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="bio">Bio</label>
-
-        <div class="controls col-sm-8">
-          <div class="textarea">
-            <textarea type="" class="input-s-lg" id="bio"> </textarea>
-          </div>
-      </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="blog">Blog:</label>
-
-        <div class="controls col-sm-8">
-          <input type="text" class="input-s-lg" id="blog"></div>
-      </div>
-      <div class="opt"></div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="weibo">Weibo:</label>
-
-        <div class="controls col-sm-8">
-          <input type="text" class="input-s-lg" id="weibo"></div>
-      </div>
-      <div class="opt"></div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="qq">QQ:</label>
-
-        <div class="controls col-sm-8">
-          <input type="text" class="input-s-lg" id="qq"></div>
-      </div>
-      <div class="opt"></div>
-    </form>
-  </uib-accordion-group>
-  <uib-accordion-group heading="Delete account" panel-class="panel-danger">
-    <p>Please, to delete your account, click the button below</p>
-    <button class="btn btn-danger">Delete</button>
-  </uib-accordion-group>
-</uib-accordion>
+  </div>
 </div>
