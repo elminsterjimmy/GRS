@@ -2,8 +2,6 @@ package com.elminster.grs.giantbomb.service.impl;
 
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +26,6 @@ import com.elminster.grs.giantbomb.service.GaintGameService;
 @Transactional
 public class GaintGameServiceImpl implements GaintGameService {
   
-  @PersistenceContext
-  private EntityManager em;
-
   @Autowired
   GiantBombGameDao gameDao;
   @Autowired
