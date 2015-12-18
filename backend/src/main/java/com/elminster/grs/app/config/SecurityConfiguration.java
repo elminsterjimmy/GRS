@@ -1,4 +1,4 @@
-package com.elminster.web.grs;
+package com.elminster.grs.app.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   private static final String[] NO_PERMISSION_CALLS = {
     "/v1.0/user/login",
     "/v1.0/user/register",
-    "/v1.0/user/usernameOccupied/*",
+    "/v1.0/user/usernameOccupied",
     "/v1.0/user/test"
   };
   // @formatter:on

@@ -1,4 +1,4 @@
-package com.elminster.web.grs;
+package com.elminster.grs.app.config;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;

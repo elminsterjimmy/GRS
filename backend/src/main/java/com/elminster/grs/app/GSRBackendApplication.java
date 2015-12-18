@@ -1,12 +1,8 @@
-package com.elminster.web.grs;
+package com.elminster.grs.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @SpringBootApplication
 @RestController
-@ComponentScan({ "com.elminster.spring.security", "com.elminster.grs" })
-@EnableJpaRepositories({ "com.elminster.spring.security", "com.elminster.grs" })
-@EntityScan({ "com.elminster.spring.security", "com.elminster.grs" })
-@EnableTransactionManagement
-@EnableSpringDataWebSupport
+@ComponentScan({
+  "com.elminster.spring.security",
+  "com.elminster.grs.app",
+  "com.elminster.grs.web",
+  "com.elminster.grs.crawler",
+  "com.elminster.spring.security.service",
+  "com.elminster.grs.giantbomb.service" })
 public class GSRBackendApplication {
 
   /**

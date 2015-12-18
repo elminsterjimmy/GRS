@@ -1,4 +1,4 @@
-package com.elminster.web.grs;
+package com.elminster.grs.app.config;
 
 import java.io.File;
 
