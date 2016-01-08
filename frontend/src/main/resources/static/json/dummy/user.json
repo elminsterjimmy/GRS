@@ -1,4 +1,6 @@
 {
-    "name":"jinglei",
-    "avatarUrl":"images/a0.png"
+  "data": {
+    "username": "jinglei",
+    "avatarUrl": "images/a0.png"
+  }
 }

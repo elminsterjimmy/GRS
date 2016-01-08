@@ -11,6 +11,6 @@ function metaService(requestService, logger, URLConstants) {
   return service;
 
   function getMetaData() {
-    return requestService.request(URLConstants.dummyUrl + '/json/dummy/meta.json');
+    return requestService.request(URLConstants.dummy.BaseUrl + URLConstants.dummy.Service.Meta.Url);
   }
 }

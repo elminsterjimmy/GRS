@@ -2,7 +2,7 @@
   <div>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title"><span ng-if="profile.username">{{profile.username}}'s profile</span></h3>
+          <h3 class="panel-title"><span ng-if="profile.data.username">{{profile.data.username}}'s profile</span></h3>
         </div>
         <div class="panel-body">
           <uib-accordion close-others="true">
@@ -12,28 +12,54 @@
                   <label class="control-label col-sm-2" for="email">Email:</label>
 
                   <div class="controls col-sm-8">
-                    <input type="email" class="input-s-lg" id="email"></div>
+                    <input type="email" class="input-s-lg" id="email" ng-model="profile.data.email"></div>
                 </div>
                 <div class="form-group">
-                  <label class="control-label col-sm-2" for="telephone">Telephone:</label>
+                  <label class="control-label col-sm-2" for="mobile">Mobile:</label>
 
                   <div class="controls col-sm-8">
-                    <input type="text" class="input-s-lg" id="telephone"></div>
+                    <input type="text" class="input-s-lg" id="mobile" ng-model="profile.data.mobile"></div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="gender">Gender</label>
 
                   <div class="controls col-sm-8">
                     <label class="inline">
-                      <input type="radio" value="1" name="gender">
+                      <input type="radio" value="1" name="gender" ng-model="profile.data.gender">
                       Male
                     </label>
                     <label class="inline">
-                      <input type="radio" value="2" name="gender">
+                      <input type="radio" value="2" name="gender" ng-model="profile.data.gender">
                       Female
                     </label>
                     <label class="inline">
-                      <input type="radio" value="3" checked="checked" name="gender">
+                      <input type="radio" value="0" checked="checked" name="gender" ng-model="profile.data.gender">
+                      Unknown
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="bloodType">Blood Type</label>
+
+                  <div class="controls col-sm-8">
+                    <label class="inline">
+                      <input type="radio" value="1" name="bloodType" ng-model="profile.data.bloodType">
+                      A
+                    </label>
+                    <label class="inline">
+                      <input type="radio" value="2" name="bloodType" ng-model="profile.data.bloodType">
+                      B
+                    </label>
+                    <label class="inline">
+                      <input type="radio" value="3" name="bloodType" ng-model="profile.data.bloodType">
+                      AB
+                    </label>
+                    <label class="inline">
+                      <input type="radio" value="4"  name="bloodType" ng-model="profile.data.bloodType">
+                      O
+                    </label>
+                    <label class="inline">
+                      <input type="radio" value="0"  name="bloodType" checked="checked" ng-model="profile.data.bloodType">
                       Unknown
                     </label>
                   </div>
@@ -43,7 +69,7 @@
 
                   <div class="controls col-sm-8">
                     <select ng-model="profile.selectedyear" ng-options="years for years in profile.default.years"></select>
-                    <select ng-model="profile.selectedmonth" ng-options="months for months in profile.default.months"
+                    <select ng-model="profile.selectedmonth" ng-options="months.value as months.text for months in profile.default.months"
                             ng-change="profile.updateDay()"></select>
                     <select ng-model="profile.selectedday" ng-options="days for days in profile.default.days"></select>
                   </div>
@@ -52,9 +78,9 @@
                   <label class="control-label col-sm-2" for="location">Location:</label>
 
                   <div class="controls col-sm-8">
-                    <select></select>
-                    <select></select>
-                    <select></select>
+                    <select ng-model="profile.data.livePlaceLv1" ng-options="location1.id as location1.name for location1 in (profile.default.locations | filter : {level : 1})"></select>
+                    <select ng-model="profile.data.livePlaceLv2" ng-options="location2.id as location2.name for location2 in (profile.default.locations | filter : {level : 2, parent_id: profile.data.livePlaceLv1})"></select>
+                    <select ng-model="profile.data.livePlaceLv3" ng-options="location3.id as location3.name for location3 in (profile.default.locations | filter : {level : 3, parent_id: profile.data.livePlaceLv2})"></select>
                   </div>
                 </div>
                 <div class="form-group">
@@ -62,7 +88,7 @@
 
                   <div class="controls col-sm-8">
                     <div class="textarea">
-                      <textarea type="" class="input-s-lg" id="bio"> </textarea>
+                      <textarea type="" class="input-s-lg" id="bio" ng-model="profile.data.bio"> </textarea>
                     </div>
                   </div>
                 </div>
@@ -70,19 +96,19 @@
                   <label class="control-label col-sm-2" for="blog">Blog:</label>
 
                   <div class="controls col-sm-8">
-                    <input type="text" class="input-s-lg" id="blog"></div>
+                    <input type="text" class="input-s-lg" id="blog" ng-model="profile.data.bio"></div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="weibo">Weibo:</label>
 
                   <div class="controls col-sm-8">
-                    <input type="text" class="input-s-lg" id="weibo"></div>
+                    <input type="text" class="input-s-lg" id="weibo" ng-model="profile.data.weibo"></div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="qq">QQ:</label>
 
                   <div class="controls col-sm-8">
-                    <input type="text" class="input-s-lg" id="qq"></div>
+                    <input type="text" class="input-s-lg" id="qq" ng-model="profile.data.qq"></div>
                 </div>
                 <div class="form-group">
                   <div class="controls col-sm-10">
@@ -100,13 +126,13 @@
                   <label class="control-label col-sm-2" for="psnUsername">PSN Account:</label>
 
                   <div class="controls col-sm-8">
-                    <input type="text" class="input-s-lg" id="psnUsername"></div>
+                    <input type="text" class="input-s-lg" id="psnUsername" ng-model="profile.data.psnUsername"></div>
                 </div>
                 <div class="form-group">
                   <label class="control-label col-sm-2" for="liveUsername">Live Account:</label>
 
                   <div class="controls col-sm-8">
-                    <input type="text" class="input-s-lg" id="liveUsername"></div>
+                    <input type="text" class="input-s-lg" id="liveUsername" ng-model="profile.data.liveUsername"></div>
                 </div>
 
                 <div class="form-group">

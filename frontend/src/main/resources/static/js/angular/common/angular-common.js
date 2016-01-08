@@ -1,14 +1,23 @@
 angular.module('grsApp').factory('common', common);
 
-common.$inject = ['logger'];
-
-function common(logger) {
+function common(logger, URLConstants) {
 
   var service = {
     ajaxSuccess: ajaxSuccess,
-    ajaxFailed: ajaxFailed
+    ajaxFailed: ajaxFailed,
+    reloadState: reloadState,
+    activedApp: URLConstants.dummy
   };
+
   return service;
+
+  function reloadState($state, $stateParams) {
+    $state.transitionTo($state.current.name, $stateParams, {
+      reload: true,
+      inherit: false,
+      notify: true
+    });
+  }
 
   function ajaxSuccess(response) {
     return response;

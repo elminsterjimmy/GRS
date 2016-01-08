@@ -15,6 +15,7 @@ function headerCtrl($rootScope, $scope, userService, EventConstants, logger) {
         vm.user = response.data.data;
       } else if (response.status == 403) {
         // TODO auth timeout broadcase
+        $rootScope.$broadcast(EventConstants.authUnavailableEvent);
       } else {
         // TODO server unavailable
       }

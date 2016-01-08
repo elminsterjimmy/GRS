@@ -1,9 +1,9 @@
 angular.
   module('grsApp').factory('userService', userService);
 
-function userService(requestService, URLConstants, logger) {
+function userService(requestService, common, logger) {
   logger.info("init user service.");
-  
+
   var service = {
     getUserInfo : getUserInfo,
     login : login,
@@ -12,14 +12,17 @@ function userService(requestService, URLConstants, logger) {
   return service;
 
   function getUserInfo() {
-    return requestService.request(URLConstants.testAppUrl + '/user/current');
+    var service = common.activedApp.Service.BaseUserInfo;
+    return requestService.request(common.activedApp.BaseUrl + service.Url, service.Method);
   }
 
   function login(user) {
-    return requestService.request(URLConstants.testAppUrl + '/user/login', 'POST', user);
+    var service = common.activedApp.Service.Login;
+    return requestService.request(common.activedApp.BaseUrl + service.Url, service.Method, user);
   }
 
   function register(user) {
-    return requestService.request(URLCOnstants.testAppUrl + '/user', 'POST', user);
+    var service = common.activedApp.Service.Register;
+    return requestService.request(common.activedApp.BaseUrl + service.Url, service.Method, user);
   }
 }

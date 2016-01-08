@@ -1,6 +1,6 @@
 angular.module('grsApp').controller('mainController', mainCtrl).controller('metaController', metaCtrl);
 
-function mainCtrl($rootScope, $scope, $state, $stateParams, $modal, EventConstants, userService, logger) {
+function mainCtrl($rootScope, $scope, $state, $stateParams, $uibModal, common, EventConstants, userService, logger) {
 
   activate();
 
@@ -22,12 +22,7 @@ function mainCtrl($rootScope, $scope, $state, $stateParams, $modal, EventConstan
 
   function handleAuthAvailable() {
     $rootScope.loggedIn = true;
-    //$state.go();
-    //$state.transitionTo("index", $stateParams, {
-    //  reload: true,
-    //  inherit: false,
-    //  notify: true
-    //});
+    common.reloadState($state, $stateParams);
   }
 
   function handleServerUnavailable() {
@@ -40,11 +35,7 @@ function mainCtrl($rootScope, $scope, $state, $stateParams, $modal, EventConstan
       animation: true,
       templateUrl: './tpl/dialog/authUnavailable.html'
     });
-    $state.transitionTo("index", $stateParams, {
-      reload: true,
-      inherit: false,
-      notify: true
-    });
+    common.reloadState($state, $stateParams);
   }
 }
 

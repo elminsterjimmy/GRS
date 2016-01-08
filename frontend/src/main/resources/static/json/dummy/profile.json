@@ -1,0 +1,19 @@
+{
+  "data" : {
+    "username" : "jinglei",
+    "gender" : 1,
+    "email" : "test@test.com",
+    "mobile" : 12345678901,
+    "birthday" : 1450689407288,
+    "bio" : "bio",
+    "blog:" : "blog",
+    "weibo" : "weibo",
+    "qq" : "qq",
+    "bloodType" : 1,
+    "livePlaceLv1" : 110000,
+    "livePlaceLv2" : 110100,
+    "livePlaceLv3" : 110101,
+    "psnUsername" : "testPSN",
+    "liveUsername" : "testLive"
+  }
+}

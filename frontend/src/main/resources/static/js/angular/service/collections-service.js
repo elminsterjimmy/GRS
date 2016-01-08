@@ -13,7 +13,7 @@ function collectionService(requestService, logger, URLConstants) {
 
   function getAllCollectionList(user) {
     logger.info("getAllCollectionList");
-    return requestService.request(URLConstants.dummyUrl + '/json/dummy/collections.json');
+    return requestService.request(URLConstants.dummy.BaseUrl + URLConstants.dummy.Service.Collection.Url);
   }
   
   function markRating(user, item) {

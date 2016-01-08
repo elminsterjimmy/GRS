@@ -1,6 +1,6 @@
 angular.module('grsApp').controller('userController', userCtrl);
 
-function userCtrl($rootScope, $scope, $modalInstance, $cookies, $state, $stateParams, EventConstants, userService, logger) {
+function userCtrl($rootScope, $scope, $modalInstance, $cookies, EventConstants, userService, logger) {
 
   var vm = this;
   vm.login = login;
@@ -19,11 +19,6 @@ function userCtrl($rootScope, $scope, $modalInstance, $cookies, $state, $statePa
           var authToken = data.headers('X-AUTH-TOKEN');
           $cookies.put("USER-TOKEN", authToken);
           $rootScope.$broadcast(EventConstants.authAvailableEvent);
-          $state.transitionTo("index", $stateParams, {
-            reload: true,
-            inherit: false,
-            notify: true
-          });
         } else if (data.status == 401) {
           logger.info("401 error");
           $scope.loginForm.retour.$setValidity("server", false);

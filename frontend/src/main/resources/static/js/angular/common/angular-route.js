@@ -1,4 +1,4 @@
-angular.module('grsApp').config(routeConfig).run(['$state', reloadState]);//.run(checkAuthentication);
+angular.module('grsApp').config(routeConfig).run(['$state', reloadState]).run(updateCurrentState);//.run(checkAuthentication);
 
 function routeConfig($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
@@ -169,6 +169,14 @@ function routeConfig($stateProvider, $urlRouterProvider) {
 // fix the bug for ui-view in ng-include (https://github.com/angular-ui/ui-router/issues/679)
 function reloadState($state) {
 
+}
+
+function updateCurrentState($state, $rootScope) {
+  $rootScope.$on('$stateChangeSuccess',
+    function(event, toState, toParams, fromState, fromParams) {
+      $state.current = toState;
+    }
+  )
 }
 
 //function checkAuthentication($rootScope, $location, $state, EventConstants, userService) {
