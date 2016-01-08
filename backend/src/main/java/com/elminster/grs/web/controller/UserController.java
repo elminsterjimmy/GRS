@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.elminster.grs.web.constants.Authorities;
 import com.elminster.grs.web.service.LoginException;
 import com.elminster.grs.web.service.RegisterException;
 import com.elminster.grs.web.service.ServiceErrorCode;
@@ -25,7 +23,6 @@ import com.elminster.grs.web.vo.request.LoginJsonModel;
 import com.elminster.grs.web.vo.request.RegisterJsonModel;
 import com.elminster.grs.web.vo.response.JsonResponseTemplate;
 import com.elminster.spring.security.domain.User;
-import com.elminster.spring.security.model.UserDetailsImpl;
 import com.elminster.spring.security.service.TokenAuthenticationService;
 import com.elminster.web.commons.response.JsonResponse;
 import com.elminster.web.commons.util.IpFinder;
@@ -57,13 +54,13 @@ public class UserController extends BaseController {
   @RequestMapping(method = RequestMethod.GET)
   public @ResponseBody JsonResponse getAllUsers(HttpServletRequest request, HttpServletResponse response) {
     // TODO
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    UserDetailsImpl ud = (UserDetailsImpl) auth.getDetails();
-    // the user
-    User user = ud.getUser();
-    if (user.getAuthorities().contains(Authorities.ADMIN)) {
-
-    }
+//    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//    UserDetailsImpl ud = (UserDetailsImpl) auth.getDetails();
+//    // the user
+//    User user = ud.getUser();
+//    if (user.getAuthorities().contains(Authorities.ADMIN)) {
+//
+//    }
     return new JsonResponse().setData("auth OK");
   }
 
@@ -77,35 +74,6 @@ public class UserController extends BaseController {
     return getUserById(userId);
   }
   
-  @RequestMapping(value = "/current", method = RequestMethod.PUT)
-  public @ResponseBody JsonResponse updateCurrentUser() {
-    // TODO
-    return null;
-  }
-
-  @RequestMapping(value = "/current", method = RequestMethod.DELETE)
-  public @ResponseBody JsonResponse deleteCurrentUser() {
-    // TODO
-    return null;
-  }
-
-  @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public @ResponseBody JsonResponse getUser(@PathVariable int id) throws IOException, Exception {
-    return getUserById(id);
-  }
-
-  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public @ResponseBody JsonResponse updateUser() {
-    // TODO
-    return null;
-  }
-
-  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public @ResponseBody JsonResponse deleteUser() {
-    // TODO
-    return null;
-  }
-
   /**
    * User login returns http states 202 if success.
    */
@@ -162,6 +130,27 @@ public class UserController extends BaseController {
           "Username already exist.");
     }
     return jsonResponse;
+  }
+  
+  @RequestMapping(value = "/current/profile", method = RequestMethod.GET)
+  public JsonResponse getCurrentUserProfile() throws IOException, Exception {
+    User currentUser = getCurrentAuthUser();
+    final int userId = currentUser.getId();
+    JsonResponse jsonResponse = new JsonResponseTemplate() {
+      protected Object callback() throws Exception {
+        return userService.getUserProfile(userId);
+      }
+    }.getJsonResponse();
+    return jsonResponse;
+  }
+  
+  @RequestMapping(value = "/current/profile/basic", method = RequestMethod.POST)
+  public JsonResponse saveUserBasicProfile() throws IOException, Exception {
+    // TODO
+    User currentUser = getCurrentAuthUser();
+    final int userId = currentUser.getId();
+    
+    return jsonResponseBuilder.buildJsonResponse();
   }
   
   // =================================================================================================

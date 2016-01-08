@@ -1,13 +1,10 @@
 package com.elminster.grs.web.vo.response;
 
-import com.elminster.grs.shared.db.domain.UserEx.Gender;
-
 public class BasicUserInfo {
 
   private int id;
   private String username;
   private String avatarUrl;
-  private Gender gender;
   private int point;
   
   /**
@@ -47,19 +44,6 @@ public class BasicUserInfo {
    */
   public BasicUserInfo setAvatarUrl(String avatarUrl) {
     this.avatarUrl = avatarUrl;
-    return this;
-  }
-  /**
-   * @return the gender
-   */
-  public Gender getGender() {
-    return gender;
-  }
-  /**
-   * @param gender the gender to set
-   */
-  public BasicUserInfo setGender(Gender gender) {
-    this.gender = gender;
     return this;
   }
   /**

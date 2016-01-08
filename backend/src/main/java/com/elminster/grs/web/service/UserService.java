@@ -4,7 +4,10 @@ import org.springframework.security.core.Authentication;
 
 import com.elminster.grs.web.vo.request.LoginJsonModel;
 import com.elminster.grs.web.vo.request.RegisterJsonModel;
+import com.elminster.grs.web.vo.request.UserBasicProfile;
+import com.elminster.grs.web.vo.request.UserGameProfile;
 import com.elminster.grs.web.vo.response.BasicUserInfo;
+import com.elminster.grs.web.vo.response.UserProfile;
 
 /**
  * The user service.
@@ -23,12 +26,26 @@ public interface UserService {
   public BasicUserInfo getBasicUserInfo(int userId) throws UserServiceException;
   
   /**
-   * Get user's extra information.
+   * Get user's basic profile.
    * @param userId the user id
    * @return user's extra information
    * @throws UserServiceException on error
    */
-  public void getExtraUserInfo(int userId) throws UserServiceException;
+  public UserProfile getUserProfile(int userId) throws UserServiceException;
+  
+  /**
+   * Update the user's basic profile.
+   * @param userBasicProfile the user basic profile
+   * @throws UserServiceException on error
+   */
+  public void updateUserBasicProfile(UserBasicProfile userBasicProfile) throws UserServiceException;
+  
+  /**
+   * Update the user's game profile.
+   * @param userBasicProfile the user basic profile
+   * @throws UserServiceException on error
+   */
+  public void updateUserGameProfile(UserGameProfile userGameProfile) throws UserServiceException;
 
   /**
    * User login.
