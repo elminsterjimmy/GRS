@@ -131,13 +131,6 @@ public class UserEx implements Serializable {
   }
 
   /**
-   * @param points the points to set
-   */
-  public void setPoints(int points) {
-    this.points = points;
-  }
-
-  /**
    * @return the gender
    */
   public Gender getGender() {
@@ -242,9 +235,32 @@ public class UserEx implements Serializable {
     this.tags = tags;
   }
 
+  /**
+   * @return the booldType
+   */
+  public BloadType getBooldType() {
+    return booldType;
+  }
+
+  /**
+   * @param booldType the booldType to set
+   */
+  public void setBooldType(BloadType booldType) {
+    this.booldType = booldType;
+  }
+
   public static enum Gender {
     UNKNOWN,
     MALE,
-    FEMALE
+    FEMALE;
   }
+  
+  public static enum BloadType {
+    UNKNOWN,
+    A,
+    B,
+    AB,
+    O
+  }
+
 }

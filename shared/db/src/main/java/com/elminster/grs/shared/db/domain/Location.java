@@ -7,8 +7,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
 @Table(name = "comm_locations")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Location {
 
   @Id
