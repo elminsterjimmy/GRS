@@ -3,6 +3,7 @@ package com.elminster.grs.shared.db.domain;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +42,7 @@ public class UserGame {
   @JoinColumn(name="userId")
   private UserGameMeta user;
   
-  @OneToOne
+  @OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name="gameId")
   private Game game;
   

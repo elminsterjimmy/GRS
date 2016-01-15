@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.elminster.common.constants.Constants.StringConstants;
+
 @Entity
 @Table(name = "game_games")
 public class Game {
@@ -33,23 +35,23 @@ public class Game {
    // @formatter:on
   private int id;
   @Column(nullable = false, length=255)
-  private String psnInternalId;
+  private String psnInternalId = StringConstants.EMPTY_STRING;
   @Column(nullable = false, length=255)
-  private String liveInternalId;
+  private String liveInternalId = StringConstants.EMPTY_STRING;
   @Column
   private int gbId;
   @Column(nullable = false, length=1024)
   private String title;
+  @Column(nullable = true, length=1024)
+  private String chineseTitle1 = StringConstants.EMPTY_STRING;
   @Column(nullable = false, length=1024)
-  private String chineseTitle1;
+  private String chineseTitle2 = StringConstants.EMPTY_STRING;
   @Column(nullable = false, length=1024)
-  private String chineseTitle2;
+  private String chineseTitle3 = StringConstants.EMPTY_STRING;
   @Column(nullable = false, length=1024)
-  private String chineseTitle3;
+  private String chineseTitle4 = StringConstants.EMPTY_STRING;
   @Column(nullable = false, length=1024)
-  private String chineseTitle4;
-  @Column(nullable = false, length=1024)
-  private String japaneseTitle;
+  private String japaneseTitle = StringConstants.EMPTY_STRING;
   @Column(nullable = false, length=4)
   private int totalPoint = 0;
   @Column(nullable = false, length=3)
@@ -68,7 +70,7 @@ public class Game {
   private Set<TrophyAndAchievement> trophiesAndAchievements;
   @Enumerated(EnumType.ORDINAL)
   @Column(nullable=false, length=1)
-  private MatchStatus status;
+  private MatchStatus status = MatchStatus.CREATED;
   /**
    * @return the id
    */

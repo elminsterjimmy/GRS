@@ -11,6 +11,6 @@ import com.elminster.grs.shared.db.domain.TrophyAndAchievement;
 public interface TrophyAndAchieveDao extends JpaRepository<TrophyAndAchievement, Integer>,
     JpaSpecificationExecutor<TrophyAndAchievement> {
 
-  @Query("SELECT tna FROM TrophyAndAchievement tna WHERE tna.game.id = $1 and tna.trophyId = $2")
+  @Query("SELECT tna FROM TrophyAndAchievement tna WHERE tna.game.id = ?1 and tna.trophyId = ?2")
   public TrophyAndAchievement findByGameIdAndTrophyId(int gameId, String trophyId);
 }
