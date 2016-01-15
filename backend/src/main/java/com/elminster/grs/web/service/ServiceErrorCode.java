@@ -15,9 +15,6 @@ final public class ServiceErrorCode {
   public static final ErrorCode USER_IN_ILLEGAL_STATUS = new ErrorCode("US002", "USER_IN_ILLEGAL_STATUS");
   public static final ErrorCode UPDATE_PASSWORD_INCORRECT_PASSWORD = new ErrorCode("US003", "UPDATE_PASSWORD_INCORRECT_PASSWORD");
   
-  // game info update service error code
-  public static final ErrorCode UPDATE_USER_GAME_INFO_EXCEPTION = new ErrorCode("UG001", "UPDATE_USER_GAME_INFO_EXCEPTION");
-  
   // notification service error code
   public static final ErrorCode NOTIFCATION_ILLEGAL_STATUS = new ErrorCode("NE001", "NOTIFCATION_ILLEGAL_STATUS");
   public static final ErrorCode NOTIFY_USER_NOT_EXIST = new ErrorCode("NE002", "NOTIFY_USER_NOT_EXIST");

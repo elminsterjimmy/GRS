@@ -1,4 +1,4 @@
-package com.elminster.grs.web.service.impl;
+package com.elminster.grs.crawler.service.impl;
 
 import java.util.Date;
 
@@ -7,50 +7,41 @@ import javax.transaction.Transactional;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.elminster.common.exception.BaseException;
 import com.elminster.common.exception.ErrorCode;
 import com.elminster.common.util.DateUtil;
+import com.elminster.grs.crawler.service.GameInformationUpdateException;
+import com.elminster.grs.crawler.service.GameInformationUpdateService;
+import com.elminster.grs.crawler.service.ServiceErrorCode;
+import com.elminster.grs.crawler.updater.GameInformationUpdater;
 import com.elminster.grs.crawler.updater.InformationUpdateException;
-import com.elminster.grs.crawler.updater.UserInformationUpdater;
 import com.elminster.grs.shared.db.dao.GameInfoUpdateHistoryDao;
 import com.elminster.grs.shared.db.domain.GameInfoUpdateHistory;
 import com.elminster.grs.shared.db.domain.GameInfoUpdateHistory.UpdateStatus;
 import com.elminster.grs.shared.db.domain.helper.UpdateHistoryStatusHelper;
-import com.elminster.grs.web.service.GameInfoUpdateService;
-import com.elminster.grs.web.service.ServiceErrorCode;
-import com.elminster.grs.web.service.ServiceException;
 
-/**
- * The service to update the users game informations.
- * 
- * @author jgu
- * @version 1.0
- */
 @Service
-@Transactional
-public class GameInfoUpdateServiceImpl implements GameInfoUpdateService {
-
-  /** deafult update threshold 2 hours. */
+public class GameInformationUpdateServiceImpl implements GameInformationUpdateService {
+  
+  /** default update threshold 2 hours. */
   private static final long DEAFULT_UPDATE_THRESHOLD = 2 * DateUtil.HOUR;
   /** the logger. */
-  private static final Log logger = LogFactory.getLog(GameInfoUpdateServiceImpl.class);
+  private static final Log logger = LogFactory.getLog(GameInformationUpdateServiceImpl.class);
   @Autowired
   private GameInfoUpdateHistoryDao updateHistoryDao;
   @Autowired
-  @Qualifier("PsnGameInformationUpdater")
-  private UserInformationUpdater<Integer> psnUpdater;
+  private GameInformationUpdater<Integer> psnUpdater;
   /** the update threshold. */
-  private long threshold = DEAFULT_UPDATE_THRESHOLD;
+  private volatile long threshold = DEAFULT_UPDATE_THRESHOLD;
 
   /**
    * {@inheritDoc}
    */
   @Override
   @Transactional
-  public void updateUserGame(int userId) throws ServiceException {
+  public void updateGameInformation(Integer userId) throws GameInformationUpdateException {
     // first get the update history
     GameInfoUpdateHistory updateHistory = updateHistoryDao.findByUserId(userId);
     UpdateStatus status;
@@ -80,7 +71,7 @@ public class GameInfoUpdateServiceImpl implements GameInfoUpdateService {
       updateHistory.setStatus(UpdateStatus.UPDATE_PSN_PROFILE_FAILED);
       ErrorCode ec = e.getErrorCode();
       updateHistory.setErrorCode(null == ec ? BaseException.UNKNOWN_CODE.getCode() : ec.getCode());
-      throw new ServiceException(ServiceErrorCode.UPDATE_USER_GAME_INFO_EXCEPTION, e);
+      throw new GameInformationUpdateException(ServiceErrorCode.UPDATE_USER_GAME_INFO_EXCEPTION, e);
     } finally {
       if (logger.isDebugEnabled()) {
         logger.debug(String.format("End Updating game info for user %d.", userId));
@@ -89,6 +80,11 @@ public class GameInfoUpdateServiceImpl implements GameInfoUpdateService {
 
     updateHistory.setLastUpdate(new Date(System.currentTimeMillis()));
     updateHistoryDao.save(updateHistory);
+  }
+
+  @Override
+  public void setUpdateThreshold(long thresholdInMs) {
+    this.threshold = thresholdInMs;
   }
 
 }

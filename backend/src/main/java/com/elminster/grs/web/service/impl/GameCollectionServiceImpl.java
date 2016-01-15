@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.elminster.common.util.CollectionUtil;
+import com.elminster.grs.crawler.updater.InformationUpdateException;
+import com.elminster.grs.crawler.updater.InformationUpdater;
 import com.elminster.grs.shared.db.dao.UserGameDao;
 import com.elminster.grs.shared.db.domain.UserGame;
 import com.elminster.grs.web.dxo.helper.CollectionInfoDxoHelper;
@@ -32,8 +35,7 @@ public class GameCollectionServiceImpl implements GameCollectionService {
    * {@inheritDoc}
    */
   public void triggerUpdateUserGameCollection(int userId) {
-    // ENHANCE may move to MQ
-    
+    // TODO: ENHANCE may move to MQ
   }
 
   /**

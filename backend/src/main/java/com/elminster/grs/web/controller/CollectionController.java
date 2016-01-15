@@ -44,7 +44,8 @@ public class CollectionController extends BaseController {
       oc.addOrder(new Order("lastPlayedDate"));
       option.setOrderChain(oc);
     }
-    return getUserCollectionByUserId(userId, option);
+    JsonResponse jsonResponse =  getUserCollectionByUserId(userId, option);
+    return jsonResponse;
   }
 
   // ========================================================================

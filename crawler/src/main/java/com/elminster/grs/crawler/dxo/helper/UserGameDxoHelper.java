@@ -4,8 +4,8 @@ import com.elminster.common.util.Assert;
 import com.elminster.grs.shared.db.domain.Game;
 import com.elminster.grs.shared.db.domain.UserGame;
 import com.elminster.grs.shared.db.domain.UserGameMeta;
-import com.elminster.retrieve.data.user.PSNUserGame;
-import com.elminster.retrieve.data.user.PSNUserProfile;
+import com.elminster.retrieve.psn.data.user.PSNUserGame;
+import com.elminster.retrieve.psn.data.user.PSNUserProfile;
 
 final public class UserGameDxoHelper {
 

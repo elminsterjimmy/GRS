@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.elminster.common.util.CollectionUtil;
 import com.elminster.grs.crawler.dxo.helper.UserGameDxoHelper;
 import com.elminster.grs.crawler.impl.CrawlerErrorCode;
+import com.elminster.grs.crawler.updater.GameInformationUpdater;
 import com.elminster.grs.crawler.updater.InformationUpdateException;
-import com.elminster.grs.crawler.updater.UserInformationUpdater;
 import com.elminster.grs.shared.db.dao.GameDao;
 import com.elminster.grs.shared.db.dao.TrophyAndAchieveDao;
 import com.elminster.grs.shared.db.dao.UserGameDao;
@@ -24,12 +24,12 @@ import com.elminster.grs.shared.db.domain.TrophyType;
 import com.elminster.grs.shared.db.domain.UserGame;
 import com.elminster.grs.shared.db.domain.UserGameMeta;
 import com.elminster.grs.shared.db.domain.UserTrophyAndAchievement;
-import com.elminster.retrieve.data.user.PSNUserGame;
-import com.elminster.retrieve.data.user.PSNUserProfile;
-import com.elminster.retrieve.data.user.PSNUserTrophy;
-import com.elminster.retrieve.exception.ServiceException;
-import com.elminster.retrieve.service.IPSNApi;
-import com.elminster.retrieve.service.PSNApiImpl;
+import com.elminster.retrieve.psn.data.user.PSNUserGame;
+import com.elminster.retrieve.psn.data.user.PSNUserProfile;
+import com.elminster.retrieve.psn.data.user.PSNUserTrophy;
+import com.elminster.retrieve.psn.exception.ServiceException;
+import com.elminster.retrieve.psn.service.IPSNApi;
+import com.elminster.retrieve.psn.service.PSNApiImpl;
 
 /**
  * PSN Game information updater updates the PSN profile and game list for certain user if the user's psn id is not
@@ -41,7 +41,7 @@ import com.elminster.retrieve.service.PSNApiImpl;
 @Service("PsnGameInformationUpdater")
 @Transactional
 public class PsnGameInformationUpdater extends DatabaseInformationUpdater<Integer> implements
-    UserInformationUpdater<Integer> {
+    GameInformationUpdater<Integer> {
 
   @Autowired
   private UserGameMetaDao userGameMetaDao;

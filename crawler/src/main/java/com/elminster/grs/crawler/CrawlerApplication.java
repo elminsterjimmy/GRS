@@ -1,27 +1,17 @@
-package com.elminster.grs.app;
+package com.elminster.grs.crawler;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.web.bind.annotation.RestController;
 
-/**
- * The application.
- * 
- * @author jgu
- * @version 1.0
- */
 @SpringBootApplication
-@RestController
 @ComponentScan({
-  "com.elminster.spring.security",
-  "com.elminster.grs.app",
-  "com.elminster.grs.web",
+  "com.elminster.grs.crawler",
   "com.elminster.spring.security.service",
   "com.elminster.grs.giantbomb.service" })
 @EnableScheduling
-public class GSRBackendApplication {
+public class CrawlerApplication {
 
   /**
    * The main.
@@ -30,6 +20,6 @@ public class GSRBackendApplication {
    *          the arguments
    */
   public static void main(String[] args) {
-    SpringApplication.run(GSRBackendApplication.class, args);
+    SpringApplication.run(CrawlerApplication.class, args);
   }
 }

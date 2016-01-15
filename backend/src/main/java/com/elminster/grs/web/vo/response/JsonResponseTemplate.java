@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.elminster.common.constants.Constants.StringConstants;
 import com.elminster.grs.web.service.ServiceException;
+import com.elminster.web.commons.request.Option;
 import com.elminster.web.commons.response.JsonResponse;
 import com.elminster.web.commons.response.JsonResponseBuilder;
 
@@ -40,6 +41,17 @@ public abstract class JsonResponseTemplate {
         throw e;
       }
     }
+    return response;
+  }
+  
+  /**
+   * Get Json response with option.
+   * @param option option
+   * @return the Json response
+   */
+  public JsonResponse getJsonResponse(Option option) throws Exception {
+    JsonResponse response = getJsonResponse();
+    // TODO add extra information about the response, such as next page for paging.
     return response;
   }
 
