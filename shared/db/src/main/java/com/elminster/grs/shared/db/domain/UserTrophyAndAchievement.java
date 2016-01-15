@@ -2,6 +2,7 @@ package com.elminster.grs.shared.db.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class UserTrophyAndAchievement {
   @JoinColumn(name="userGameId")
   private UserGame userGame;
   
-  @OneToOne
+  @OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name="trophyAchieveId")
   private TrophyAndAchievement trophyAndAchieve;
   

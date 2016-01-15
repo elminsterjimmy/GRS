@@ -16,7 +16,7 @@ import com.elminster.grs.shared.db.domain.UserGame;
 @Repository
 public interface UserGameDao extends JpaRepository<UserGame, Integer>, JpaSpecificationExecutor<UserGame> {
 
-  @Query("SELECT ug FROM UserGame ug WHERE ug.user.userId = $1")
+  @Query("SELECT ug FROM UserGame ug WHERE ug.user.userId = ?1")
   public List<UserGame> findByUserId(int userId, Sort sort);
 
   @Query("SELECT ug FROM UserGame ug WHERE ug.user.userId = :userId and (ug.game.psnInternalId = :gid or ug.game.liveInternalId = :gid)")

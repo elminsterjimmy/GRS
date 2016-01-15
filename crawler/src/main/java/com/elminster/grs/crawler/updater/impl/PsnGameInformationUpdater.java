@@ -107,10 +107,11 @@ public class PsnGameInformationUpdater extends DatabaseInformationUpdater<Intege
         for (int i = 0; i < length; i++) {
           UserTrophyAndAchievement utna;
           if (i >= curLength) {
-            // could happen if the trophy is increased.
+            // could happen if no trophy info or the trophy is increased.
             utna = new UserTrophyAndAchievement();
             utna.setUser(userGame.getUser());
             utna.setUserGame(userGame);
+            userTnas.add(utna);
           } else {
             utna = userTnas.get(i);
           }
@@ -171,6 +172,7 @@ public class PsnGameInformationUpdater extends DatabaseInformationUpdater<Intege
           UserGameDxoHelper.fillUserPsnGame(userGame, psnUserGame);
           UserGameDxoHelper.fillPsnGame(game, psnUserGame);
           userGame.setGame(game);
+          userGame.setUser(userGameMeta);
         } else {
           // to be update
           game = userGame.getGame();

@@ -43,7 +43,7 @@ public class TrophyAndAchievement {
   @Column(nullable = false, length=4)
   private int point = 0;
   @Column
-  @Enumerated(EnumType.STRING)
+  @Enumerated(EnumType.ORDINAL)
   private TrophyType type; // UNKNOWN("Unknown", 0xFF),BRONZE("Bronze", 0x01),SILVER("Silver", 0x02),GOLD("Gold", 0x04),PLATINUM("Platinum", 0x08); 
   @Column(nullable = false, length=1024)
   private String description;
