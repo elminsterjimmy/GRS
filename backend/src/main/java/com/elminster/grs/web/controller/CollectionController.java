@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,8 +34,9 @@ public class CollectionController extends BaseController {
   @Autowired
   private GameCollectionService collectionService;
 
-  @RequestMapping(value = "/current", method = RequestMethod.GET)
-  public @ResponseBody JsonResponse getCurrentUserCollection(HttpServletRequest request, HttpServletResponse response)
+  @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+  public @ResponseBody JsonResponse getCurrentUserCollection(@PathVariable String username,
+      HttpServletRequest request, HttpServletResponse response)
       throws IOException, Exception {
     User currentUser = this.getCurrentAuthUser();
     int userId = currentUser.getId();
@@ -45,15 +47,29 @@ public class CollectionController extends BaseController {
       oc.addOrder(new Order("lastPlayedDate"));
       option.setOrderChain(oc);
     }
-    JsonResponse jsonResponse =  getUserCollectionByUserId(userId, option);
+    JsonResponse jsonResponse = getUserCollectionByUserId(userId, username, option);
+    return jsonResponse;
+  }
+  
+  @RequestMapping(value = "/{username}/{gameId}/favorite", method = RequestMethod.POST)
+  public @ResponseBody JsonResponse addFavorite() {
+    JsonResponse jsonResponse = jsonResponseBuilder.buildJsonResponse();
+    // TODO
+    return jsonResponse;
+  }
+  
+  @RequestMapping(value = "/{username}/{gameId}/ranking", method = RequestMethod.POST)
+  public @ResponseBody JsonResponse ranking() {
+    JsonResponse jsonResponse = jsonResponseBuilder.buildJsonResponse();
+    // TODO
     return jsonResponse;
   }
 
   // ========================================================================
-  public JsonResponse getUserCollectionByUserId(final int userId, final Option option) throws IOException, Exception {
+  public JsonResponse getUserCollectionByUserId(final int userId, final String username, final Option option) throws IOException, Exception {
     JsonResponse jsonResponse = new JsonResponseTemplate() {
       protected Object callback() throws Exception {
-        return collectionService.getUsersGameCollectionInfo(userId, option);
+        return collectionService.getUsersGameCollections(userId, username, option);
       }
     }.getJsonResponse();
     return jsonResponse;

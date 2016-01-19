@@ -2,8 +2,6 @@ package com.elminster.grs.web.service.impl;
 
 import java.util.Date;
 
-import javax.transaction.Transactional;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.elminster.common.util.ExceptionUtil;
 import com.elminster.grs.shared.db.dao.LocationDao;
@@ -69,13 +68,10 @@ public class UserServiceImpl implements UserService {
    */
   @Override
   public BasicUserInfo getBasicUserInfo(int userId) throws UserServiceException {
-    User user = authUserService.findUserById(userId);
+    User user = getUserByUserId(userId);
     BasicUserInfo basicUserInof = new BasicUserInfo();
     UserEx userEx = userExDao.findOne(userId);
-    if (null == user) {
-      // not found
-      throw new UserServiceException(ServiceErrorCode.USER_NOT_FOUND, String.format("user [%d] is not found.", userId));
-    } else if (null == userEx) {
+    if (null == userEx) {
       // illegal status
       throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format(
           "user [%d] is in illegal status.", userId));
@@ -196,53 +192,40 @@ public class UserServiceImpl implements UserService {
    * {@inheritDoc}
    */
   @Override
-  public UserProfile getUserProfile(int userId) throws UserServiceException {
-    User user = authUserService.findUserById(userId);
+  public UserProfile getUserProfile(int userId, String username) throws UserServiceException {
+    logger.info(String.format("User [%d] trying to get user [%s]'s profile.", userId, username));
+    User user = authUserService.findUserByUsername(username);
     UserProfile basicUserProfile = new UserProfile();
-    UserEx userEx = userExDao.findOne(userId);
-    UserGameMeta userGameMeta = userGameMetaDao.findOne(userId);
     if (null == user) {
       // not found
       throw new UserServiceException(ServiceErrorCode.USER_NOT_FOUND, String.format("user [%d] is not found.", userId));
-    } else if (null == userEx) {
-      // illegal status
-      throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format(
-          "user [%d] is in illegal status.", userId));
     } else {
-      UserProfileBuilder builder = UserProfile.builder();
-      builder.bio(userEx.getBio()).birthday(userEx.getBirthday()).blog(userEx.getBlogUrl()).email(user.getEmail())
-          .gender(userEx.getGender().ordinal()).moblie(user.getMobile()).qq(userEx.getQq()).weibo(userEx.getWeiboUrl())
-          .bloodType(userEx.getBooldType().ordinal());
-      Location location = userEx.getLivedLocation();
-      fillLocation(builder, location);
-      if (null != userGameMeta) {
-        builder.psnUsername(userGameMeta.getPsnId()).liveUsername(userGameMeta.getLiveId());
+      if (userId == user.getId()) {
+        UserEx userEx = userExDao.findOne(userId);
+        if (null == userEx) {
+          // illegal status
+          throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format(
+              "user [%d] is in illegal status.", userId));
+        }
+        UserGameMeta userGameMeta = userGameMetaDao.findOne(userId);
+        UserProfileBuilder builder = UserProfile.builder();
+        builder.bio(userEx.getBio()).birthday(userEx.getBirthday()).blog(userEx.getBlogUrl()).email(user.getEmail())
+            .gender(userEx.getGender().ordinal()).mobile(user.getMobile()).qq(userEx.getQq()).weibo(userEx.getWeiboUrl())
+            .bloodType(userEx.getBooldType().ordinal());
+        Location location = userEx.getLivedLocation();
+        fillLocation(builder, location);
+        if (null != userGameMeta) {
+          builder.psnUsername(userGameMeta.getPsnId()).liveUsername(userGameMeta.getLiveId());
+        }
+        basicUserProfile = builder.build();
+        basicUserProfile.setId(userId).setUsername(user.getUsername()).setAvatarUrl(userEx.getAvatarUrl())
+            .setPoint(userEx.getPoints());
+      } else {
+        // TODO check visibility
       }
-      basicUserProfile = builder.build();
-      basicUserProfile.setId(userId).setUsername(user.getUsername()).setAvatarUrl(userEx.getAvatarUrl())
-          .setPoint(userEx.getPoints());
     }
+   
     return basicUserProfile;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  @Transactional
-  public void updateBasicUserInfo(BasicUserInfo basicUserInfo) throws UserServiceException {
-    // TODO Auto-generated method stub
-    
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  @Transactional
-  public void updateExtraUserInfo() throws UserServiceException {
-    // TODO Auto-generated method stub
-
   }
 
   /**
@@ -257,7 +240,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void updatePassword(int userId, String oldPassword, String newPassword) throws UserServiceException {
-    User user = authUserService.findUserById(userId);
+    User user = getUserByUserId(userId);
     if (oldPassword.equals(user.getPassword())) {
       user.setPassword(newPassword);
       authUserService.saveUser(user);
@@ -272,12 +255,8 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public void updateUserBasicProfile(UserBasicProfile userBasicProfile) throws UserServiceException {
     int userId = userBasicProfile.getUserId();
-    User user = authUserService.findUserById(userId);
+    User user = getUserByUserId(userId);
     UserEx userEx = userExDao.findOne(userId);
-    if (null == user) {
-      // not found
-      throw new UserServiceException(ServiceErrorCode.USER_NOT_FOUND, String.format("user [%d] is not found.", userId));
-    }
     if (null == userEx) {
       // illegal status
       throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format(
@@ -315,12 +294,8 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public void updateUserGameProfile(UserGameProfile userGameProfile) throws UserServiceException {
     int userId = userGameProfile.getUserId();
-    User user = authUserService.findUserById(userId);
+    getUserByUserId(userId);
     UserGameMeta userGameMeta = userGameMetaDao.findOne(userId);
-    if (null == user) {
-      // not found
-      throw new UserServiceException(ServiceErrorCode.USER_NOT_FOUND, String.format("user [%d] is not found.", userId));
-    }
     if (null == userGameMeta) {
       // illegal status
       throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format(
@@ -336,13 +311,49 @@ public class UserServiceImpl implements UserService {
     if (null != location) {
       int level = location.getLevel();
       int[] ids = new int[level];
-      while ((level = location.getLevel()) > 0) {
-        ids[level - 1] = location.getId();
+      ids[level - 1] = location.getId();
+      while (location.getLevel() > 1) {
         location = location.getParent();
+        ids[location.getLevel() - 1] = location.getId();
       }
-      builder.livePlaceLv1(ids.length > 1 ? ids[0] : null).
-              livePlaceLv2(ids.length > 2 ? ids[1] : null).
-              livePlaceLv3(ids.length > 3 ? ids[2] : null);
+      builder.livePlaceLv1(ids.length > 0 ? ids[0] : null).
+              livePlaceLv2(ids.length > 1 ? ids[1] : null).
+              livePlaceLv3(ids.length > 2 ? ids[2] : null);
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isSameUser(int userId, String username) throws UserServiceException {
+    User user = getUserByUsername(username);
+    return userId == user.getId();
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public User getUserByUsername(String username) throws UserServiceException {
+    User user = authUserService.findUserByUsername(username);
+    if (null == user) {
+      // not found
+      throw new UserServiceException(ServiceErrorCode.USER_NOT_FOUND, String.format("user [%s] is not found.", username));
+    }
+    return user;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public User getUserByUserId(int userId) throws UserServiceException {
+    User user = authUserService.findUserById(userId);
+    if (null == user) {
+      // not found
+      throw new UserServiceException(ServiceErrorCode.USER_NOT_FOUND, String.format("user [%d] is not found.", userId));
+    }
+    return user;
   }
 }

@@ -21,6 +21,9 @@ import com.elminster.grs.web.service.ServiceErrorCode;
 import com.elminster.grs.web.service.UserService;
 import com.elminster.grs.web.vo.request.LoginJsonModel;
 import com.elminster.grs.web.vo.request.RegisterJsonModel;
+import com.elminster.grs.web.vo.request.UserBasicProfile;
+import com.elminster.grs.web.vo.request.UserGameProfile;
+import com.elminster.grs.web.vo.request.UserPasswordModel;
 import com.elminster.grs.web.vo.response.JsonResponseTemplate;
 import com.elminster.spring.security.domain.User;
 import com.elminster.spring.security.service.TokenAuthenticationService;
@@ -54,13 +57,13 @@ public class UserController extends BaseController {
   @RequestMapping(method = RequestMethod.GET)
   public @ResponseBody JsonResponse getAllUsers(HttpServletRequest request, HttpServletResponse response) {
     // TODO
-//    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//    UserDetailsImpl ud = (UserDetailsImpl) auth.getDetails();
-//    // the user
-//    User user = ud.getUser();
-//    if (user.getAuthorities().contains(Authorities.ADMIN)) {
-//
-//    }
+    // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    // UserDetailsImpl ud = (UserDetailsImpl) auth.getDetails();
+    // // the user
+    // User user = ud.getUser();
+    // if (user.getAuthorities().contains(Authorities.ADMIN)) {
+    //
+    // }
     return new JsonResponse().setData("auth OK");
   }
 
@@ -73,7 +76,7 @@ public class UserController extends BaseController {
     int userId = currentUser.getId();
     return getUserById(userId);
   }
-  
+
   /**
    * User login returns http states 202 if success.
    */
@@ -131,28 +134,69 @@ public class UserController extends BaseController {
     }
     return jsonResponse;
   }
-  
-  @RequestMapping(value = "/current/profile", method = RequestMethod.GET)
-  public JsonResponse getCurrentUserProfile() throws IOException, Exception {
+
+  @RequestMapping(value = "/profile/{username}", method = RequestMethod.GET)
+  public JsonResponse getUserProfile(@PathVariable final String username) throws IOException, Exception {
     User currentUser = getCurrentAuthUser();
     final int userId = currentUser.getId();
     JsonResponse jsonResponse = new JsonResponseTemplate() {
       protected Object callback() throws Exception {
-        return userService.getUserProfile(userId);
+        return userService.getUserProfile(userId, username);
       }
     }.getJsonResponse();
     return jsonResponse;
   }
-  
-  @RequestMapping(value = "/current/profile/basic", method = RequestMethod.POST)
-  public JsonResponse saveUserBasicProfile() throws IOException, Exception {
-    // TODO
+
+  @RequestMapping(value = "/profile/{username}/password", method = RequestMethod.POST)
+  public JsonResponse updateUserPassword(@PathVariable String username,
+      @Valid @RequestBody final UserPasswordModel userPassword) throws IOException, Exception {
     User currentUser = getCurrentAuthUser();
     final int userId = currentUser.getId();
-    
-    return jsonResponseBuilder.buildJsonResponse();
+    JsonResponse jsonResponse = jsonResponseBuilder.buildJsonResponse();
+    if (userService.isSameUser(userId, username)) {
+      userService
+          .updatePassword(userPassword.getUserId(), userPassword.getOldPassword(), userPassword.getNewPassword());
+    } else {
+      jsonResponse.setStatus(JsonResponse.STATUS_ERROR);
+      jsonResponseBuilder.generateResponseError(ServiceErrorCode.ACCOUNT_HAS_NOT_ENOUGH_AUTHORITY.getCode(),
+          String.format("Not enough authority for updating [%s]'s password.", username));
+    }
+    return jsonResponse;
   }
-  
+
+  @RequestMapping(value = "/profile/{username}/basic", method = RequestMethod.POST)
+  public JsonResponse updateUserBasicProfile(@PathVariable String username,
+      @Valid @RequestBody final UserBasicProfile userBasicProfile) throws IOException, Exception {
+    User currentUser = getCurrentAuthUser();
+    final int userId = currentUser.getId();
+    JsonResponse jsonResponse = jsonResponseBuilder.buildJsonResponse();
+    if (userService.isSameUser(userId, username)) {
+      userService.updateUserBasicProfile(userBasicProfile);
+    } else {
+      jsonResponse.setStatus(JsonResponse.STATUS_ERROR);
+      jsonResponseBuilder.generateResponseError(ServiceErrorCode.ACCOUNT_HAS_NOT_ENOUGH_AUTHORITY.getCode(),
+          String.format("Not enough authority for updating [%s]'s basic profile.", username));
+    }
+    return jsonResponse;
+  }
+
+  @RequestMapping(value = "/profile/{username}/game", method = RequestMethod.POST)
+  public JsonResponse updateUserGameProfile(@PathVariable String username,
+      @Valid @RequestBody final UserGameProfile userGameProfile) throws IOException, Exception {
+    User currentUser = getCurrentAuthUser();
+    final int userId = currentUser.getId();
+    JsonResponse jsonResponse = jsonResponseBuilder.buildJsonResponse();
+    if (userService.isSameUser(userId, username)) {
+      userService.updateUserGameProfile(userGameProfile);
+    } else {
+      jsonResponse.setStatus(JsonResponse.STATUS_ERROR);
+      jsonResponseBuilder.generateResponseError(ServiceErrorCode.ACCOUNT_HAS_NOT_ENOUGH_AUTHORITY.getCode(),
+          String.format("Not enough authority for updating [%s]'s game profile.", username));
+    }
+
+    return jsonResponse;
+  }
+
   // =================================================================================================
   private JsonResponse getUserById(final int userId) throws IOException, Exception {
     JsonResponse jsonResponse = new JsonResponseTemplate() {

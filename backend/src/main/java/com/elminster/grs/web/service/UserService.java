@@ -8,6 +8,7 @@ import com.elminster.grs.web.vo.request.UserBasicProfile;
 import com.elminster.grs.web.vo.request.UserGameProfile;
 import com.elminster.grs.web.vo.response.BasicUserInfo;
 import com.elminster.grs.web.vo.response.UserProfile;
+import com.elminster.spring.security.domain.User;
 
 /**
  * The user service.
@@ -27,11 +28,12 @@ public interface UserService {
   
   /**
    * Get user's basic profile.
-   * @param userId the user id
+   * @param userId the user id who query the basic profile
+   * @param username the username to query
    * @return user's extra information
    * @throws UserServiceException on error
    */
-  public UserProfile getUserProfile(int userId) throws UserServiceException;
+  public UserProfile getUserProfile(int userId, String username) throws UserServiceException;
   
   /**
    * Update the user's basic profile.
@@ -80,23 +82,34 @@ public interface UserService {
   public void updatePassword(int userId, String oldPassword, String newPassword) throws UserServiceException;
   
   /**
-   * Update user's basic information.
-   * @param basicUserInfo the user's basic information
-   * @throws UserServiceException on error
-   */
-  public void updateBasicUserInfo(BasicUserInfo basicUserInfo) throws UserServiceException;
-  
-  /**
-   * Update user's extra information.
-   * @param basicUserInfo the user's extra information
-   * @throws UserServiceException on error
-   */
-  public void updateExtraUserInfo() throws UserServiceException;
-  
-  /**
    * Delete a user.
    * @param userId the user id
    * @throws UserServiceException on error
    */
   public void deleteUser(int userId) throws UserServiceException;
+  
+  /**
+   * Check if the user id matches the username.
+   * @param userId the user id
+   * @param username the username
+   * @return is the same user or not.
+   * @throws UserServiceException on error
+   */
+  public boolean isSameUser(int userId, String username) throws UserServiceException;
+
+  /**
+   * Get the user by username.
+   * @param username the username
+   * @return the user
+   * @throws UserServiceException on error
+   */
+  public User getUserByUsername(String username) throws UserServiceException;
+  
+  /**
+   * Get the user by user id.
+   * @param userId the user id
+   * @return the user
+   * @throws UserServiceException on error
+   */
+  public User getUserByUserId(int userId) throws UserServiceException;
 }

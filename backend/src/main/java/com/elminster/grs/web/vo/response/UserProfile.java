@@ -27,7 +27,7 @@ public class UserProfile extends BasicUserInfo {
   
   private Integer livePlaceLv3;
   
-  private String moblie;
+  private String mobile;
   
   private String email;
   

@@ -3,12 +3,11 @@ package com.elminster.grs.web.service.impl;
 import java.sql.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.elminster.grs.shared.db.dao.NotificationDao;
 import com.elminster.grs.shared.db.domain.Notification;
