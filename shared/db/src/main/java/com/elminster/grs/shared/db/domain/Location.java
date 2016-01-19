@@ -2,6 +2,7 @@ package com.elminster.grs.shared.db.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +20,7 @@ public class Location {
   private Integer id;
   @Column(nullable=false, length=50)
   private String name;
-  @ManyToOne()
+  @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(name="parentId")
   private Location parent;
   @Column(nullable=false, length=50)
