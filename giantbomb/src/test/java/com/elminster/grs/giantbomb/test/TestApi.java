@@ -1,6 +1,5 @@
 package com.elminster.grs.giantbomb.test;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +29,7 @@ public class TestApi {
     System.out.println(response.getBody());
   }
   
-  @Test
+  //@Test
   public void testGamesApi() throws RetrieveException {
     WebRetriever retriever = new DefaultWebRetriever("http://www.giantbomb.com/api/games/?api_key=b6c1f62383387c4137eb9706f94ca86a2e8043fd&platforms=146", Method.GET_METHOD);
     Response response = retriever.retrieve();
