@@ -15,7 +15,6 @@ import com.elminster.common.thread.IJob;
 import com.elminster.common.thread.IJobMonitor;
 import com.elminster.common.thread.Job;
 import com.elminster.common.util.DateUtil;
-import com.elminster.grs.crawler.service.GameInformationUpdateException;
 import com.elminster.grs.crawler.service.GameInformationUpdateService;
 import com.elminster.grs.shared.db.dao.UserGameMetaDao;
 import com.elminster.grs.shared.db.domain.UserGameMeta;
