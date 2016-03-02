@@ -1,0 +1,589 @@
+<response>
+  <error><![CDATA[OK]]></error>
+  <limit>100</limit>
+  <offset>0</offset>
+  <number_of_page_results>100</number_of_page_results>
+  <number_of_total_results>145</number_of_total_results>
+  <status_code>1</status_code>
+  <results>
+    <platform>
+      <id>1</id>
+      <name><![CDATA[Amiga]]></name>
+    </platform>
+    <platform>
+      <id>3</id>
+      <name><![CDATA[Game Boy]]></name>
+    </platform>
+    <platform>
+      <id>4</id>
+      <name><![CDATA[Game Boy Advance]]></name>
+    </platform>
+    <platform>
+      <id>5</id>
+      <name><![CDATA[Game Gear]]></name>
+    </platform>
+    <platform>
+      <id>6</id>
+      <name><![CDATA[Genesis]]></name>
+    </platform>
+    <platform>
+      <id>7</id>
+      <name><![CDATA[Atari Lynx]]></name>
+    </platform>
+    <platform>
+      <id>8</id>
+      <name><![CDATA[Sega Master System]]></name>
+    </platform>
+    <platform>
+      <id>9</id>
+      <name><![CDATA[Super Nintendo Entertainment System]]></name>
+    </platform>
+    <platform>
+      <id>11</id>
+      <name><![CDATA[Amstrad CPC]]></name>
+    </platform>
+    <platform>
+      <id>12</id>
+      <name><![CDATA[Apple II]]></name>
+    </platform>
+    <platform>
+      <id>13</id>
+      <name><![CDATA[Atari ST]]></name>
+    </platform>
+    <platform>
+      <id>14</id>
+      <name><![CDATA[Commodore 64]]></name>
+    </platform>
+    <platform>
+      <id>15</id>
+      <name><![CDATA[MSX]]></name>
+    </platform>
+    <platform>
+      <id>16</id>
+      <name><![CDATA[ZX Spectrum]]></name>
+    </platform>
+    <platform>
+      <id>17</id>
+      <name><![CDATA[Mac]]></name>
+    </platform>
+    <platform>
+      <id>18</id>
+      <name><![CDATA[PlayStation Portable]]></name>
+    </platform>
+    <platform>
+      <id>19</id>
+      <name><![CDATA[PlayStation 2]]></name>
+    </platform>
+    <platform>
+      <id>20</id>
+      <name><![CDATA[Xbox 360]]></name>
+    </platform>
+    <platform>
+      <id>21</id>
+      <name><![CDATA[Nintendo Entertainment System]]></name>
+    </platform>
+    <platform>
+      <id>22</id>
+      <name><![CDATA[PlayStation]]></name>
+    </platform>
+    <platform>
+      <id>23</id>
+      <name><![CDATA[GameCube]]></name>
+    </platform>
+    <platform>
+      <id>24</id>
+      <name><![CDATA[Atari 8-bit]]></name>
+    </platform>
+    <platform>
+      <id>25</id>
+      <name><![CDATA[Neo Geo]]></name>
+    </platform>
+    <platform>
+      <id>26</id>
+      <name><![CDATA[3DO]]></name>
+    </platform>
+    <platform>
+      <id>27</id>
+      <name><![CDATA[CD-i]]></name>
+    </platform>
+    <platform>
+      <id>28</id>
+      <name><![CDATA[Jaguar]]></name>
+    </platform>
+    <platform>
+      <id>29</id>
+      <name><![CDATA[Sega CD]]></name>
+    </platform>
+    <platform>
+      <id>30</id>
+      <name><![CDATA[VIC-20]]></name>
+    </platform>
+    <platform>
+      <id>31</id>
+      <name><![CDATA[Sega 32X]]></name>
+    </platform>
+    <platform>
+      <id>32</id>
+      <name><![CDATA[Xbox]]></name>
+    </platform>
+    <platform>
+      <id>34</id>
+      <name><![CDATA[N-Gage]]></name>
+    </platform>
+    <platform>
+      <id>35</id>
+      <name><![CDATA[PlayStation 3]]></name>
+    </platform>
+    <platform>
+      <id>36</id>
+      <name><![CDATA[Wii]]></name>
+    </platform>
+    <platform>
+      <id>37</id>
+      <name><![CDATA[Dreamcast]]></name>
+    </platform>
+    <platform>
+      <id>38</id>
+      <name><![CDATA[Apple IIgs]]></name>
+    </platform>
+    <platform>
+      <id>39</id>
+      <name><![CDATA[Amiga CD32]]></name>
+    </platform>
+    <platform>
+      <id>40</id>
+      <name><![CDATA[Atari 2600]]></name>
+    </platform>
+    <platform>
+      <id>42</id>
+      <name><![CDATA[Saturn]]></name>
+    </platform>
+    <platform>
+      <id>43</id>
+      <name><![CDATA[Nintendo 64]]></name>
+    </platform>
+    <platform>
+      <id>47</id>
+      <name><![CDATA[ColecoVision]]></name>
+    </platform>
+    <platform>
+      <id>48</id>
+      <name><![CDATA[TI-99/4A]]></name>
+    </platform>
+    <platform>
+      <id>51</id>
+      <name><![CDATA[Intellivision]]></name>
+    </platform>
+    <platform>
+      <id>52</id>
+      <name><![CDATA[Nintendo DS]]></name>
+    </platform>
+    <platform>
+      <id>53</id>
+      <name><![CDATA[TurboGrafx-CD]]></name>
+    </platform>
+    <platform>
+      <id>54</id>
+      <name><![CDATA[WonderSwan Color]]></name>
+    </platform>
+    <platform>
+      <id>55</id>
+      <name><![CDATA[TurboGrafx-16]]></name>
+    </platform>
+    <platform>
+      <id>57</id>
+      <name><![CDATA[Game Boy Color]]></name>
+    </platform>
+    <platform>
+      <id>58</id>
+      <name><![CDATA[Commodore 128]]></name>
+    </platform>
+    <platform>
+      <id>59</id>
+      <name><![CDATA[Neo Geo CD]]></name>
+    </platform>
+    <platform>
+      <id>60</id>
+      <name><![CDATA[Odyssey 2]]></name>
+    </platform>
+    <platform>
+      <id>61</id>
+      <name><![CDATA[Dragon 32/64]]></name>
+    </platform>
+    <platform>
+      <id>62</id>
+      <name><![CDATA[Commodore PET/CBM]]></name>
+    </platform>
+    <platform>
+      <id>63</id>
+      <name><![CDATA[TRS-80]]></name>
+    </platform>
+    <platform>
+      <id>64</id>
+      <name><![CDATA[Zodiac]]></name>
+    </platform>
+    <platform>
+      <id>65</id>
+      <name><![CDATA[WonderSwan]]></name>
+    </platform>
+    <platform>
+      <id>66</id>
+      <name><![CDATA[Channel F]]></name>
+    </platform>
+    <platform>
+      <id>67</id>
+      <name><![CDATA[Atari 5200]]></name>
+    </platform>
+    <platform>
+      <id>68</id>
+      <name><![CDATA[TRS-80 CoCo]]></name>
+    </platform>
+    <platform>
+      <id>70</id>
+      <name><![CDATA[Atari 7800]]></name>
+    </platform>
+    <platform>
+      <id>72</id>
+      <name><![CDATA[iPod]]></name>
+    </platform>
+    <platform>
+      <id>74</id>
+      <name><![CDATA[Odyssey]]></name>
+    </platform>
+    <platform>
+      <id>75</id>
+      <name><![CDATA[PC-FX]]></name>
+    </platform>
+    <platform>
+      <id>76</id>
+      <name><![CDATA[Vectrex]]></name>
+    </platform>
+    <platform>
+      <id>77</id>
+      <name><![CDATA[Game.Com]]></name>
+    </platform>
+    <platform>
+      <id>78</id>
+      <name><![CDATA[Gizmondo]]></name>
+    </platform>
+    <platform>
+      <id>79</id>
+      <name><![CDATA[Virtual Boy]]></name>
+    </platform>
+    <platform>
+      <id>80</id>
+      <name><![CDATA[Neo Geo Pocket]]></name>
+    </platform>
+    <platform>
+      <id>81</id>
+      <name><![CDATA[Neo Geo Pocket Color]]></name>
+    </platform>
+    <platform>
+      <id>82</id>
+      <name><![CDATA[V.Smile]]></name>
+    </platform>
+    <platform>
+      <id>83</id>
+      <name><![CDATA[Pinball]]></name>
+    </platform>
+    <platform>
+      <id>84</id>
+      <name><![CDATA[Arcade]]></name>
+    </platform>
+    <platform>
+      <id>85</id>
+      <name><![CDATA[NUON]]></name>
+    </platform>
+    <platform>
+      <id>86</id>
+      <name><![CDATA[Xbox 360 Games Store]]></name>
+    </platform>
+    <platform>
+      <id>87</id>
+      <name><![CDATA[Wii Shop]]></name>
+    </platform>
+    <platform>
+      <id>88</id>
+      <name><![CDATA[PlayStation Network (PS3)]]></name>
+    </platform>
+    <platform>
+      <id>89</id>
+      <name><![CDATA[Leapster]]></name>
+    </platform>
+    <platform>
+      <id>90</id>
+      <name><![CDATA[Microvision]]></name>
+    </platform>
+    <platform>
+      <id>91</id>
+      <name><![CDATA[Famicom Disk System]]></name>
+    </platform>
+    <platform>
+      <id>92</id>
+      <name><![CDATA[Pioneer LaserActive]]></name>
+    </platform>
+    <platform>
+      <id>93</id>
+      <name><![CDATA[Adventure Vision]]></name>
+    </platform>
+    <platform>
+      <id>94</id>
+      <name><![CDATA[PC]]></name>
+    </platform>
+    <platform>
+      <id>95</id>
+      <name><![CDATA[Sharp X68000]]></name>
+    </platform>
+    <platform>
+      <id>96</id>
+      <name><![CDATA[iPhone]]></name>
+    </platform>
+    <platform>
+      <id>98</id>
+      <name><![CDATA[Satellaview]]></name>
+    </platform>
+    <platform>
+      <id>99</id>
+      <name><![CDATA[Arcadia 2001]]></name>
+    </platform>
+    <platform>
+      <id>100</id>
+      <name><![CDATA[Aquarius]]></name>
+    </platform>
+    <platform>
+      <id>101</id>
+      <name><![CDATA[Nintendo 64DD]]></name>
+    </platform>
+    <platform>
+      <id>102</id>
+      <name><![CDATA[Pippin]]></name>
+    </platform>
+    <platform>
+      <id>103</id>
+      <name><![CDATA[R-Zone]]></name>
+    </platform>
+    <platform>
+      <id>104</id>
+      <name><![CDATA[HyperScan]]></name>
+    </platform>
+    <platform>
+      <id>105</id>
+      <name><![CDATA[Game Wave]]></name>
+    </platform>
+    <platform>
+      <id>106</id>
+      <name><![CDATA[DSiWare]]></name>
+    </platform>
+    <platform>
+      <id>107</id>
+      <name><![CDATA[RDI Halcyon]]></name>
+    </platform>
+    <platform>
+      <id>108</id>
+      <name><![CDATA[FM Towns]]></name>
+    </platform>
+    <platform>
+      <id>109</id>
+      <name><![CDATA[NEC PC-8801]]></name>
+    </platform>
+    <platform>
+      <id>110</id>
+      <name><![CDATA[BBC Micro]]></name>
+    </platform>
+    <platform>
+      <id>111</id>
+      <name><![CDATA[PLATO]]></name>
+    </platform>
+    <platform>
+      <id>112</id>
+      <name><![CDATA[NEC PC-9801]]></name>
+    </platform>
+    <platform>
+      <id>113</id>
+      <name><![CDATA[Sharp X1]]></name>
+    </platform>
+    <platform>
+      <id>114</id>
+      <name><![CDATA[FM-7]]></name>
+    </platform>
+    <platform>
+      <id>116</id>
+      <name><![CDATA[PlayStation Network (PSP)]]></name>
+    </platform>
+    <platform>
+      <id>117</id>
+      <name><![CDATA[Nintendo 3DS]]></name>
+    </platform>
+    <platform>
+      <id>118</id>
+      <name><![CDATA[Sega Pico]]></name>
+    </platform>
+    <platform>
+      <id>119</id>
+      <name><![CDATA[SuperGrafx]]></name>
+    </platform>
+    <platform>
+      <id>120</id>
+      <name><![CDATA[Bally Astrocade]]></name>
+    </platform>
+    <platform>
+      <id>121</id>
+      <name><![CDATA[iPad]]></name>
+    </platform>
+    <platform>
+      <id>122</id>
+      <name><![CDATA[Zeebo]]></name>
+    </platform>
+    <platform>
+      <id>123</id>
+      <name><![CDATA[Android]]></name>
+    </platform>
+    <platform>
+      <id>124</id>
+      <name><![CDATA[Windows Phone]]></name>
+    </platform>
+    <platform>
+      <id>125</id>
+      <name><![CDATA[Acorn Archimedes]]></name>
+    </platform>
+    <platform>
+      <id>126</id>
+      <name><![CDATA[Casio Loopy]]></name>
+    </platform>
+    <platform>
+      <id>127</id>
+      <name><![CDATA[Bandai Playdia]]></name>
+    </platform>
+    <platform>
+      <id>128</id>
+      <name><![CDATA[Sharp MZ]]></name>
+    </platform>
+    <platform>
+      <id>129</id>
+      <name><![CDATA[PlayStation Vita]]></name>
+    </platform>
+    <platform>
+      <id>131</id>
+      <name><![CDATA[RCA Studio II]]></name>
+    </platform>
+    <platform>
+      <id>132</id>
+      <name><![CDATA[XaviXPORT]]></name>
+    </platform>
+    <platform>
+      <id>133</id>
+      <name><![CDATA[GamePark 32]]></name>
+    </platform>
+    <platform>
+      <id>134</id>
+      <name><![CDATA[Pokémon mini]]></name>
+    </platform>
+    <platform>
+      <id>135</id>
+      <name><![CDATA[Epoch Cassette Vision]]></name>
+    </platform>
+    <platform>
+      <id>136</id>
+      <name><![CDATA[Super Cassette Vision]]></name>
+    </platform>
+    <platform>
+      <id>137</id>
+      <name><![CDATA[Mega Duck]]></name>
+    </platform>
+    <platform>
+      <id>138</id>
+      <name><![CDATA[Nintendo 3DS eShop]]></name>
+    </platform>
+    <platform>
+      <id>139</id>
+      <name><![CDATA[Wii U]]></name>
+    </platform>
+    <platform>
+      <id>140</id>
+      <name><![CDATA[Browser]]></name>
+    </platform>
+    <platform>
+      <id>141</id>
+      <name><![CDATA[Sega SG-1000]]></name>
+    </platform>
+    <platform>
+      <id>142</id>
+      <name><![CDATA[Commodore CDTV]]></name>
+    </platform>
+    <platform>
+      <id>143</id>
+      <name><![CDATA[PlayStation Network (Vita)]]></name>
+    </platform>
+    <platform>
+      <id>144</id>
+      <name><![CDATA[Leapfrog Didj]]></name>
+    </platform>
+    <platform>
+      <id>145</id>
+      <name><![CDATA[Xbox One]]></name>
+    </platform>
+    <platform>
+      <id>146</id>
+      <name><![CDATA[PlayStation 4]]></name>
+    </platform>
+    <platform>
+      <id>147</id>
+      <name><![CDATA[Watara Supervision]]></name>
+    </platform>
+    <platform>
+      <id>148</id>
+      <name><![CDATA[Action Max]]></name>
+    </platform>
+    <platform>
+      <id>149</id>
+      <name><![CDATA[Casio PV-1000]]></name>
+    </platform>
+    <platform>
+      <id>150</id>
+      <name><![CDATA[Commodore 16]]></name>
+    </platform>
+    <platform>
+      <id>151</id>
+      <name><![CDATA[Super A'Can]]></name>
+    </platform>
+    <platform>
+      <id>152</id>
+      <name><![CDATA[Linux]]></name>
+    </platform>
+    <platform>
+      <id>153</id>
+      <name><![CDATA[Memorex MD 2500 VIS]]></name>
+    </platform>
+    <platform>
+      <id>154</id>
+      <name><![CDATA[Ouya]]></name>
+    </platform>
+    <platform>
+      <id>155</id>
+      <name><![CDATA[Amazon Fire TV]]></name>
+    </platform>
+    <platform>
+      <id>156</id>
+      <name><![CDATA[New Nintendo 3DS]]></name>
+    </platform>
+    <platform>
+      <id>157</id>
+      <name><![CDATA[Nintendo NX (working title)]]></name>
+    </platform>
+    <platform>
+      <id>158</id>
+      <name><![CDATA[Game Master]]></name>
+    </platform>
+    <platform>
+      <id>159</id>
+      <name><![CDATA[Apple TV]]></name>
+    </platform>
+    <platform>
+      <id>160</id>
+      <name><![CDATA[Sony SMC-777]]></name>
+    </platform>
+  </results>
+  <version>1.0</version>
+</response>
+
+
