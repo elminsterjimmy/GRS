@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -41,6 +43,13 @@ public class GiantBombGame extends BaseObject {
   @Column
   String aliases;
   
+  @Column
+  String gbApiUrl;
+  
+  @Enumerated(EnumType.ORDINAL)
+  @Column(nullable=false, length=1)
+  GiantBombGameStatus status = GiantBombGameStatus.BASIC_INFO_CRAWLED;
+  
   @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
   @JoinTable(name = "gaintbomb_game_platform",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
@@ -70,9 +79,9 @@ public class GiantBombGame extends BaseObject {
   Set<GiantBombCompany> developers;
   
   @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
-  @JoinTable(name = "gaintbomb_game_developer",
+  @JoinTable(name = "gaintbomb_game_genre",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
-      inverseJoinColumns = { @JoinColumn(name = "developer_id", referencedColumnName = "id")     
+      inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id")     
   })
   Set<GiantBombGenre> genres;
   
@@ -129,7 +138,7 @@ public class GiantBombGame extends BaseObject {
    * @param platforms the platforms to set
    */
   @XmlElementWrapper(name="platforms")
-  @XmlElement(name = "platform")
+  @XmlElement(name="platform")
   public void setPlatforms(Set<GiantBombPlatform> platforms) {
     this.platforms = platforms;
   }
@@ -144,6 +153,8 @@ public class GiantBombGame extends BaseObject {
   /**
    * @param images the images to set
    */
+  @XmlElementWrapper(name="images")
+  @XmlElement(name="image")
   public void setImages(Set<GiantBombImage> images) {
     this.images = images;
   }
@@ -158,6 +169,8 @@ public class GiantBombGame extends BaseObject {
   /**
    * @param videos the videos to set
    */
+  @XmlElementWrapper(name="videos")
+  @XmlElement(name="video")
   public void setVideos(Set<GiantBombVideo> videos) {
     this.videos = videos;
   }
@@ -172,6 +185,8 @@ public class GiantBombGame extends BaseObject {
   /**
    * @param developers the developers to set
    */
+  @XmlElementWrapper(name="developers")
+  @XmlElement(name="company")
   public void setDevelopers(Set<GiantBombCompany> developers) {
     this.developers = developers;
   }
@@ -186,6 +201,8 @@ public class GiantBombGame extends BaseObject {
   /**
    * @param genres the genres to set
    */
+  @XmlElementWrapper(name="genres")
+  @XmlElement(name="genre")
   public void setGenres(Set<GiantBombGenre> genres) {
     this.genres = genres;
   }
@@ -200,6 +217,8 @@ public class GiantBombGame extends BaseObject {
   /**
    * @param publishers the publishers to set
    */
+  @XmlElementWrapper(name="publishers")
+  @XmlElement(name="publisher")
   public void setPublishers(Set<GiantBombCompany> publishers) {
     this.publishers = publishers;
   }
@@ -214,7 +233,45 @@ public class GiantBombGame extends BaseObject {
   /**
    * @param themes the themes to set
    */
+  @XmlElementWrapper(name="themes")
+  @XmlElement(name="theme")
   public void setThemes(Set<GiantBombTheme> themes) {
     this.themes = themes;
+  }
+
+  /**
+   * @return the gbApiUrl
+   */
+  public String getGbApiUrl() {
+    return gbApiUrl;
+  }
+
+  /**
+   * @param gbApiUrl the gbApiUrl to set
+   */
+  @XmlElement(name = "api_detail_url")
+  public void setGbApiUrl(String gbApiUrl) {
+    this.gbApiUrl = gbApiUrl;
+  }
+
+  /**
+   * @return the status
+   */
+  public GiantBombGameStatus getStatus() {
+    return status;
+  }
+
+  /**
+   * @param status the status to set
+   */
+  
+  public void setStatus(GiantBombGameStatus status) {
+    this.status = status;
+  }
+  
+  public enum GiantBombGameStatus {
+    BASIC_INFO_CRAWLED,
+    DETAIL_INFO_CRAWLED,
+    DETAIL_INFO_UPDATED,
   }
 }

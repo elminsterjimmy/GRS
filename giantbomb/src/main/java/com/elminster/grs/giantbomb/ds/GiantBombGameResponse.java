@@ -1,20 +1,16 @@
 package com.elminster.grs.giantbomb.ds;
 
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="response")
-public class GiantBombGamesResponse {
+public class GiantBombGameResponse {
   String error;
   int limit;
   int offset;
   int number_of_page_results;
   int number_of_total_results;
   int status_code;
-  List<GiantBombGame> results;
+  GiantBombGame results;
   /**
    * @return the error
    */
@@ -90,15 +86,13 @@ public class GiantBombGamesResponse {
   /**
    * @return the results
    */
-  public List<GiantBombGame> getResults() {
+  public GiantBombGame getResults() {
     return results;
   }
   /**
    * @param results the results to set
    */
-  @XmlElementWrapper(name="results")
-  @XmlElement(name="game")
-  public void setResults(List<GiantBombGame> results) {
+  public void setResults(GiantBombGame results) {
     this.results = results;
   }
 }

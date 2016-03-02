@@ -29,7 +29,7 @@ abstract public class BaseObject {
   String deck;
   @Column
   String description;
-  @OneToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
   @JoinColumn(name="image_id")
   GiantBombImage image;
   
