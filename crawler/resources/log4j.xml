@@ -14,10 +14,10 @@
     </layout>
   </appender>
 
-  <logger name="com.elminster" additivity="false">
+  <category name="com.elminster" additivity="false">
     <level value="debug"/>
     <appender-ref ref="ConsoleAppender" />
-  </logger>
+  </category >
 
   <root>
     <level value="info" />

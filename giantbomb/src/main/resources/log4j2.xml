@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="MyApp" packages="">
+  <Appenders>
+    <Console name="STDOUT" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{ISO8601} [%t] [%C(%L)-%p] - %m%n" />
+    </Console>
+    <RollingFile name="AppRollingFile" fileName="logs/app.log"
+      filePattern="logs/$${date:yyyy-MM}/app-%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout>
+        <Pattern>%d{ISO8601} [%t] [%C(%L)-%p] - %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1"
+          modulate="true" />
+        <SizeBasedTriggeringPolicy size="250 MB" />
+      </Policies>
+      <DefaultRolloverStrategy max="20" />
+    </RollingFile>
+    <RollingFile name="SqlRollingFile" fileName="logs/sql.log"
+      filePattern="logs/$${date:yyyy-MM}/sql-%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout>
+        <Pattern>%highlight{%d{ISO8601} [%t] [%C(%L)-%p] %m%n}</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1"
+          modulate="true" />
+        <SizeBasedTriggeringPolicy size="250 MB" />
+      </Policies>
+      <DefaultRolloverStrategy max="20" />
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+      <appender-ref ref="SqlRollingFile" />
+    </Logger>
+
+    <Logger name="org.hibernate.type"  level="TRACE" additivity="false">
+      <appender-ref ref="SqlRollingFile" />
+    </Logger>
+
+    <Logger name="com.elminster" level="DEBUG" additivity="false">
+      <appender-ref ref="STDOUT" />
+      <appender-ref ref="AppRollingFile" />
+    </Logger>
+
+    <Logger name="org.hibernate" level="INFO" additivity="false">
+      <appender-ref ref="STDOUT" />
+      <appender-ref ref="AppRollingFile" />
+    </Logger>
+
+    <Logger name="org.apache" level="INFO" additivity="false">
+      <appender-ref ref="STDOUT" />
+      <appender-ref ref="AppRollingFile" />
+    </Logger>
+
+    <Logger name="org.springframework" level="INFO" additivity="false">
+      <appender-ref ref="STDOUT" />
+      <appender-ref ref="AppRollingFile" />
+    </Logger>
+
+    <Logger name="net.sf.ehcache" level="INFO" additivity="false">
+      <appender-ref ref="STDOUT" />
+      <appender-ref ref="AppRollingFile" />
+    </Logger>
+
+    <root level="debug">
+      <appender-ref ref="STDOUT" />
+    </root>
+  </Loggers>
+</Configuration>
