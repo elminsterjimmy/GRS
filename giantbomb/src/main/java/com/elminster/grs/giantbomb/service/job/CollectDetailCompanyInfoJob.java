@@ -10,53 +10,53 @@ import com.elminster.common.thread.Job;
 import com.elminster.common.util.DateUtil;
 import com.elminster.common.util.ExceptionUtil;
 import com.elminster.grs.giantbomb.config.CrawlJobId;
-import com.elminster.grs.giantbomb.ds.GiantBombGame;
+import com.elminster.grs.giantbomb.ds.GiantBombCompany;
 import com.elminster.grs.giantbomb.ds.GiantBombStatus;
-import com.elminster.grs.giantbomb.service.GiantGameService;
 import com.elminster.grs.giantbomb.service.CollectConf;
 import com.elminster.grs.giantbomb.service.GiantBombCollectService;
+import com.elminster.grs.giantbomb.service.GiantCompanyService;
 
-public class CollectDetailGameInfoJob extends Job {
+public class CollectDetailCompanyInfoJob extends Job {
   
-  private static final Log logger = LogFactory.getLog(CollectDetailGameInfoJob.class);
+  private static final Log logger = LogFactory.getLog(CollectDetailCompanyInfoJob.class);
   
   private CollectConf conf;
   private GiantBombCollectService collectionService;
-  private GiantGameService gameService;
+  private GiantCompanyService CompanyService;
   
-  public CollectDetailGameInfoJob(
+  public CollectDetailCompanyInfoJob(
       long id,
       String name,
       CollectConf conf,
       GiantBombCollectService collectionService,
-      GiantGameService gameService) {
-    super(CrawlJobId.COLLECT_DETAIL_GAME_INFO_JOB_ID, "Collect detail game information");
+      GiantCompanyService CompanyService) {
+    super(CrawlJobId.COLLECT_DETAIL_COMPANY_INFO_JOB_ID, "Collect detail Company information");
     this.conf = conf;
     this.collectionService = collectionService;
-    this.gameService = gameService;
+    this.CompanyService = CompanyService;
   }
 
   @Override
   protected JobStatus doWork(IJobMonitor monitor) {
     while (!monitor.isCancelled() && !Thread.interrupted()) {
-      Set<GiantBombGame> games = gameService.findGamesByStatus(GiantBombStatus.BASIC_INFO_CRAWLED);
-      monitor.beginJob("collect detail game information", games.size());
-      if (!games.isEmpty()) {
-        for (GiantBombGame game : games) {
+      Set<GiantBombCompany> Companys = CompanyService.findCompanysByStatus(GiantBombStatus.BASIC_INFO_CRAWLED);
+      monitor.beginJob("collect detail Company information", Companys.size());
+      if (!Companys.isEmpty()) {
+        for (GiantBombCompany Company : Companys) {
           try {
-            collectionService.collectDetailGameInfo(conf, game);
-            gameService.updateStatus(game, GiantBombStatus.DETAIL_INFO_CRAWLED);
+            collectionService.collectDetailCompanyInfo(conf, Company);
+            CompanyService.updateStatus(Company, GiantBombStatus.DETAIL_INFO_CRAWLED);
             monitor.worked(1);
           } catch (Exception e) {
-            logger.error(String.format("Failed to crawl game [%s]. Cause [%s].", game.getName(), ExceptionUtil.getFullStackTrace(e)));
+            logger.error(String.format("Failed to crawl Company [%s]. Cause [%s].", Company.getName(), ExceptionUtil.getFullStackTrace(e)));
           }
         }
       } else {
         try {
-          logger.debug("No Crawled Basic Game Information available, wait 10 mins to retry.");
+          logger.debug("No Crawled Basic Company Information available, wait 10 mins to retry.");
           Thread.sleep(10 * DateUtil.MINUTE);
         } catch (InterruptedException e) {
-          logger.error("Detail Game Collect Job is Interrupted.");
+          logger.error("Detail Company Collect Job is Interrupted.");
           return monitor.cancel();
         }
       }

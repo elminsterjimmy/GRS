@@ -2,7 +2,7 @@ package com.elminster.grs.giantbomb.service;
 
 import com.elminster.grs.giantbomb.util.ApiCounter;
 
-public class GameCollectConf {
+public class CollectConf {
 
   private ApiCounter apiCounter;
   private int from = 0;

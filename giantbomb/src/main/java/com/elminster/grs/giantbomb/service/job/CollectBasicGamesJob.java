@@ -22,8 +22,8 @@ import com.elminster.common.util.FileUtil;
 import com.elminster.common.util.IOUtil;
 import com.elminster.grs.giantbomb.config.Config;
 import com.elminster.grs.giantbomb.ds.GiantBombGamesResponse;
-import com.elminster.grs.giantbomb.service.GaintGameService;
-import com.elminster.grs.giantbomb.service.GameCollectConf;
+import com.elminster.grs.giantbomb.service.GiantGameService;
+import com.elminster.grs.giantbomb.service.CollectConf;
 import com.elminster.grs.giantbomb.util.ApiCounter;
 import com.elminster.retrieve.web.DefaultWebRetriever;
 import com.elminster.retrieve.web.data.Method;
@@ -39,8 +39,8 @@ public class CollectBasicGamesJob extends Job {
   private String crawledDirectory;
   private String updatedDirectory;
   private String crawledFilePrefix;
-  private GameCollectConf conf;
-  private GaintGameService gameService;
+  private CollectConf conf;
+  private GiantGameService gameService;
 
   public CollectBasicGamesJob(
       long id,
@@ -49,8 +49,8 @@ public class CollectBasicGamesJob extends Job {
       String crawledFilePrefix,
       String crawledDirectory,
       String updatedDirectory,
-      GameCollectConf conf,
-      GaintGameService gameService) {
+      CollectConf conf,
+      GiantGameService gameService) {
     super(id, name);
     this.crawledFilePrefix = crawledFilePrefix;
     this.collectUrl = collectUrl;

@@ -42,7 +42,7 @@ youtube_id  Youtube ID for the video.
  */
 @Entity
 @Table(name="gaintbomb_video")
-public class GiantBombVideo implements CopyConstructor<GiantBombVideo> {
+public class GiantBombVideo extends BaseObject implements CopyConstructor<GiantBombVideo> {
 
   //@formatter:off
   @Id

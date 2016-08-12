@@ -13,13 +13,13 @@ import com.elminster.common.util.ExceptionUtil;
 import com.elminster.common.util.FileUtil;
 import com.elminster.grs.giantbomb.ds.GiantBombGame;
 import com.elminster.grs.giantbomb.ds.GiantBombGamesResponse;
-import com.elminster.grs.giantbomb.service.GaintGameService;
+import com.elminster.grs.giantbomb.service.GiantGameService;
 
 public class UpdateBasicGameJob extends Job {
 
   private static final Log logger = LogFactory.getLog(UpdateBasicGameJob.class);
 
-  private GaintGameService gameService;
+  private GiantGameService gameService;
   private GiantBombGamesResponse response;
   private File crawledFile;
   private String updatedDirectory;
@@ -29,7 +29,7 @@ public class UpdateBasicGameJob extends Job {
       File crawledFile,
       String updatedDirectory,
       GiantBombGamesResponse response,
-      GaintGameService gameService) {
+      GiantGameService gameService) {
     super(id, name);
     this.crawledFile = crawledFile;
     this.updatedDirectory = updatedDirectory;

@@ -1,11 +1,11 @@
 package com.elminster.grs.giantbomb.ds;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -41,15 +41,8 @@ public class GiantBombGame extends BaseObject implements CopyConstructor<GiantBo
   // @formatter:on
   int internalId;
 
-  @Column
+  @Column(length=1024)
   String aliases;
-  
-  @Column
-  String gbApiUrl;
-  
-  @Enumerated(EnumType.ORDINAL)
-  @Column(nullable=false, length=1)
-  GiantBombGameStatus status = GiantBombGameStatus.BASIC_INFO_CRAWLED;
   
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "gaintbomb_game_platform",
@@ -99,13 +92,15 @@ public class GiantBombGame extends BaseObject implements CopyConstructor<GiantBo
       inverseJoinColumns = { @JoinColumn(name = "theme_id", referencedColumnName = "id") 
   })
   Set<GiantBombTheme> themes;
+  
+  @ElementCollection
+  Set<Integer> similarGameIds;
 
   @Override
   public void fulfill(GiantBombGame other) {
     if (null != other) {
       super.fulfill(other);
       this.aliases = other.aliases;
-      this.gbApiUrl = other.gbApiUrl;
       this.status = other.status;
       if (CollectionUtil.isNotEmpty(platforms)) {
         this.platforms = other.platforms;
@@ -272,38 +267,36 @@ public class GiantBombGame extends BaseObject implements CopyConstructor<GiantBo
   }
 
   /**
-   * @return the gbApiUrl
+   * @return the similar_games
    */
-  public String getGbApiUrl() {
-    return gbApiUrl;
+  public Set<Integer> getSimilarGameIds() {
+    return similarGameIds;
   }
 
   /**
-   * @param gbApiUrl the gbApiUrl to set
+   * @param similar_games the similar_games to set
    */
-  @XmlElement(name = "api_detail_url")
-  public void setGbApiUrl(String gbApiUrl) {
-    this.gbApiUrl = gbApiUrl;
-  }
-
-  /**
-   * @return the status
-   */
-  public GiantBombGameStatus getStatus() {
-    return status;
+  @XmlElementWrapper(name="similar_games")
+  @XmlElement(name="game")
+  public void setSimilarGameIds(Set<SimilarGame> similarGames) {
+    if (CollectionUtil.isNotEmpty(similarGames)) {
+      this.similarGameIds = new HashSet<>(similarGames.size());
+      for (SimilarGame sg : similarGames) {
+        similarGameIds.add(sg.id);
+      }
+    }
   }
 
   /**
    * @param status the status to set
    */
   
-  public void setStatus(GiantBombGameStatus status) {
+  public void setStatus(GiantBombStatus status) {
     this.status = status;
   }
   
-  public enum GiantBombGameStatus {
-    BASIC_INFO_CRAWLED,
-    DETAIL_INFO_CRAWLED,
-    DETAIL_INFO_UPDATED,
+  class SimilarGame {
+    int id;
+    String name;
   }
 }

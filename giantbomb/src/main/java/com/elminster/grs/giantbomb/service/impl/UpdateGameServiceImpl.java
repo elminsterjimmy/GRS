@@ -18,7 +18,7 @@ import com.elminster.common.util.ExceptionUtil;
 import com.elminster.common.util.FileUtil;
 import com.elminster.grs.giantbomb.ds.GiantBombGame;
 import com.elminster.grs.giantbomb.ds.GiantBombGamesResponse;
-import com.elminster.grs.giantbomb.service.GaintGameService;
+import com.elminster.grs.giantbomb.service.GiantGameService;
 import com.elminster.grs.giantbomb.service.InternalFS;
 import com.elminster.grs.giantbomb.service.UpdateGameService;
 
@@ -42,7 +42,7 @@ public class UpdateGameServiceImpl implements UpdateGameService, InternalFS {
    * the game service.
    */
   @Autowired
-  private GaintGameService gameService;
+  private GiantGameService gameService;
 
   /**
    * Update games.
@@ -112,7 +112,12 @@ public class UpdateGameServiceImpl implements UpdateGameService, InternalFS {
     GiantBombGamesResponse o = (GiantBombGamesResponse) obj;
     List<GiantBombGame> gameList = o.getResults();
     for (GiantBombGame game : gameList) {
-      gameService.saveGame(game);
+      try {
+        gameService.saveGame(game);
+      } catch (Exception e) {
+        logger.error(String.format("Failed to save game [%s]. Caused by: [%s].", game.getName(), ExceptionUtil.getFullStackTrace(e)));
+        throw e;
+      }
     }
     FileUtil.copyFile(crawledFile.getAbsolutePath(), FileUtil.fixFolderName(updatedFolder.getAbsolutePath())
         + crawledFile.getName());

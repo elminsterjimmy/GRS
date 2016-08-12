@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
@@ -11,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @MappedSuperclass
 abstract public class BaseObject {
@@ -29,6 +32,12 @@ abstract public class BaseObject {
   String deck;
   @Column(columnDefinition="text")
   String description;
+  @Column(length=1024)
+  String gbApiUrl;
+  @XmlTransient
+  @Enumerated(EnumType.ORDINAL)
+  @Column(nullable=false, length=1)
+  GiantBombStatus status = GiantBombStatus.BASIC_INFO_CRAWLED;
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
   @JoinColumn(name="image_id")
   GiantBombImage image;
@@ -41,6 +50,8 @@ abstract public class BaseObject {
       this.date_last_updated = other.date_last_updated;
       this.deck = other.deck;
       this.description = other.description;
+      this.gbApiUrl = other.gbApiUrl;
+      this.status = other.status;
       if (null != this.image) {
         this.image.fulfill(other.image);
       } else {
@@ -133,5 +144,32 @@ abstract public class BaseObject {
    */
   public void setName(String name) {
     this.name = name;
+  }
+  /**
+   * @return the gbApiUrl
+   */
+  public String getGbApiUrl() {
+    return gbApiUrl;
+  }
+  /**
+   * @param gbApiUrl the gbApiUrl to set
+   */
+  @XmlElement(name = "api_detail_url")
+  public void setGbApiUrl(String gbApiUrl) {
+    this.gbApiUrl = gbApiUrl;
+  }
+
+  /**
+   * @return the status
+   */
+  public GiantBombStatus getStatus() {
+    return status;
+  }
+
+  /**
+   * @param status the status to set
+   */
+  public void setStatus(GiantBombStatus status) {
+    this.status = status;
   }
 }

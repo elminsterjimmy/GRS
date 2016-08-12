@@ -14,7 +14,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 /**
- * 
  *Fields
 abbreviation  Abbreviation of the company.
 aliases List of aliases the company is known by. A \n (newline) seperates each alias.
