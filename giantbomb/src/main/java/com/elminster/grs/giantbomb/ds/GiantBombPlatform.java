@@ -17,13 +17,7 @@ import org.hibernate.annotations.Parameter;
 
 
 /***
- * 
- * 
- * 
- * 
- * 
- * 
- * abbreviation Abbreviation of the platform.
+abbreviation Abbreviation of the platform.
 api_detail_url  URL pointing to the platform detail resource.
 company Company that created the platform.
 date_added  Date the platform was added to Giant Bomb.
@@ -38,12 +32,11 @@ online_support  Flag indicating whether the platform has online capabilities.
 original_price  Initial price point of the platform.
 release_date  Date of the platform.
 site_detail_url URL pointing to the platform on Giant Bomb.
- *
  */
 
 @Entity
 @Table(name="gaintbomb_platform")
-public class GiantBombPlatform extends BaseObject {
+public class GiantBombPlatform extends BaseObject implements CopyConstructor<GiantBombPlatform> {
   
   //@formatter:off
   @Id
@@ -72,6 +65,23 @@ public class GiantBombPlatform extends BaseObject {
   @Column
   @Temporal(TemporalType.DATE)
   Date release_date;
+  
+  @Override
+  public void fulfill(GiantBombPlatform other) {
+    if (null != other) {
+      super.fulfill(other);
+      this.abbreviation = other.abbreviation;
+      if (null != this.company) {
+        this.company.fulfill(other.company);
+      } else {
+        this.company = other.company;
+      }
+      this.online_support = other.online_support;
+      this.original_price = other.original_price;
+      this.release_date = other.release_date;
+    }
+  }
+  
   /**
    * @return the internalId
    */

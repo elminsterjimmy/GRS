@@ -11,7 +11,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name="gaintbomb_image")
-public class GiantBombImage {
+public class GiantBombImage implements CopyConstructor<GiantBombImage> {
 
   //@formatter:off
   @Id
@@ -28,22 +28,37 @@ public class GiantBombImage {
    })
   // @formatter:on
   int id;
-  @Column
+  @Column(length=1024)
   String icon_url;
-  @Column
+  @Column(length=1024)
   String medium_url;
-  @Column
+  @Column(length=1024)
   String screen_url;
-  @Column
+  @Column(length=1024)
   String small_url;
-  @Column
+  @Column(length=1024)
   String super_url;
-  @Column
+  @Column(length=1024)
   String thumb_url;
-  @Column
+  @Column(length=1024)
   String tiny_url;
-  @Column
+  @Column(length=1024)
   String tags;
+  
+  @Override
+  public void fulfill(GiantBombImage other) {
+    if (null != other) {
+      this.icon_url = other.icon_url;
+      this.medium_url = other.medium_url;
+      this.screen_url = other.screen_url;
+      this.small_url = other.small_url;
+      this.super_url = other.super_url;
+      this.tags = other.tags;
+      this.thumb_url = other.thumb_url;
+      this.tiny_url = other.tiny_url;
+    }
+  }
+  
   /**
    * @return the id
    */

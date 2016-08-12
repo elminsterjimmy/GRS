@@ -18,19 +18,34 @@ import com.elminster.grs.giantbomb.ds.GiantBombVideo;
  */
 public interface GaintGameService {
 
-  public void saveGame(GiantBombGame game);
+  public GiantBombGame saveGame(GiantBombGame game);
   
-  public void savePlatforms(Set<GiantBombPlatform> platforms);
+  public Set<GiantBombPlatform> savePlatforms(Set<GiantBombPlatform> platforms);
   
-  public void savePublishers(Set<GiantBombCompany> publishers);
+  public GiantBombPlatform savePlatform(GiantBombPlatform platform);
   
-  public void saveThemes(Set<GiantBombTheme> themes);
+  public Set<GiantBombCompany> savePublishers(Set<GiantBombCompany> publishers);
+
+  public GiantBombCompany savePublisher(GiantBombCompany publisher);
   
-  public void saveGenres(Set<GiantBombGenre> genres);
+  public Set<GiantBombTheme> saveThemes(Set<GiantBombTheme> themes);
+
+  public GiantBombTheme saveTheme(GiantBombTheme theme);
   
-  public void saveDevelop(Set<GiantBombCompany> developers);
+  public Set<GiantBombGenre> saveGenres(Set<GiantBombGenre> genres);
+
+  public GiantBombGenre saveGenre(GiantBombGenre genre);
   
-  public void saveVideos(Set<GiantBombVideo> videos);
+  public Set<GiantBombCompany> saveDevelopers(Set<GiantBombCompany> developers);
   
+  public GiantBombCompany saveDeveloper(GiantBombCompany developer);
+
+  public Set<GiantBombVideo> saveVideos(Set<GiantBombVideo> videos);
+
+  public GiantBombVideo saveVideo(GiantBombVideo video);
+  
+  //// ==================================================================  /////
   public Set<GiantBombGame> findGamesByStatus(GiantBombGameStatus status);
+
+  public void updateStatus(GiantBombGame game, GiantBombGameStatus detailInfoCrawled);
 }

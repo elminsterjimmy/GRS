@@ -1,7 +1,9 @@
 package com.elminster.grs.giantbomb.service.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
@@ -27,7 +29,6 @@ import com.elminster.grs.giantbomb.ds.GiantBombVideo;
 import com.elminster.grs.giantbomb.service.GaintGameService;
 
 @Service
-@Transactional
 public class GaintGameServiceImpl implements GaintGameService {
   
   private static final Log logger = LogFactory.getLog(GaintGameServiceImpl.class);
@@ -46,142 +47,332 @@ public class GaintGameServiceImpl implements GaintGameService {
   GiantBombImageDao imageDao;
   @Autowired
   GiantBombVideoDao videoDao;
-
+  
+  @Autowired
+  private EntityManager em;
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
   @Override
-  public void saveGame(GiantBombGame game) {
+  synchronized public GiantBombGame saveGame(final GiantBombGame game) {
     GiantBombGame exist = gameDao.findByGamebombId(game.getGamebombId());
+    GiantBombGame managed = null;
     if (null != exist) {
-      game.setInternalId(exist.getInternalId());
-      checkAndCopyImage(exist.getImage(), game);
-      if (null != exist.getImages()) {
-        checkAndCopyImages(exist.getImages(), game);
-      }
+      managed = updateGame(exist, game);
+    } else {
+      managed = persistGame(game);
     }
-
-    Set<GiantBombCompany> developers = game.getDevelopers();
-    saveDevelop(developers);
-    Set<GiantBombGenre> genres = game.getGenres();
-    saveGenres(genres);
-    Set<GiantBombTheme> themes = game.getThemes();
-    saveThemes(themes);
-    Set<GiantBombCompany> publishers = game.getPublishers();
-    savePublishers(publishers);
-    Set<GiantBombPlatform> platforms = game.getPlatforms();
-    savePlatforms(platforms);
-    Set<GiantBombVideo> videos = game.getVideos();
-    saveVideos(videos);
-    Set<GiantBombImage> images = game.getImages();
-    saveImages(images, game.getInternalId());
-    gameDao.save(game);
+    return managed;
   }
 
-  private void saveImages(Set<GiantBombImage> images, Integer gameId) {
-    if (null != images) {
-      if (!imageDao.existImageForGame(gameId)) {
-        imageDao.save(images);
-      }
-    }
+  private GiantBombGame persistGame(final GiantBombGame game) {
+    game.setDevelopers(saveDevelopers(game.getDevelopers()));
+    game.setGenres(saveGenres(game.getGenres()));
+    game.setThemes(saveThemes(game.getThemes()));
+    game.setPublishers(savePublishers(game.getPublishers()));
+    game.setPlatforms(savePlatforms(game.getPlatforms()));
+    game.setVideos(saveVideos(game.getVideos()));
+    game.setImages(saveImages(game.getImages()));
+    em.persist(game);
+    return game;
   }
 
+  private GiantBombGame updateGame(final GiantBombGame exist, final GiantBombGame game) {
+    exist.fulfill(game);
+    exist.setDevelopers(saveDevelopers(game.getDevelopers()));
+    exist.setGenres(saveGenres(game.getGenres()));
+    exist.setThemes(saveThemes(game.getThemes()));
+    exist.setPublishers(savePublishers(game.getPublishers()));
+    exist.setPlatforms(savePlatforms(game.getPlatforms()));
+    exist.setVideos(saveVideos(game.getVideos()));
+    exist.setImages(saveImages(game.getImages()));
+    return em.merge(exist);
+  }
+
+  private Set<GiantBombImage> saveImages(Set<GiantBombImage> images) {
+    if (null != images && !images.isEmpty()) {
+      imageDao.delete(images);
+      imageDao.save(images);
+    }
+    return images;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
   @Override
-  public void saveVideos(Set<GiantBombVideo> videos) {
+  public Set<GiantBombVideo> saveVideos(final Set<GiantBombVideo> videos) {
+    Set<GiantBombVideo> managed = null;
     if (null != videos) {
-      for (GiantBombVideo pl : videos) {
-        GiantBombVideo exist = videoDao.findByGamebombId(pl.getGamebombId());
-        if (null != exist) {
-          pl.setInternalId(exist.getInternalId());
-        } else {
-          videoDao.save(pl);
-        }
+      managed = new HashSet<>();
+      for (GiantBombVideo video : videos) {
+        managed.add(saveVideo(video));
       }
     }
+    return managed;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
+  @Override
+  public GiantBombVideo saveVideo(final GiantBombVideo video) {
+    GiantBombVideo managed = null;
+    if (null != video) {
+      GiantBombVideo exist = videoDao.findByGamebombId(video.getGamebombId());
+      if (null != exist) {
+        managed = updateVideo(exist, video);
+      } else {
+        managed = persistVideo(video);
+      }
+    }
+    return managed;
+  }
+  
+  private GiantBombVideo persistVideo(final GiantBombVideo video) {
+    em.persist(video);
+    return video;
   }
 
+  private GiantBombVideo updateVideo(final GiantBombVideo exist, final GiantBombVideo video) {
+    exist.fulfill(video);
+    return em.merge(exist);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
   @Override
-  public void savePlatforms(Set<GiantBombPlatform> platforms) {
+  public Set<GiantBombPlatform> savePlatforms(final Set<GiantBombPlatform> platforms) {
+    Set<GiantBombPlatform> managed = null;
     if (null != platforms) {
+      managed = new HashSet<>();
       for (GiantBombPlatform pl : platforms) {
-        GiantBombPlatform exist = platformDao.findByGamebombId(pl.getGamebombId());
-        if (null != exist) {
-          pl.setInternalId(exist.getInternalId());
-          pl.setImage(exist.getImage());
-        } else {
-          platformDao.save(pl);
-        }
+        managed.add(savePlatform(pl));
       }
     }
+    return managed;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
+  @Override
+  public GiantBombPlatform savePlatform(final GiantBombPlatform platform) {
+    GiantBombPlatform managed = null;
+    if (null != platform) {
+      GiantBombPlatform exist = platformDao.findByGamebombId(platform.getGamebombId());
+      if (null != exist) {
+        managed = updatePlatform(exist, platform);
+      } else {
+        managed = persistPlatform(platform);
+      }
+    }
+    return managed;
+  }
+  
+  private GiantBombPlatform persistPlatform(final GiantBombPlatform platform) {
+    em.persist(platform);
+    return platform;
   }
 
+  private GiantBombPlatform updatePlatform(final GiantBombPlatform exist, final GiantBombPlatform platform) {
+    exist.fulfill(platform);
+    return em.merge(exist);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
   @Override
-  public void savePublishers(Set<GiantBombCompany> publishers) {
+  public Set<GiantBombCompany> savePublishers(Set<GiantBombCompany> publishers) {
+    Set<GiantBombCompany> managed = null;
     if (null != publishers) {
-      for (GiantBombCompany pl : publishers) {
-        GiantBombCompany exist = companyDao.findByGamebombId(pl.getGamebombId());
-        if (null != exist) {
-          pl.setInternalId(exist.getInternalId());
-          pl.setImage(exist.getImage());
-        } else {
-          companyDao.save(pl);
-        }
+      managed = new HashSet<>();
+      for (GiantBombCompany publisher : publishers) {
+        managed.add(saveDeveloper(publisher));
       }
     }
+    return managed;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
+  @Override
+  public GiantBombCompany savePublisher(final GiantBombCompany publisher) {
+    GiantBombCompany managed = null;
+    if (null != publisher) {
+      GiantBombCompany exist = companyDao.findByGamebombId(publisher.getGamebombId());
+      if (null != exist) {
+        managed = updatePublisher(exist, publisher);
+      } else {
+        managed = persistPublisher(publisher);
+      }
+    }
+    return managed;
   }
 
+  private GiantBombCompany updatePublisher(final GiantBombCompany exist, final GiantBombCompany publisher) {
+    exist.fulfill(publisher);
+    return em.merge(exist);
+  }
+
+  private GiantBombCompany persistPublisher(final GiantBombCompany publisher) {
+    em.persist(publisher);
+    return publisher;
+  }
+
+
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
   @Override
-  public void saveThemes(Set<GiantBombTheme> themes) {
+  public Set<GiantBombTheme> saveThemes(Set<GiantBombTheme> themes) {
+    Set<GiantBombTheme> managed = null;
     if (null != themes) {
-      for (GiantBombTheme pl : themes) {
-        GiantBombTheme exist = themeDao.findByGamebombId(pl.getGamebombId());
-        if (null != exist) {
-          pl.setInternalId(exist.getInternalId());
-          pl.setImage(exist.getImage());
-        } else {
-          themeDao.save(pl);
-        }
+      managed = new HashSet<>();
+      for (GiantBombTheme theme : themes) {
+        managed.add(saveTheme(theme));
       }
     }
+    return managed;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
+  @Override
+  public GiantBombTheme saveTheme(final GiantBombTheme theme) {
+    GiantBombTheme managed = null;
+    if (null != theme) {
+      GiantBombTheme exist = themeDao.findByGamebombId(theme.getGamebombId());
+      if (null != exist) {
+        managed = updateTheme(exist, theme);
+      } else {
+        managed = persistTheme(theme);
+      }
+    }
+    return managed;
   }
 
+  private GiantBombTheme persistTheme(final GiantBombTheme theme) {
+    em.persist(theme);
+    return theme;
+  }
+
+  private GiantBombTheme updateTheme(final GiantBombTheme exist, final GiantBombTheme theme) {
+    exist.fulfill(theme);
+    return em.merge(exist);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
   @Override
-  public void saveGenres(Set<GiantBombGenre> genres) {
+  public Set<GiantBombGenre> saveGenres(Set<GiantBombGenre> genres) {
+    Set<GiantBombGenre> managed = null;
     if (null != genres) {
-      for (GiantBombGenre pl : genres) {
-        GiantBombGenre exist = genreDao.findByGamebombId(pl.getGamebombId());
-        if (null != exist) {
-          pl.setInternalId(exist.getInternalId());
-          pl.setImage(exist.getImage());
-        } else {
-          genreDao.save(pl);
-        }
+      managed = new HashSet<>();
+      for (GiantBombGenre genre : genres) {
+        managed.add(saveGenre(genre));
       }
     }
+    return managed;
   }
-
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
   @Override
-  public void saveDevelop(Set<GiantBombCompany> developers) {
-    if (null != developers) {
-      for (GiantBombCompany pl : developers) {
-        GiantBombCompany exist = companyDao.findByGamebombId(pl.getGamebombId());
-        if (null != exist) {
-          pl.setInternalId(exist.getInternalId());
-          pl.setImage(exist.getImage());
-        } else {
-          companyDao.save(pl);
-        }
+  public GiantBombGenre saveGenre(final GiantBombGenre genre) {
+    GiantBombGenre managed = null;
+    if (null != genre) {
+      GiantBombGenre exist = genreDao.findByGamebombId(genre.getGamebombId());
+      if (null != exist) {
+        managed = updateGenre(exist, genre);
+      } else {
+        managed = persistGenre(genre);
       }
     }
+    return managed;
   }
 
-  private void checkAndCopyImages(Set<GiantBombImage> images, GiantBombGame game) {
-    game.setImages(images);
+  private GiantBombGenre persistGenre(final GiantBombGenre genre) {
+    em.persist(genre);
+    return genre;
   }
 
-  private void checkAndCopyImage(GiantBombImage image, GiantBombGame game) {
-    game.setImage(image);
+  private GiantBombGenre updateGenre(final GiantBombGenre exist, final GiantBombGenre genre) {
+    exist.fulfill(genre);
+    return em.merge(exist);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
+  @Override
+  public Set<GiantBombCompany> saveDevelopers(Set<GiantBombCompany> developers) {
+    Set<GiantBombCompany> managed = null;
+    if (null != developers) {
+      managed = new HashSet<>();
+      for (GiantBombCompany developer : developers) {
+        managed.add(saveDeveloper(developer));
+      }
+    }
+    return managed;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
+  @Transactional
+  @Override
+  public GiantBombCompany saveDeveloper(GiantBombCompany developer) {
+    GiantBombCompany managed = null;
+    if (null != developer) {
+      GiantBombCompany exist = companyDao.findByGamebombId(developer.getGamebombId());
+      if (null != exist) {
+        managed = updateDeveloper(exist, developer);
+      } else {
+        managed = persistDeveloper(developer);
+      }
+    }
+    return managed;
+  }
+
+  private GiantBombCompany updateDeveloper(final GiantBombCompany exist, final GiantBombCompany developer) {
+    exist.fulfill(developer);
+    return em.merge(exist);
+  }
+
+  private GiantBombCompany persistDeveloper(final GiantBombCompany developer) {
+    em.persist(developer);
+    return developer;
   }
 
   @Override
   public Set<GiantBombGame> findGamesByStatus(GiantBombGameStatus status) {
     return gameDao.findByStatus(status);
+  }
+
+  @Transactional
+  @Override
+  public void updateStatus(GiantBombGame game, GiantBombGameStatus status) {
+    game.setStatus(status);
+    gameDao.save(game);
   }
 }

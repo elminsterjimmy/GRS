@@ -19,6 +19,7 @@ import com.elminster.common.util.FileUtil;
 import com.elminster.grs.giantbomb.ds.GiantBombGame;
 import com.elminster.grs.giantbomb.ds.GiantBombGamesResponse;
 import com.elminster.grs.giantbomb.service.GaintGameService;
+import com.elminster.grs.giantbomb.service.InternalFS;
 import com.elminster.grs.giantbomb.service.UpdateGameService;
 
 /**
@@ -28,7 +29,7 @@ import com.elminster.grs.giantbomb.service.UpdateGameService;
  * @version 1.0
  */
 @Component
-public class UpdateGameServiceImpl implements UpdateGameService {
+public class UpdateGameServiceImpl implements UpdateGameService, InternalFS {
 
   /** the logger. */
   private static final Log logger = LogFactory.getLog(UpdateGameServiceImpl.class);
@@ -49,9 +50,12 @@ public class UpdateGameServiceImpl implements UpdateGameService {
   @Scheduled(fixedRate = SCHEDULE_FIXED_RATE)
   @Override
   public void updateGame() {
-    // TODO 
-    File crawledPs4Folder = new File(GiantGameCollectServiceImpl.CRAWLED_FOLDER + GiantGameCollectServiceImpl.PS4_FOLDER);
-    updateBasicGameInfo(crawledPs4Folder, GiantGameCollectServiceImpl.PS4_FOLDER);
+    // TODO need to run parallelly?
+    File crawledPs4Folder = new File(CRAWLED_PS4_GAME_LIST_FOLDER);
+    updateBasicGameInfo(crawledPs4Folder, UPDATED_PS4_GAME_LIST_FOLDER);
+    
+    File crawledPs3Folder = new File(CRAWLED_PS3_GAME_LIST_FOLDER);
+    updateBasicGameInfo(crawledPs3Folder, UPDATED_PS3_GAME_LIST_FOLDER);
   }
 
   /**
@@ -61,7 +65,7 @@ public class UpdateGameServiceImpl implements UpdateGameService {
    */
   private void updateBasicGameInfo(File crawledFolder, String updateFolder) {
     File[] crawledFiles = crawledFolder.listFiles();
-    File updatedFolder = new File(UPDATED_FOLDER + updateFolder);
+    File updatedFolder = new File(updateFolder);
     if (!updatedFolder.exists()) {
       updatedFolder.mkdirs();
     }
@@ -79,7 +83,7 @@ public class UpdateGameServiceImpl implements UpdateGameService {
           lastCrawledFile = crawledFile;
         }
         if (FileUtil.contains(updatedFolder, filename, true, false)) {
-          logger.info(String.format("Crawled file [%d] already been updated.", crawledFile.getAbsolutePath()));
+          logger.info(String.format("Crawled file [%s] already been updated.", crawledFile.getAbsolutePath()));
         } else {
           updateWithCrawledFile(crawledFile, updatedFolder);
         }

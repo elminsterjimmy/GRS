@@ -2,7 +2,6 @@ package com.elminster.grs.giantbomb.ds;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,9 +19,11 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import com.elminster.common.util.CollectionUtil;
+
 @Entity
 @Table(name="gaintbomb_game")
-public class GiantBombGame extends BaseObject {
+public class GiantBombGame extends BaseObject implements CopyConstructor<GiantBombGame> {
   
   //@formatter:off
   @Id
@@ -50,55 +51,86 @@ public class GiantBombGame extends BaseObject {
   @Column(nullable=false, length=1)
   GiantBombGameStatus status = GiantBombGameStatus.BASIC_INFO_CRAWLED;
   
-  @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "gaintbomb_game_platform",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
-      inverseJoinColumns = { @JoinColumn(name = "platform_id", referencedColumnName = "id")     
+      inverseJoinColumns = { @JoinColumn(name = "platform_id", referencedColumnName = "id") 
   })
   Set<GiantBombPlatform> platforms;
   
-  @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "gaintbomb_game_extra_image",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
-      inverseJoinColumns = { @JoinColumn(name = "image_id", referencedColumnName = "id")     
+      inverseJoinColumns = { @JoinColumn(name = "image_id", referencedColumnName = "id") 
   })
   Set<GiantBombImage> images;
   
-  @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "gaintbomb_game_video",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
-      inverseJoinColumns = { @JoinColumn(name = "video_id", referencedColumnName = "id")     
+      inverseJoinColumns = { @JoinColumn(name = "video_id", referencedColumnName = "id") 
   })
   Set<GiantBombVideo> videos;
   
-  @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "gaintbomb_game_developer",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
-      inverseJoinColumns = { @JoinColumn(name = "developer_id", referencedColumnName = "id")     
+      inverseJoinColumns = { @JoinColumn(name = "developer_id", referencedColumnName = "id") 
   })
   Set<GiantBombCompany> developers;
   
-  @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "gaintbomb_game_genre",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
-      inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id")     
+      inverseJoinColumns = { @JoinColumn(name = "genre_id", referencedColumnName = "id") 
   })
   Set<GiantBombGenre> genres;
   
-  @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "gaintbomb_game_publisher",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
-      inverseJoinColumns = { @JoinColumn(name = "publisher_id", referencedColumnName = "id")     
+      inverseJoinColumns = { @JoinColumn(name = "publisher_id", referencedColumnName = "id") 
   })
   Set<GiantBombCompany> publishers;
   
-  @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)    
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "gaintbomb_game_theme",
       joinColumns = {@JoinColumn(name = "game_id", referencedColumnName = "id") },     
-      inverseJoinColumns = { @JoinColumn(name = "theme_id", referencedColumnName = "id")     
+      inverseJoinColumns = { @JoinColumn(name = "theme_id", referencedColumnName = "id") 
   })
   Set<GiantBombTheme> themes;
 
+  @Override
+  public void fulfill(GiantBombGame other) {
+    if (null != other) {
+      super.fulfill(other);
+      this.aliases = other.aliases;
+      this.gbApiUrl = other.gbApiUrl;
+      this.status = other.status;
+      if (CollectionUtil.isNotEmpty(platforms)) {
+        this.platforms = other.platforms;
+      }
+      if (CollectionUtil.isNotEmpty(images)) {
+        this.images = other.images;
+      }
+      if (CollectionUtil.isNotEmpty(developers)) {
+        this.developers = other.developers;
+      }
+      if (CollectionUtil.isNotEmpty(genres)) {
+        this.genres = other.genres;
+      }
+      if (CollectionUtil.isNotEmpty(publishers)) {
+        this.publishers = other.publishers;
+      }
+      if (CollectionUtil.isNotEmpty(themes)) {
+        this.themes = other.themes;
+      }
+      if (CollectionUtil.isNotEmpty(videos)) {
+        this.videos = other.videos;
+      }
+    }
+  }
+  
   /**
    * @return the internalId
    */

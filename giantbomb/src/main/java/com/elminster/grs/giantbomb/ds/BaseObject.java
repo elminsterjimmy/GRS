@@ -17,7 +17,7 @@ abstract public class BaseObject {
   
   @Column(name="gb_id")
   int gamebombId;
-  @Column
+  @Column(length=1024)
   String name;
   @Column
   @Temporal(TemporalType.DATE)
@@ -25,13 +25,29 @@ abstract public class BaseObject {
   @Column
   @Temporal(TemporalType.DATE)
   Date date_last_updated;
-  @Column
+  @Column(columnDefinition="text")
   String deck;
-  @Column
+  @Column(columnDefinition="text")
   String description;
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
   @JoinColumn(name="image_id")
   GiantBombImage image;
+
+  public void fulfill(BaseObject other) {
+    if (null != other) {
+      this.gamebombId = other.gamebombId;
+      this.name = other.name;
+      this.date_added = other.date_added;
+      this.date_last_updated = other.date_last_updated;
+      this.deck = other.deck;
+      this.description = other.description;
+      if (null != this.image) {
+        this.image.fulfill(other.image);
+      } else {
+        this.image = other.image;
+      }
+    }
+  }
   
   /**
    * @return the date_added

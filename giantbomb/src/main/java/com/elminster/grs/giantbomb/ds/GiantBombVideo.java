@@ -39,11 +39,10 @@ site_detail_url URL pointing to the video on Giant Bomb.
 url The video's filename.
 user  Author of the video.
 youtube_id  Youtube ID for the video.
- *
  */
 @Entity
 @Table(name="gaintbomb_video")
-public class GiantBombVideo {
+public class GiantBombVideo implements CopyConstructor<GiantBombVideo> {
 
   //@formatter:off
   @Id
@@ -62,25 +61,41 @@ public class GiantBombVideo {
   int InternalId;
   @Column(name="gb_id")
   int gamebombId;
-  @Column
+  @Column(length=2048)
   String deck;
-  @Column
+  @Column(length=1024)
   String hd_url;
-  @Column
+  @Column(length=1024)
   String high_url;
-  @Column
+  @Column(length=1024)
   String low_url;
-  @Column
+  @Column(length=1024)
   String embed_player;
   @Column
   long length_seconds;
   @Column
   @Temporal(TemporalType.DATE)
   Date publish_date;
-  @Column
+  @Column(length=1024)
   String url;
   @Column
   long youtube_id;
+  
+  @Override
+  public void fulfill(GiantBombVideo other) {
+    if (null != other) {
+      this.deck = other.deck;
+      this.embed_player = other.embed_player;
+      this.gamebombId = other.gamebombId;
+      this.hd_url = other.hd_url;
+      this.high_url = other.high_url;
+      this.length_seconds = other.length_seconds;
+      this.low_url = other.low_url;
+      this.publish_date = other.publish_date;
+      this.url = other.url;
+      this.youtube_id = other.youtube_id;
+    }
+  }
   
   /**
    * @return the internalId

@@ -11,7 +11,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name="gaintbomb_theme")
-public class GiantBombTheme extends BaseObject {
+public class GiantBombTheme extends BaseObject implements CopyConstructor<GiantBombTheme> {
 
   //@formatter:off
   @Id
@@ -29,6 +29,11 @@ public class GiantBombTheme extends BaseObject {
   // @formatter:on
   int internalId;
 
+  @Override
+  public void fulfill(GiantBombTheme other) {
+    super.fulfill(other);
+  }
+  
   /**
    * @return the internalId
    */

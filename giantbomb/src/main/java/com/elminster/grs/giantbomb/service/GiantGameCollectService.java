@@ -1,5 +1,7 @@
 package com.elminster.grs.giantbomb.service;
 
+import com.elminster.grs.giantbomb.ds.GiantBombGame;
+
 /**
  * The service to collect the game information from gaintgame.
  * 
@@ -8,7 +10,9 @@ package com.elminster.grs.giantbomb.service;
  */
 public interface GiantGameCollectService {
 
-  public void collectBasicGameInfo();
+  public void collectBasicGameInfo(GameCollectConf conf);
   
-  public void collectDetailGameInfo();
+  public void collectDetailGameInfo(GameCollectConf conf);
+  
+  public void collectDetailGameInfo(GameCollectConf conf, GiantBombGame game) throws GameCollectException;
 }

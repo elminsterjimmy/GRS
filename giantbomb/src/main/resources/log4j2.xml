@@ -63,7 +63,7 @@
       <appender-ref ref="AppRollingFile" />
     </Logger>
 
-    <root level="debug">
+    <root level="info">
       <appender-ref ref="STDOUT" />
     </root>
   </Loggers>

@@ -50,7 +50,7 @@ website URL to the company website.
  */
 @Entity
 @Table(name="gaintbomb_company")
-public class GiantBombCompany extends BaseObject {
+public class GiantBombCompany extends BaseObject implements CopyConstructor<GiantBombCompany> {
   
   //@formatter:off
   @Id
@@ -74,8 +74,17 @@ public class GiantBombCompany extends BaseObject {
   @Column
   @Temporal(TemporalType.DATE)
   Date date_founded;
-  @Column
+  @Column(length=1024)
   String website;
+  
+  @Override
+  public void fulfill(GiantBombCompany other) {
+    super.fulfill(other);
+    this.abbreviation = other.abbreviation;
+    this.aliases = other.aliases;
+    this.date_founded = other.date_founded;
+    this.website = other.website;
+  }
   
   /**
    * @return the internalId
