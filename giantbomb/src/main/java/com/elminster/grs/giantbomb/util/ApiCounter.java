@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,59 +28,74 @@ final public class ApiCounter {
   private String apiKey;
   private String name;
   private long startTime;
+  private Long firstApiCallTime;
+  private Long lastApiCallTime;
   private Semaphore semaphore;
   private AtomicInteger counter;
   private int threshold;
   private long resetPeriod;
   private int resetCount;
-  
+  private volatile boolean resetJobStarted = false;
+  private Lock lock = new ReentrantLock();
+  private Job resetSemphoreJob;
+
   ApiCounter(String name, int threshold, long resetPeriod) {
     this.name = name;
     this.threshold = threshold;
     this.resetPeriod = resetPeriod;
     init();
   }
-  
+
   ApiCounter(String name, String username, String password, int threshold, long resetPeriod) {
     this(name, threshold, resetPeriod);
     this.username = username;
     this.password = password;
   }
-  
+
   ApiCounter(String name, String apiKey, int threshold, long resetPeriod) {
     this(name, threshold, resetPeriod);
     this.apiKey = apiKey;
   }
-  
-  
+
   private void init() {
     counter = new AtomicInteger(0);
     this.semaphore = new Semaphore(threshold);
     this.startTime = System.currentTimeMillis();
-    Job resetSemphoreJob = new Job(0x00010, String.format("API counter for [%s]", name)) {
+    this.resetSemphoreJob = new Job(0x0F010, String.format("API counter for [%s]", name)) {
 
       @Override
       protected JobStatus doWork(IJobMonitor monitor) {
-        monitor.beginJob("reset API counter", 1);
+        monitor.beginJob(String.format("reset API counter: [%s].", name), 1);
         semaphore.release(counter.get());
         resetCount++;
         monitor.worked(1);
         return monitor.done();
       }
-      
     };
-    ThreadPool.getThreadPool().scheduleAtFixedRate(resetSemphoreJob, resetPeriod, resetPeriod, TimeUnit.MILLISECONDS);
   }
-  
+
   public void acquire() {
     try {
+      if (!resetJobStarted) {
+        try {
+          lock.lock();
+          if (!resetJobStarted) {
+            firstApiCallTime = System.currentTimeMillis();
+            ThreadPool.getThreadPool().scheduleAtFixedRate(resetSemphoreJob, resetPeriod, resetPeriod, TimeUnit.MILLISECONDS);
+            resetJobStarted = true;
+          }
+        } finally {
+          lock.unlock();
+        }
+      }
       semaphore.acquire();
+      lastApiCallTime = System.currentTimeMillis();
       counter.incrementAndGet();
     } catch (InterruptedException e) {
       logger.warn(e);
     }
   }
-  
+
   public String getUsername() {
     return username;
   }
@@ -125,11 +142,21 @@ final public class ApiCounter {
 
   public String printStatus() {
     StringBuilder sb = new StringBuilder();
-    long nextResetTime = startTime + ((resetCount + 1) * resetPeriod);
-    sb.append(String.format("Api counter [%s] started at [%tc], reset [%d] time(s), next reset time [%tc]. \n",
-        name, new Date(startTime), resetCount, new Date(nextResetTime)));
-    sb.append(String.format("Semaphore status: available permits [%d], queue length [%d].",
-        semaphore.availablePermits(), semaphore.getQueueLength()));
+    
+    
+    String firstApiCalledDate = null == firstApiCallTime ?
+        "API still not be called." : String.format("%tc", new Date(firstApiCallTime));
+    String lastApiCalledDate = null == lastApiCallTime ?
+        "API still not be called." : String.format("%tc", new Date(lastApiCallTime));
+    String nextApiResetDate = null == firstApiCallTime ? 
+        "API still not be called." : String.format("%tc", new Date(firstApiCallTime + ((resetCount + 1) * resetPeriod)));
+    sb.append(String.format("Api counter [%s] started at [%tc], reset [%d] time(s) and next reset will be at [%s]. \n", name, new Date(startTime), resetCount, nextApiResetDate));
+    sb.append(String.format("First API is called at [%s], last API is called at [%s]. \n", firstApiCalledDate, lastApiCalledDate));
+    sb.append(String.format("Semaphore status: available permits [%d], queue length [%d].", semaphore.availablePermits(), semaphore.getQueueLength()));
     return sb.toString();
+  }
+  
+  public String toString() {
+    return printStatus();
   }
 }
