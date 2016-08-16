@@ -4,13 +4,6 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
 public class UserGameProfile {
 
   @NotNull
@@ -20,4 +13,28 @@ public class UserGameProfile {
   private String psnUsername;
   
   private String liveUsername;
+
+  public Integer getUserId() {
+    return userId;
+  }
+
+  public void setUserId(Integer userId) {
+    this.userId = userId;
+  }
+
+  public String getPsnUsername() {
+    return psnUsername;
+  }
+
+  public void setPsnUsername(String psnUsername) {
+    this.psnUsername = psnUsername;
+  }
+
+  public String getLiveUsername() {
+    return liveUsername;
+  }
+
+  public void setLiveUsername(String liveUsername) {
+    this.liveUsername = liveUsername;
+  }
 }

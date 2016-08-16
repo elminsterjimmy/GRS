@@ -73,11 +73,9 @@ public class UserServiceImpl implements UserService {
     UserEx userEx = userExDao.findOne(userId);
     if (null == userEx) {
       // illegal status
-      throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format(
-          "user [%d] is in illegal status.", userId));
+      throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format("user [%d] is in illegal status.", userId));
     } else {
-      basicUserInof.setId(userId).setUsername(user.getUsername()).setAvatarUrl(userEx.getAvatarUrl())
-          .setPoint(userEx.getPoints());
+      basicUserInof.setId(userId).setUsername(user.getUsername()).setAvatarUrl(userEx.getAvatarUrl()).setPoint(userEx.getPoints());
     }
     return basicUserInof;
   }
@@ -99,8 +97,7 @@ public class UserServiceImpl implements UserService {
         if (details.isEnabled()) {
           details.getUser().setLastLoginDate(new Date(requestTs));
           details.getUser().setLastLoginIp(login.getIpComeFrom());
-          UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-              details.getUsername(), details.getPassword(), details.getAuthorities());
+          UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(details.getUsername(), details.getPassword(), details.getAuthorities());
           authentication.setDetails(details);
           return authentication;
         } else {
@@ -168,8 +165,7 @@ public class UserServiceImpl implements UserService {
         userGameMetaDao.save(userGameMeta);
 
         UserDetails details = new UserDetailsImpl(user);
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-            details.getUsername(), details.getPassword(), details.getAuthorities());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(details.getUsername(), details.getPassword(), details.getAuthorities());
         authentication.setDetails(details);
         return authentication;
       } else {
@@ -204,27 +200,28 @@ public class UserServiceImpl implements UserService {
         UserEx userEx = userExDao.findOne(userId);
         if (null == userEx) {
           // illegal status
-          throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format(
-              "user [%d] is in illegal status.", userId));
+          throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format("user [%d] is in illegal status.", userId));
         }
         UserGameMeta userGameMeta = userGameMetaDao.findOne(userId);
         UserProfileBuilder builder = UserProfile.builder();
-        builder.bio(userEx.getBio()).birthday(userEx.getBirthday()).blog(userEx.getBlogUrl()).email(user.getEmail())
-            .gender(userEx.getGender().ordinal()).mobile(user.getMobile()).qq(userEx.getQq()).weibo(userEx.getWeiboUrl())
-            .bloodType(userEx.getBooldType().ordinal());
+        builder.withBio(userEx.getBio()).withBirthday(userEx.getBirthday())
+            .withBlog(userEx.getBlogUrl()).withEmail(user.getEmail())
+              .withGender(userEx.getGender().ordinal())
+              .withMobile(user.getMobile()).withQq(userEx.getQq())
+              .withWeibo(userEx.getWeiboUrl())
+              .withBloodType(userEx.getBooldType().ordinal());
         Location location = userEx.getLivedLocation();
         fillLocation(builder, location);
         if (null != userGameMeta) {
-          builder.psnUsername(userGameMeta.getPsnId()).liveUsername(userGameMeta.getLiveId());
+          builder.withPsnUsername(userGameMeta.getPsnId()).withLiveUsername(userGameMeta.getLiveId());
         }
         basicUserProfile = builder.build();
-        basicUserProfile.setId(userId).setUsername(user.getUsername()).setAvatarUrl(userEx.getAvatarUrl())
-            .setPoint(userEx.getPoints());
+        basicUserProfile.setId(userId).setUsername(user.getUsername()).setAvatarUrl(userEx.getAvatarUrl()).setPoint(userEx.getPoints());
       } else {
         // TODO check visibility
       }
     }
-   
+
     return basicUserProfile;
   }
 
@@ -259,18 +256,17 @@ public class UserServiceImpl implements UserService {
     UserEx userEx = userExDao.findOne(userId);
     if (null == userEx) {
       // illegal status
-      throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format(
-          "user [%d] is in illegal status.", userId));
+      throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format("user [%d] is in illegal status.", userId));
     }
     user.setEmail(userBasicProfile.getEmail());
     user.setMobile(userBasicProfile.getMobile());
     authUserService.saveUser(user);
-    
+
     userEx.setBio(userBasicProfile.getBio());
     userEx.setBirthday(userEx.getBirthday());
     userEx.setBlogUrl(userBasicProfile.getBlog());
     userEx.setGender(Gender.values()[userBasicProfile.getGender()]);
-    
+
     Integer locationId = null;
     if (null != userBasicProfile.getLivePlaceLv3()) {
       locationId = userBasicProfile.getLivePlaceLv3();
@@ -289,7 +285,7 @@ public class UserServiceImpl implements UserService {
     userEx.setBooldType(BloadType.values()[userBasicProfile.getBloodType()]);
     userExDao.save(userEx);
   }
-  
+
   @Override
   @Transactional
   public void updateUserGameProfile(UserGameProfile userGameProfile) throws UserServiceException {
@@ -298,15 +294,13 @@ public class UserServiceImpl implements UserService {
     UserGameMeta userGameMeta = userGameMetaDao.findOne(userId);
     if (null == userGameMeta) {
       // illegal status
-      throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format(
-          "user [%d] is in illegal status.", userId));
+      throw new UserServiceException(ServiceErrorCode.USER_IN_ILLEGAL_STATUS, String.format("user [%d] is in illegal status.", userId));
     }
     userGameMeta.setPsnId(userGameProfile.getPsnUsername());
     userGameMeta.setLiveId(userGameProfile.getLiveUsername());
     userGameMetaDao.save(userGameMeta);
   }
-  
-  
+
   private void fillLocation(UserProfileBuilder builder, Location location) {
     if (null != location) {
       int level = location.getLevel();
@@ -316,9 +310,9 @@ public class UserServiceImpl implements UserService {
         location = location.getParent();
         ids[location.getLevel() - 1] = location.getId();
       }
-      builder.livePlaceLv1(ids.length > 0 ? ids[0] : null).
-              livePlaceLv2(ids.length > 1 ? ids[1] : null).
-              livePlaceLv3(ids.length > 2 ? ids[2] : null);
+      builder.withLivePlaceLv1(ids.length > 0 ? ids[0] : null)
+          .withLivePlaceLv2(ids.length > 1 ? ids[1] : null)
+          .withLivePlaceLv3(ids.length > 2 ? ids[2] : null);
     }
   }
 
@@ -330,7 +324,7 @@ public class UserServiceImpl implements UserService {
     User user = getUserByUsername(username);
     return userId == user.getId();
   }
-  
+
   /**
    * {@inheritDoc}
    */
@@ -343,7 +337,7 @@ public class UserServiceImpl implements UserService {
     }
     return user;
   }
-  
+
   /**
    * {@inheritDoc}
    */

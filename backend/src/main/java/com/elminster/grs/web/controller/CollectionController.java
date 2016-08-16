@@ -29,7 +29,7 @@ import com.elminster.web.commons.response.JsonResponse;
  */
 @RestController
 @RequestMapping("/v1.0/collection")
-public class CollectionController extends BaseController {
+public class CollectionController extends BackendController {
   
   @Autowired
   private GameCollectionService collectionService;

@@ -38,7 +38,7 @@ import com.elminster.web.commons.util.IpFinder;
  */
 @RestController
 @RequestMapping("/v1.0/user")
-public class UserController extends BaseController {
+public class UserController extends BackendController {
 
   @Autowired
   private TokenAuthenticationService tokenAuthenticationService;

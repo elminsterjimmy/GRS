@@ -23,7 +23,4 @@ public class TestApi {
     Response response = retriever.retrieve();
     System.out.println(response.getBody());
   }
-  
-  
-  
 }

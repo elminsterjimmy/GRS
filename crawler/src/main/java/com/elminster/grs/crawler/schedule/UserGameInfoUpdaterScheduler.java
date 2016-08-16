@@ -3,6 +3,8 @@ package com.elminster.grs.crawler.schedule;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +33,7 @@ public class UserGameInfoUpdaterScheduler {
   private static final long SCHEDULE_FIXED_RATE = 2 * DateUtil.HOUR;
   private static final int MAX_THREAD_COUNT = 20;
   private static final Semaphore semaphore = new Semaphore(MAX_THREAD_COUNT);
+  private static final Log logger = LogFactory.getLog(UserGameInfoUpdaterScheduler.class);
   
   @Autowired
   private GameInformationUpdateService gameInfoUpdateService;

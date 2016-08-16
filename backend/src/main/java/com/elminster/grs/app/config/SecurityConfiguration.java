@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 
-import com.elminster.grs.web.entrypoint.Http401UnauthorizedEntryPoint;
+import com.elminster.spring.security.endpoint.error.Http401UnauthorizedEntryPoint;
 import com.elminster.spring.security.filter.StatelessAuthenticationFilter;
 import com.elminster.spring.security.service.UserDetailsServiceImpl;
 import com.elminster.web.commons.filter.SimpleCORSFilter;
