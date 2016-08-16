@@ -12,30 +12,46 @@
       <Policies>
         <TimeBasedTriggeringPolicy interval="1"
           modulate="true" />
-        <SizeBasedTriggeringPolicy size="250 MB" />
+        <SizeBasedTriggeringPolicy size="100 MB" />
+      </Policies>
+      <DefaultRolloverStrategy max="20" />
+    </RollingFile>
+    <RollingFile name="SqlTraceRollingFile" fileName="logs/sqlTrace.log"
+      filePattern="logs/$${date:yyyy-MM}/sql-%d{yyyy-MM-dd}-%i.log">
+      <PatternLayout>
+        <Pattern>%d{ISO8601} [%t] [%C(%L)-%p] %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1"
+          modulate="true" />
+        <SizeBasedTriggeringPolicy size="200 MB" />
       </Policies>
       <DefaultRolloverStrategy max="20" />
     </RollingFile>
     <RollingFile name="SqlRollingFile" fileName="logs/sql.log"
       filePattern="logs/$${date:yyyy-MM}/sql-%d{yyyy-MM-dd}-%i.log">
       <PatternLayout>
-        <Pattern>%highlight{%d{ISO8601} [%t] [%C(%L)-%p] %m%n}</Pattern>
+        <Pattern>%d{ISO8601} [%t] [%C(%L)-%p] %m%n</Pattern>
       </PatternLayout>
       <Policies>
         <TimeBasedTriggeringPolicy interval="1"
           modulate="true" />
-        <SizeBasedTriggeringPolicy size="250 MB" />
+        <SizeBasedTriggeringPolicy size="200 MB" />
       </Policies>
       <DefaultRolloverStrategy max="20" />
     </RollingFile>
   </Appenders>
   <Loggers>
-    <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+    <Logger name="org.hibernate" level="DEBUG" additivity="false">
       <appender-ref ref="SqlRollingFile" />
+    </Logger>
+  
+    <Logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+      <appender-ref ref="SqlTraceRollingFile" />
     </Logger>
 
     <Logger name="org.hibernate.type"  level="TRACE" additivity="false">
-      <appender-ref ref="SqlRollingFile" />
+      <appender-ref ref="SqlTraceRollingFile" />
     </Logger>
 
     <Logger name="com.elminster" level="DEBUG" additivity="false">
@@ -46,6 +62,7 @@
     <Logger name="org.hibernate" level="INFO" additivity="false">
       <appender-ref ref="STDOUT" />
       <appender-ref ref="AppRollingFile" />
+      <appender-ref ref="SqlTranceRollingFile" />
     </Logger>
 
     <Logger name="org.apache" level="INFO" additivity="false">
