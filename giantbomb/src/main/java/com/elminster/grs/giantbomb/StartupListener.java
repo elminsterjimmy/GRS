@@ -5,6 +5,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import com.elminster.grs.giantbomb.config.SystemConfig;
 import com.elminster.grs.giantbomb.service.GiantBombAutoCollectService;
 
 /**
@@ -18,13 +19,15 @@ public class StartupListener implements ApplicationListener<ApplicationReadyEven
 
   @Autowired
   private GiantBombAutoCollectService collectService;
-
+  
   /**
    * Run the collect job on startup.
    */
   @Override
   public void onApplicationEvent(ApplicationReadyEvent event) {
-    collectService.autoRun();
+    if (SystemConfig.INSTANCE.getBooleanProperty(SystemConfig.KEY_AUTO_START_CRAWLER)) {
+      collectService.autoRun();
+    }
   }
 
 }

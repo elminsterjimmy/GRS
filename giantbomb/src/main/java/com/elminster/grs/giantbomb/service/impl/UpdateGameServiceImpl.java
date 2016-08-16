@@ -35,8 +35,6 @@ public class UpdateGameServiceImpl implements UpdateGameService, InternalFS {
   private static final Log logger = LogFactory.getLog(UpdateGameServiceImpl.class);
   /** the update rate: 30 minutes. */
   private static final long SCHEDULE_FIXED_RATE = 30 * DateUtil.MINUTE;
-  /** the updated folder. */
-  public static final String UPDATED_FOLDER = "updated/";
 
   /**
    * the game service.
@@ -49,13 +47,17 @@ public class UpdateGameServiceImpl implements UpdateGameService, InternalFS {
    */
   @Scheduled(fixedRate = SCHEDULE_FIXED_RATE)
   @Override
-  public void updateGame() {
+  public void updateBasicGameInformation() {
     // TODO need to run parallelly?
     File crawledPs4Folder = new File(CRAWLED_PS4_GAME_LIST_FOLDER);
     updateBasicGameInfo(crawledPs4Folder, UPDATED_PS4_GAME_LIST_FOLDER);
     
     File crawledPs3Folder = new File(CRAWLED_PS3_GAME_LIST_FOLDER);
     updateBasicGameInfo(crawledPs3Folder, UPDATED_PS3_GAME_LIST_FOLDER);
+  }
+  
+  public void updateDetailGameInformation() {
+    
   }
 
   /**
